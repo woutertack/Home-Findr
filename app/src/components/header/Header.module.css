@@ -1,0 +1,205 @@
+.header {
+  background: #181818;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  max-width: 1500px;
+}
+
+.logo {
+  color: #fff;
+  justify-self: start;
+  margin-left: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.iconLogo {
+  margin-left: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.nav {
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  align-items: center;
+  width: 65vw;
+  margin-right: 2rem;
+}
+
+.navItem {
+  height: 110px;
+}
+
+.navLink {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  height: 90%;
+}
+
+.navLink:hover {
+  text-decoration: underline 2px #ffffffe4;
+  text-underline-offset: 15px;
+}
+
+.btnSignup {
+  font-size: 1.3rem;
+  background-color: transparent;
+  color: #fff;
+  padding: 8px 20px;
+  border: 1px solid white;
+  border-radius: 4px;
+  transition: all 0.3s ease-out;
+}
+
+.btnSignup:hover {
+  transition: all 0.3s ease-out;
+  background: #fff;
+  color: #242424;
+  transition: 250ms;
+  text-decoration: none;
+}
+.iconEnvelope,
+.iconHeart {
+  font-size: 1.7rem;
+}
+
+.profileImg {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 40px;
+}
+
+.iconLogout {
+  font-size: 1.7rem;
+}
+
+.toggleIcon {
+  display: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(32, 32, 32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+@media screen and (max-width: 960px) {
+  .nav {
+    display: none;
+  }
+
+ 
+  
+  .toggleIcon {
+    color: white;
+    display: block;
+    position: fixed;
+    top: 1.7rem;
+    right: 1rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding-left: 1rem;
+  }
+
+  .navMobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .toggleClose {
+    color: white;
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+  .navItemMobile {
+    margin-bottom: 1rem;
+  }
+
+  .navLinkMobile {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.7rem;
+
+    transition: all 0.3s ease-out;
+  }
+
+  .navLinkMobile:hover {
+    background-color: #fff;
+    color: #242424;
+    border: 2px solid #f1f1f1;
+    padding: 0.6rem;
+    border-radius: 0;
+  }
+
+  .btnSignupMobile {
+    font-size: 1.3rem;
+    background-color: transparent;
+    color: #fff;
+    padding: 8px 20px;
+    border: 1px solid white;
+    border-radius: 4px;
+    transition: all 0.3s ease-out;
+  }
+
+  .btnSignupMobile:hover {
+    transition: all 0.3s ease-out;
+    background: #fff;
+    color: #242424;
+    transition: 250ms;
+    text-decoration: none;
+  }
+
+  .iconEnvelopeMobile,
+  .iconHeartMobile {
+    font-size: 1.7rem;
+  }
+
+  .profileImgMobile {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 40px;
+  }
+
+  .iconLogoutMobile {
+    font-size: 1.7rem;
+  }
+}

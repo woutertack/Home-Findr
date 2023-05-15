@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.imgWrapper {
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.img {
+  width: 80%;
+  height: auto;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.iconsWrapper {
+  position: absolute;
+  top: 20px;
+  right: 15%;
+  font-size: 28px;
+     
+}
+
+.bottomLeftIcon {
+  color: white ;
+  font-size: 28px;
+  position: absolute;
+  bottom: 20px;
+  left: 15%;
+  transform: translateX(-50%);
+}
+
+.bottomRightIcon {
+  color: white ;
+  font-size: 28px;
+  position: absolute;
+  bottom: 20px;
+  right: 15%;
+  transform: translateX(50%);
+}
+
+.infoListing {
+  width: 50%;
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-bottom: 10px;
+}
+
+.price,
+.buildYear,
+.surface,
+.agency,
+.address {
+  margin-bottom: 10px;
+}
+
+.address span {
+  font-weight: bold;
+}
+
+
+.heart:hover{
+  
+    color: rgb(252, 25, 25);
+    cursor: pointer;
+}
+
+.bottomLeftIcon:hover, .bottomRightIcon:hover{
+    color: black;
+    cursor: pointer;
+}

@@ -1,0 +1,63 @@
+.sidebar {
+  width: 25%;
+  height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+  box-sizing: border-box;
+  /* float: left; */ /* This would put the footer to the right also*/
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.filter {
+  margin-bottom: 20px;
+}
+
+.filter h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+input[type="text"]::placeholder {
+  color: #999;
+}
+
+input[type="text"]:focus {
+  border: 1px solid #555;
+}
+
+select option:checked {
+  font-weight: bold;
+}
+
+.slider{
+  width: 60%;
+  
+}
+
+.priceMin{
+  font-weight: bold;
+  margin-right: 2rem;
+}
+
+.priceMax{
+  font-weight: bold;
+}
+
+input{
+  padding-bottom: 4px
+}
+

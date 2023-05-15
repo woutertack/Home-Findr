@@ -1,0 +1,29 @@
+.main{
+  display: flex ;
+  margin: 0 auto;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 3.5rem;
+  margin-top: 3rem;
+
+
+}
+
+
+@media only screen and (max-width: 960px) {
+  .container {
+    margin-left: 25px
+  }
+  
+
+.cardItemButton{
+    margin-bottom: 2rem;
+    margin-left: 0
+  }
+}

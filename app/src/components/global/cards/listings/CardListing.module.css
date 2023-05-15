@@ -1,0 +1,127 @@
+.cardItem {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  margin: 0 1rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  min-width: 450px;
+  max-width: 500px;
+  
+}
+
+.cardItemLink {
+  display: flex;
+  flex-flow: column;
+  width: 90%;
+  height: 90%;
+  box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
+  -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  border-radius: 7px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.cardItemImgWrap {
+  position: relative;
+  width: 100%;
+  padding-top: 67%;
+  overflow: hidden;
+}
+
+
+
+.cardItemImg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  transition: all 0.2s linear;
+}
+
+.cardItemImg:hover {
+  transform: scale(1.1);
+}
+
+.cardItemInfo {
+  padding: 13px 30px 30px;
+}
+
+.cardItemTitle {
+  color: #252e48;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 8px;
+}
+
+.cardItemPrice, .cardItemPlace{
+  font-weight: normal;
+  font-size: 14px;
+}
+
+
+.cardInfo{
+  display: flex;
+ 
+}
+
+.cardItemButton{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: -23px;
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  background: #181818;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.icon {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: -2px;
+}
+.cardItemButton:hover {
+  background: white;
+  color: #181818;
+  border: 2px solid #181818;
+}
+@media only screen and (max-width: 960px) {
+  .cardItem {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    margin: 0 0.2rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    min-width: 250px;
+    max-width: 500px;
+    
+  }
+  
+  .cardItemInfo{
+    padding-bottom: 10px;
+    padding-left: 18px
+  }
+  .cardItemButton{
+    display: none
+  }
+  
+
+.cardItemButton{
+    margin-bottom: 2rem;
+    margin-left: 0
+  }
+}

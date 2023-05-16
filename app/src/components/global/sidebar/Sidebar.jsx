@@ -71,6 +71,7 @@ const Sidebar = () => {
       <div className={style.filter}>
         <h3>Search by city</h3>
         <input 
+        className={style.search}
         type="text" 
         placeholder="Search by city" />
       </div>

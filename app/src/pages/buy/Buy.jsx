@@ -1,9 +1,9 @@
 import React from 'react'
 import Sidebar from '../../components/global/sidebar/Sidebar'
 import CardListing from '../../components/global/cards/listings/CardListing'
-import style from './Rent.module.css'
+import style from './Buy.module.css'
 
-const Rent = () => {
+const Buy = () => {
   return (
     <div className={style.main}>
       <Sidebar />
@@ -39,4 +39,4 @@ const Rent = () => {
   )
 }
 
-export default Rent
+export default Buy

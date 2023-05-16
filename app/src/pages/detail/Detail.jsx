@@ -26,21 +26,27 @@ const Detail = () => {
             voluptatibus quos doloribus quae voluptates. Quisquam voluptatum,
             quibusdam, quia, quod voluptate voluptatem quas voluptatibus quos
           </p>
-          <h2 className={style.price}>Price: €850 per month</h2>
-          <h2 className={style.buildYear}>Buildyear: 2008</h2>
-          <h2 className={style.surface}>Surface: 100m²</h2>
-          <h2 className={style.agency}>Agency: Dewaele</h2>
+          <div className={style.infoWrapper}>
+            <h2 className={style.buildYear}>Buildyear: 2008</h2>
+            <h2 className={style.surface}>Surface: 100m²</h2>
+            <h2 className={style.agency}>Agency: Dewaele</h2>
+          </div>
+          
 
           {/* if logged in show address */}
-          <h2 className={style.address}>Address: Roeselaarsestaat 17 <br/>
+          <h2 className={style.address}>Address: Roeselaarsestaat 17, 
           Roeselare (8800), West Flanders</h2>
           {/* if not logged in only show city and province */}
           <h2 className={style.address}>Address: 
-          <span>Login for full address</span>
+          <span className={style.span}> Login for full address</span>
            <br/>
           Roeselare (8800), West Flanders
           </h2>
+          <h2 className={style.price}>Price: €850 per month</h2>
+
+          <button className={style.btn}>Send a message</button>
         </div>
+       
       </div>
     </div>
   );

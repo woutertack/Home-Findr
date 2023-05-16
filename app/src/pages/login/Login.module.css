@@ -1,0 +1,64 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  margin: 40px;
+  margin-bottom: 300px;
+}
+
+.title{
+  font-size: 40px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 60px;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.email, .password{
+  font-size: 25px;
+  padding: 12px 40px 8px 15px;
+  font-size: 21px;
+  color: #fff;
+  border-radius: 2px;
+  border: none;
+  background-color: #242424;
+  margin-top: 10px;
+}
+
+
+.email::placeholder, .password::placeholder{
+  color: #d0d0d0;
+  font-size: 20px;
+}
+
+
+.submit{
+  font-size: 20px;
+  margin-top: 50px;
+  border: 2px solid rgba(27, 27, 27, 0.915);
+  background-color: transparent;
+  padding: 5px 0px
+}
+
+.submit:hover{
+  color: #fff;
+  background-color: rgba(27, 27, 27, 0.915);
+  cursor: pointer;
+}
+
+.link{
+  margin-top: 10px;
+  font-size: 15px;
+  color:black;
+  text-decoration: none;
+}
+
+.link:hover{
+  font-size: 15.5px;
+}

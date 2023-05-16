@@ -82,8 +82,8 @@ const HeaderMobile = () => {
                     </Link>
                   </li>
                   <li className={style.navItemMobile}>
-                    <Link to="/signup" className={style.navLinkMobile}>
-                      <button className={style.btnSignupMobile}>Sign Up</button>
+                    <Link to="/register" className={style.navLinkMobile}>
+                      <button className={style.btnRegisterMobile}>Register</button>
                     </Link>
                   </li>
                 </>

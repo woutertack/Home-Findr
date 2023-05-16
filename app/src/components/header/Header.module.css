@@ -61,7 +61,7 @@
   text-underline-offset: 15px;
 }
 
-.btnSignup {
+.btnRegister {
   font-size: 1.3rem;
   background-color: transparent;
   color: #fff;
@@ -71,7 +71,7 @@
   transition: all 0.3s ease-out;
 }
 
-.btnSignup:hover {
+.btnRegister:hover {
   transition: all 0.3s ease-out;
   background: #fff;
   color: #242424;
@@ -168,7 +168,7 @@
     border-radius: 0;
   }
 
-  .btnSignupMobile {
+  .btnRegisterMobile {
     font-size: 1.3rem;
     background-color: transparent;
     color: #fff;
@@ -178,7 +178,7 @@
     transition: all 0.3s ease-out;
   }
 
-  .btnSignupMobile:hover {
+  .btnRegisterMobile:hover {
     transition: all 0.3s ease-out;
     background: #fff;
     color: #242424;

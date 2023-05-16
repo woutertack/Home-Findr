@@ -21,7 +21,7 @@
   margin-bottom: 10px;
 }
 
-input[type="text"],
+.search,
 select {
   width: 100%;
   padding: 8px;
@@ -31,11 +31,11 @@ select {
   margin-bottom: 10px;
 }
 
-input[type="text"]::placeholder {
+.search::placeholder {
   color: #999;
 }
 
-input[type="text"]:focus {
+.search:focus {
   border: 1px solid #555;
 }
 

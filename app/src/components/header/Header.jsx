@@ -74,8 +74,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className={style.navItem}>
-                <Link to="/signup" className={style.navLink}>
-                  <button className={style.btnSignup}>Sign Up</button>
+                <Link to="/register" className={style.navLink}>
+                  <button className={style.btnRegister}>Register</button>
                 </Link>
               </li>
             </>

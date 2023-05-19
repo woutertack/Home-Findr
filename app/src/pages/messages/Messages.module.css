@@ -1,0 +1,135 @@
+.container {
+  display: flex;
+ 
+}
+
+.sidebar {
+  flex: 0 0 33.33%; 
+  padding: 10px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.messageViewer {
+  flex: 0 0 62.67%;
+  padding: 10px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; 
+}
+
+.reply {
+  position: absolute; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0; 
+ 
+  width: 100%;
+}
+
+.profilePic{
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 10px 20px
+}
+
+.infoSender, .messageInfo{
+  display: flex;
+  align-items: center;
+}
+
+.from{
+  font-weight: bold;
+  font-size: 18px;
+} 
+
+.messageInfo{
+  margin-left: 85px;
+  align-items: center;
+}
+
+.property{
+  font-size: 17px;
+  margin-right: 10px;
+}
+
+.date{
+  font-size: small;
+  margin-top: 3px
+}
+
+.message{
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.line{
+  margin-top: 15px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.125);
+}
+
+
+.containerMessage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+
+}
+
+.propertyWrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:center;
+  margin-top: 20px;
+}
+
+.btn{
+  position: absolute;
+  right: 50px;
+
+  
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: -23px;
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  background: #181818;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover{
+  background: white;
+  color: #181818;
+  border: 2px solid #181818;
+}
+
+
+.textarea{
+  width: 100%;
+  font-size: 18px;
+}
+
+.btnSend{
+  height: 100%;
+  width: 15%;
+  font-size: 1.05rem;
+  padding: 0.9rem 1rem;
+  background: #181818;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}

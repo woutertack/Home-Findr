@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import style from './Detail.module.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -43,8 +44,9 @@ const Detail = () => {
           Roeselare (8800), West Flanders
           </h2>
           <h2 className={style.price}>Price: €850 per month</h2>
-
+          <Link to="/message" className={style.link}>
           <button className={style.btn}>Send a message</button>
+          </Link>
         </div>
        
       </div>

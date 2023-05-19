@@ -1,0 +1,104 @@
+.main {
+  display: flex;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  
+  margin-left: 30%; /* Adjusted the margin to account for SidebarAdmin width */
+  width: 70%; /* Added width to take 70% of the available space */
+  margin-top: 3rem;
+  position:fixed;
+  
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
+
+.title{
+  font-size: 35px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: 0 50px;
+}
+.wrapper{
+  width: 75%;
+  padding-right: 50px;
+}
+
+.formRow {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+label {
+  margin-right: 0.5rem;
+}
+
+.input,
+select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+select{
+  margin: 0
+}
+
+.submitButton {
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #282828;
+}
+
+.submitButton:hover {
+  background-color: #000000;
+}
+
+.imgWrapper{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.image{
+  font-size: 142px;
+ 
+}
+
+.btnAdd {
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #282828;
+  margin-top: 10px;
+  width: 50%;
+}
+
+.btnAdd:hover {
+  background-color: #000000;
+}

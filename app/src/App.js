@@ -15,6 +15,8 @@ import DashboardAdmin from "./pages/admin/dashboard/DashboardAdmin";
 import MessageProperty from "./pages/messageProperty/MessageProperty";
 import AddProperty from "./pages/admin/addProperty/AddProperty";
 import Agencies from "./pages/admin/agencies/Agencies";
+import Users from "./pages/admin/users/Users";
+import AuthContainer from "./contexts/AuthContainer";
 
 
 const App = () => {
@@ -23,29 +25,32 @@ const App = () => {
 
   return (
     <>
+    <AuthContainer>
       {!isAdminRoute && <Header />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/rent" element={<Rent />} />
-        <Route path="/buy" element={<Buy />} />
-        <Route path="/detail" element={<Detail />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/message" element={<MessageProperty/>}/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/rent" element={<Rent />} />
+          <Route path="/buy" element={<Buy />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/message" element={<MessageProperty/>}/>
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          {/* <Route path="*" element={<NotFound />} /> */}
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<DashboardAdmin />} />
-        <Route path="/admin/add" element={<AddProperty />} />
-        <Route path="/admin/agencies" element={<Agencies />} />
-      </Routes>
+          {/* Admin Routes */}
+          <Route path="/admin" element={<DashboardAdmin />} />
+          <Route path="/admin/add" element={<AddProperty />} />
+          <Route path="/admin/agencies" element={<Agencies />} />
+          <Route path="/admin/users" element={<Users />} />
+        </Routes>
 
       {!isAdminRoute && <Footer />}
+    </AuthContainer>
     </>
   );
 };

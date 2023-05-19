@@ -4,6 +4,7 @@
   background-color: #f5f5f5;
   padding: 20px;
   box-sizing: border-box;
+  position: fixed;
   /* float: left; */ /* This would put the footer to the right also*/
 }
 

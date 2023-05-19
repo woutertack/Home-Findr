@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import style from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,19 +10,11 @@ import {
   
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMobile from "./HeaderMobile"; // Import the HeaderMobile component
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Header = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
   
-
- 
-  useEffect(() => {
- 
-    const user = true;
-    setLoggedIn(user);
-  }, []);
-
-  
+  const { user } = useContext(AuthContext);
   return (
     <header className={style.header}>
       <div className={style.container}>
@@ -66,7 +58,7 @@ const Header = () => {
             </Link>
           </li>
           {/* Login/Sign Up */}
-          {!loggedIn && (
+          {!user && (
             <>
               <li className={style.navItem}>
                 <Link to="/login" className={style.navLink}>
@@ -82,7 +74,7 @@ const Header = () => {
           )}
 
           {/* if Logged in */}
-          {loggedIn && (
+          {user && (
             <>
               {/* Messages */}
               <li className={style.navItem}>

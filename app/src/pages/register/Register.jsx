@@ -1,20 +1,47 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import style from './Register.module.css';
+import React, { useState } from "react";
+import { Link} from "react-router-dom";
+import style from "./Register.module.css";
+import useMutation from "../../hooks/useMutation";
+import { useAuthContext } from "../../contexts/AuthContainer";
 
-const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+
+const Register = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const { isLoading, error, mutate } = useMutation();
+
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform login logic here
-  };
+ 
+    
+    // mutate(`${process.env.REACT_APP_API_URL}/register`, {
+    //   method: "POST",
+    //   data,
+    //   onSuccess: (data) => {
+        
+    //     onLogin(data);
+        
+    //     window.location.replace = "/";
+    //   }
+    // });
 
+  }
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -26,34 +53,34 @@ const Register = () => {
         <input
           type="text"
           name="name"
-          value={name}
+          value={data.name}
           placeholder="username"
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleChange}
           className={style.name}
         />
         <input
           type="text"
           name="email"
-          value={email}
+          value={data.email}
           placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
           className={style.email}
         />
         <input
           type="number"
-          name="phone_number"
-          value={phone}
+          name="phone"
+          value={data.phone}
           placeholder="phone number"
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={handleChange}
           className={style.phone}
         />
         <div className={style.passwordContainer}>
           <input
             type={showPassword ? "text" : "password"}
             name="password"
-            value={password}
+            value={data.password}
             placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             className={style.password}
           />
           <button
@@ -64,7 +91,7 @@ const Register = () => {
             {showPassword ? "Hide" : "Show"}
           </button>
         </div>
-       
+
         <button className={style.submit}>Submit</button>
       </form>
       <Link to="/login" className={style.link}>

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import style from './Agencies.module.css';
 import SidebarAdmin from '../../../components/admin/sidebarAdmin/SidebarAdmin';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import ModalAgencies from '../../../components/admin/modal/ModalAgencies';
 
 const Agencies = () => {
   const [agency, setAgency] = useState('');
@@ -10,6 +11,8 @@ const Agencies = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+
   
   const handleProfilePicChange = (event) => {
     setProfilePic(event.target.value);
@@ -20,7 +23,7 @@ const Agencies = () => {
   };
 
   const handleEmailChange = (event) => {
-    setName(event.target.value);
+    setEmail(event.target.value);
   };
 
 
@@ -39,6 +42,14 @@ const Agencies = () => {
     // Add your delete logic here
   };
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className={style.main}>
       <SidebarAdmin />
@@ -46,7 +57,7 @@ const Agencies = () => {
       <div className={style.container}>
         <div className={style.header}>
           <h1 className={style.title}>Dashboard Admin</h1>
-          <button className={style.btnAddAgency}>Add New Agency</button>
+          <button className={style.btnAddAgency} onClick={openModal}>+ Add New Agency</button>
         </div>
 
         <div className={style.wrapper}>
@@ -71,7 +82,7 @@ const Agencies = () => {
                   alt="profileImg"
                   className={style.profileImg}
                 />
-                <button className={style.btnAdd} onChange={handleProfilePicChange}>
+                <button className={style.btnAdd} value={profilePic} onChange={handleProfilePicChange}>
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
@@ -108,12 +119,28 @@ const Agencies = () => {
                 Update
               </button>
               <button type="button" className={style.deleteBtn} onClick={handleDelete}>
+                
                 Delete Agency
               </button>
             </div>
           </form>
         </div>
       </div>
+
+      {showModal && (
+        <ModalAgencies
+          name={name}
+          email={email}
+          phoneNumber={phoneNumber}
+         
+          handleNameChange={handleNameChange}
+          handleEmailChange={handleEmailChange}
+          handlePhoneNumberChange={handlePhoneNumberChange}
+
+          handleSubmit={handleSubmit}
+          closeModal={closeModal}
+        />
+      )}
     </div>
   );
 };

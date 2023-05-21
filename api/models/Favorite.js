@@ -1,16 +1,16 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const FavoriteSchema = new mongoose.Schema({
   user: {
     type: mongoose.Types.ObjectId,
     ref: "User",
-    required: true
+    required: true,
   },
   property: {
     type: mongoose.Types.ObjectId,
     ref: "Property",
-    required: true
-  }
+    required: true,
+  },
 });
 
-export default mongoose.model('Favorite', FavoriteSchema);
+export default mongoose.model("Favorite", FavoriteSchema);

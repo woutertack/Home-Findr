@@ -1,19 +1,27 @@
-import express from 'express';
-import Favorite from '../models/Favorite.js';
+import express from "express";
+import Favorite from "../models/Favorite.js";
+import {
+  createFavorite,
+  deleteFavorite,
+  getAllFavorite,
+  getFavorite,
+  updateFavorite,
+} from "../controllers/favoriteController.js";
 
 const router = express.Router();
 
 // create
-router.post('/', async (req, res) => {
+router.post("/", createFavorite);
 
-  const newFavorites = new User(req.body);
+// update
+router.put("/:id", updateFavorite);
 
-  try {
-    const savedFavorites = await newFavorites.save();
-    res.status(200).json(savedFavorites);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-})
+// delete
+router.delete("/:id", deleteFavorite);
 
+// get
+router.get("/:id", getFavorite);
+
+// get all
+router.get("/", getAllFavorite);
 export default router;

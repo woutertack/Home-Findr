@@ -18,15 +18,14 @@ import Agencies from "./pages/admin/agencies/Agencies";
 import Users from "./pages/admin/users/Users";
 import AuthContainer from "./contexts/AuthContainer";
 
-
 const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
     <>
-    <AuthContainer>
-      {!isAdminRoute && <Header />}
+      <AuthContainer>
+        {!isAdminRoute && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rent" element={<Rent />} />
@@ -36,7 +35,7 @@ const App = () => {
           <Route path="/messages" element={<Messages />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/message" element={<MessageProperty/>}/>
+          <Route path="/message" element={<MessageProperty />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -49,8 +48,8 @@ const App = () => {
           <Route path="/admin/users" element={<Users />} />
         </Routes>
 
-      {!isAdminRoute && <Footer />}
-    </AuthContainer>
+        {!isAdminRoute && <Footer />}
+      </AuthContainer>
     </>
   );
 };

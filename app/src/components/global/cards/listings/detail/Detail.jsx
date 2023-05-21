@@ -1,10 +1,8 @@
-import React from 'react'
-import style from './Detail.module.css'
+import React from "react";
+import style from "./Detail.module.css";
 
 const Detail = () => {
-  return (
-    <div>Detail</div>
-  )
-}
+  return <div>Detail</div>;
+};
 
-export default Detail
+export default Detail;

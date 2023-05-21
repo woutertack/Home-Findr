@@ -7,13 +7,11 @@ import {
   faEnvelope,
   faHeart,
   faRightFromBracket,
-  
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMobile from "./HeaderMobile"; // Import the HeaderMobile component
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Header = () => {
-  
   const { user } = useContext(AuthContext);
   return (
     <header className={style.header}>
@@ -24,12 +22,8 @@ const Header = () => {
           <FontAwesomeIcon icon={faSignHanging} className={style.iconLogo} />
         </Link>
 
-       
-
         {/* Menu mobile*/}
-        <HeaderMobile
-          
-        />
+        <HeaderMobile />
 
         {/* Navbar */}
         <ul className={style.nav}>
@@ -95,7 +89,7 @@ const Header = () => {
               <li className={style.navItem}>
                 <Link to="/profile" className={style.navLink}>
                   <img
-                    src={require('../../images/pf.jpg')}
+                    src={require("../../images/pf.jpg")}
                     alt="profileImg"
                     className={style.profileImg}
                   />

@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import style from './Agencies.module.css';
-import SidebarAdmin from '../../../components/admin/sidebarAdmin/SidebarAdmin';
+import React, { useState } from "react";
+import style from "./Agencies.module.css";
+import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import ModalAgencies from '../../../components/admin/modal/ModalAgencies';
+import ModalAgencies from "../../../components/admin/modal/ModalAgencies";
 
 const Agencies = () => {
-  const [agency, setAgency] = useState('');
+  const [agency, setAgency] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
-  
   const handleProfilePicChange = (event) => {
     setProfilePic(event.target.value);
   };
@@ -26,12 +25,9 @@ const Agencies = () => {
     setEmail(event.target.value);
   };
 
-
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
   };
-
-  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,7 +53,9 @@ const Agencies = () => {
       <div className={style.container}>
         <div className={style.header}>
           <h1 className={style.title}>Dashboard Admin</h1>
-          <button className={style.btnAddAgency} onClick={openModal}>+ Add New Agency</button>
+          <button className={style.btnAddAgency} onClick={openModal}>
+            + Add New Agency
+          </button>
         </div>
 
         <div className={style.wrapper}>
@@ -78,11 +76,15 @@ const Agencies = () => {
             <div className={style.profileImgContainer}>
               <div className={style.profileImgWrapper}>
                 <img
-                  src={require('../../../images/pf.jpg')}
+                  src={require("../../../images/pf.jpg")}
                   alt="profileImg"
                   className={style.profileImg}
                 />
-                <button className={style.btnAdd} value={profilePic} onChange={handleProfilePicChange}>
+                <button
+                  className={style.btnAdd}
+                  value={profilePic}
+                  onChange={handleProfilePicChange}
+                >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
@@ -118,8 +120,11 @@ const Agencies = () => {
               <button type="submit" className={style.saveBtn}>
                 Update
               </button>
-              <button type="button" className={style.deleteBtn} onClick={handleDelete}>
-                
+              <button
+                type="button"
+                className={style.deleteBtn}
+                onClick={handleDelete}
+              >
                 Delete Agency
               </button>
             </div>
@@ -132,11 +137,9 @@ const Agencies = () => {
           name={name}
           email={email}
           phoneNumber={phoneNumber}
-         
           handleNameChange={handleNameChange}
           handleEmailChange={handleEmailChange}
           handlePhoneNumberChange={handlePhoneNumberChange}
-
           handleSubmit={handleSubmit}
           closeModal={closeModal}
         />

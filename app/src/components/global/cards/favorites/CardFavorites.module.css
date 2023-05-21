@@ -7,7 +7,6 @@
   border-radius: 10px;
   min-width: 450px;
   max-width: 500px;
-  
 }
 
 .cardItemLink {
@@ -29,8 +28,6 @@
   padding-top: 67%;
   overflow: hidden;
 }
-
-
 
 .cardItemImg {
   position: absolute;
@@ -62,19 +59,19 @@
   margin-bottom: 8px;
 }
 
-.cardItemPrice, .cardItemPlace{
+.cardItemPrice,
+.cardItemPlace {
   font-weight: normal;
   font-size: 14px;
 }
 
-
-.cardInfo{
+.cardInfo {
   display: flex;
- 
 }
 
-.cardItemButton{
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+.cardItemButton {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   margin-bottom: 0;
   margin-left: auto;
   margin-right: 0;
@@ -108,7 +105,6 @@
 .heart {
   font-size: 2rem; /* Adjust the size as desired */
   color: rgb(255, 43, 43);
-  
 }
 
 .heart:hover {
@@ -125,20 +121,18 @@
     border-radius: 10px;
     min-width: 250px;
     max-width: 500px;
-    
   }
-  
-  .cardItemInfo{
-    padding-bottom: 10px;
-    padding-left: 18px
-  }
-  .cardItemButton{
-    display: none
-  }
-  
 
-.cardItemButton{
+  .cardItemInfo {
+    padding-bottom: 10px;
+    padding-left: 18px;
+  }
+  .cardItemButton {
+    display: none;
+  }
+
+  .cardItemButton {
     margin-bottom: 2rem;
-    margin-left: 0
+    margin-left: 0;
   }
 }

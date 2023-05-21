@@ -1,9 +1,7 @@
-import React from 'react'
-import style from './MessageProperty.module.css'
+import React from "react";
+import style from "./MessageProperty.module.css";
 
 const MessageProperty = () => {
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform login logic here
@@ -20,12 +18,15 @@ const MessageProperty = () => {
           <p>Agency: Immo Vastgoed</p>
         </div>
         <div className={style.message}>
-          <textarea className={style.textarea} placeholder="Type your message here..."></textarea>
+          <textarea
+            className={style.textarea}
+            placeholder="Type your message here..."
+          ></textarea>
         </div>
         <button className={style.send}>Send</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default MessageProperty
+export default MessageProperty;

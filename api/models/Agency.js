@@ -23,7 +23,6 @@ const AgencySchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
-
   },
   { timestamps: true }
 );

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./Register.module.css";
 import useMutation from "../../hooks/useMutation";
 import { useAuthContext } from "../../contexts/AuthContainer";
-
 
 const Register = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,24 +23,20 @@ const Register = ({ onLogin }) => {
     });
   };
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
- 
-    
+
     // mutate(`${process.env.REACT_APP_API_URL}/register`, {
     //   method: "POST",
     //   data,
     //   onSuccess: (data) => {
-        
+
     //     onLogin(data);
-        
+
     //     window.location.replace = "/";
     //   }
     // });
-
-  }
+  };
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };

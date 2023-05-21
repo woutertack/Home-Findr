@@ -1,16 +1,18 @@
-import React from 'react'
-import style from './Contact.module.css'
-import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faSignHanging } from '@fortawesome/free-solid-svg-icons';
-
+import React from "react";
+import style from "./Contact.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignHanging } from "@fortawesome/free-solid-svg-icons";
 
 const Contact = () => {
   return (
     <div className={style.container}>
       <div className={style.wrapper}>
         <div className={style.imgWrapper}>
-          <img className={style.img} src={require("../../images/contactMap.png")} alt="rent" />
-          
+          <img
+            className={style.img}
+            src={require("../../images/contactMap.png")}
+            alt="rent"
+          />
         </div>
 
         <div className={style.info}>
@@ -31,10 +33,9 @@ const Contact = () => {
             homefindr@hotmail.com
           </h2>
         </div>
-       
       </div>
     </div>
   );
-}
+};
 
-export default Contact
+export default Contact;

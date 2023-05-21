@@ -1,19 +1,39 @@
-import express from 'express';
-import User from '../models/User.js';
+import express from "express";
+import User from "../models/User.js";
+import {
+  deleteUser,
+  getAllUser,
+  getUser,
+  updateUser,
+} from "../controllers/userController.js";
+import { get } from "mongoose";
+import { verifyAdmin, verifyToken, verifyUser } from "../auth/verifyToken.js";
 
 const router = express.Router();
 
-// create
-router.post('/', async (req, res) => {
+// router.get("/checkauth", verifyToken, (req, res, next) => {
+//   res.send("You are authenticated");
+// });
 
-  const newUser = new User(req.body);
+// router.get("/checkuser/:id", verifyUser, (req, res, next) => {
+//   res.send("you are logged in and you can delete your account");
+// });
 
-  try {
-    const savedUser = await newUser.save();
-    res.status(200).json(savedUser);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-})
+// router.get("/checkadmin/:id", verifyAdmin, (req, res, next) => {
+//   res.send("you are admin in and you can delete all accounts");
+// });
+
+
+// update
+router.put("/:id",verifyUser, updateUser);
+
+// delete
+router.delete("/:id",verifyUser, deleteUser);
+
+// get
+router.get("/:id",verifyUser, getUser);
+
+// get all
+router.get("/",verifyAdmin, getAllUser);
 
 export default router;

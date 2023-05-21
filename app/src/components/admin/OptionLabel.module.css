@@ -1,15 +1,15 @@
 .option {
-  margin-top:20px;
+  margin-top: 20px;
   margin-left: 10px;
   display: flex;
   justify-content: center;
-  align-items:center;
- }
-  
+  align-items: center;
+}
+
 .optionLabel {
   font-size: 28px;
   margin-right: 100px;
-  color: rgb(164, 164, 164)
+  color: rgb(164, 164, 164);
 }
 
 .selectedOption {
@@ -32,11 +32,9 @@ input[type="radio"]:focus {
 input[type="radio"] + span {
   display: inline-block;
   cursor: pointer;
- 
+
   /* Additional styles as per your requirement */
 }
-
-
 
 .line {
   height: 2px;

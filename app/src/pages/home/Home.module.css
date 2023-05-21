@@ -1,5 +1,5 @@
 .container {
-  background-image: url('../../../src/images/home.jpg'); 
+  background-image: url("../../../src/images/home.jpg");
   height: 90vh;
   width: 100%;
   display: flex;
@@ -14,25 +14,24 @@
   color: #fff;
   font-size: 100px;
   margin-top: 60px;
-
 }
 
 .tagline {
   margin-top: 8px;
   color: #fff;
   font-size: 28px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-.iconLogo{
+.iconLogo {
   font-size: 100px;
   margin-left: 1rem;
-  color: white ;
+  color: white;
 }
 
 .scrolldown {
-  color:#fff;
+  color: #fff;
   font-size: 30px;
   margin-top: 170px;
 }
@@ -42,7 +41,7 @@
   background: #fff;
 }
 
-.subtitle{
+.subtitle {
   text-align: center;
 }
 
@@ -66,8 +65,8 @@
     margin-top: 8px;
     color: #fff;
     font-size: 18px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-      'Lucida Sans', Arial, sans-serif;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
   }
   .iconLogo {
     font-size: 50px;
@@ -80,5 +79,3 @@
     margin-top: 170px;
   }
 }
-
-

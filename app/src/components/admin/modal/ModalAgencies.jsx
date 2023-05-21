@@ -1,19 +1,17 @@
-import React from 'react';
-import style from './ModalUsers.module.css';
-
+import React from "react";
+import style from "./ModalUsers.module.css";
 
 const ModalUsers = ({
   name,
   email,
   phoneNumber,
 
-
   handleNameChange,
   handleEmailChange,
   handlePhoneNumberChange,
- 
+
   handleSubmit,
-  closeModal
+  closeModal,
 }) => {
   return (
     <div className={style.modal}>
@@ -45,8 +43,7 @@ const ModalUsers = ({
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
           />
-        
-         
+
           {/* Add the button to submit the form */}
           <button type="submit" className={style.saveBtn}>
             Add

@@ -1,6 +1,5 @@
-import React from 'react';
-import style from './ModalUsers.module.css';
-
+import React from "react";
+import style from "./ModalUsers.module.css";
 
 const ModalUsers = ({
   name,
@@ -14,7 +13,7 @@ const ModalUsers = ({
   handlePasswordChange,
   handleAgencyChange,
   handleSubmit,
-  closeModal
+  closeModal,
 }) => {
   return (
     <div className={style.modal}>
@@ -54,7 +53,11 @@ const ModalUsers = ({
             onChange={handlePasswordChange}
           />
           {/* Add the select field for the agency */}
-          <select value={agency} className={style.formControlModal} onChange={handleAgencyChange}>
+          <select
+            value={agency}
+            className={style.formControlModal}
+            onChange={handleAgencyChange}
+          >
             <option value="">Select Agency</option>
             <option value="">None</option>
             <option value="agency1">Agency 1</option>

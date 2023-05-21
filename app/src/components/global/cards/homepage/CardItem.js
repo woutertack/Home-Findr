@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import style from './CardItem.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import style from "./CardItem.module.css";
 
 function CardItem(props) {
   return (

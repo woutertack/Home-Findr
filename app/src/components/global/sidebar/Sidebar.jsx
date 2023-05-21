@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
-import style from './Sidebar.module.css';
+import React, { useState } from "react";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
+import style from "./Sidebar.module.css";
 
 const Sidebar = () => {
   const [priceRange, setPriceRange] = useState([0, 10000]);
-  const [selectedType, setSelectedType] = useState('');
-  const [selectedProvince, setSelectedProvince] = useState('');
-
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
 
   const handlePriceChange = (value) => {
     setPriceRange(value);
   };
 
-  
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
@@ -24,10 +22,9 @@ const Sidebar = () => {
 
   return (
     <div className={style.sidebar}>
-     
       <div className={style.filter}>
         <h3>Price</h3>
-      
+
         <Slider
           range
           min={0}
@@ -70,10 +67,11 @@ const Sidebar = () => {
       </div>
       <div className={style.filter}>
         <h3>Search by city</h3>
-        <input 
-        className={style.search}
-        type="text" 
-        placeholder="Search by city" />
+        <input
+          className={style.search}
+          type="text"
+          placeholder="Search by city"
+        />
       </div>
     </div>
   );

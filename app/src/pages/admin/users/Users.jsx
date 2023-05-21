@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import style from './Users.module.css';
-import SidebarAdmin from '../../../components/admin/sidebarAdmin/SidebarAdmin';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import ModalUsers from '../../../components/admin/modal/ModalUsers';
+import React, { useState } from "react";
+import style from "./Users.module.css";
+import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import ModalUsers from "../../../components/admin/modal/ModalUsers";
 
 const Users = () => {
-  
-  const [profilePic, setProfilePic] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
-  const [agency, setAgency] = useState('');
+  const [profilePic, setProfilePic] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [agency, setAgency] = useState("");
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const handleProfilePicChange = (event) => {
@@ -34,7 +33,7 @@ const Users = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-  
+
   const handleAgencyChange = (event) => {
     setAgency(event.target.value);
   };
@@ -70,18 +69,26 @@ const Users = () => {
 
         <div className={style.wrapper}>
           <div className={style.formRow}>
-            <input type="text" className={style.search} placeholder="Search by name or email" />
+            <input
+              type="text"
+              className={style.search}
+              placeholder="Search by name or email"
+            />
           </div>
 
           <form onSubmit={handleSubmit} className={style.form}>
             <div className={style.profileImgContainer}>
               <div className={style.profileImgWrapper}>
                 <img
-                  src={require('../../../images/pf.jpg')}
+                  src={require("../../../images/pf.jpg")}
                   alt="profileImg"
                   className={style.profileImg}
                 />
-                <button className={style.btnAdd} value={profilePic} onChange={handleProfilePicChange}>
+                <button
+                  className={style.btnAdd}
+                  value={profilePic}
+                  onChange={handleProfilePicChange}
+                >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
@@ -114,7 +121,11 @@ const Users = () => {
               />
             </div>
             <div className={style.formGroup}>
-              <select value={agency} className={style.formControl} onChange={handleAgencyChange}>
+              <select
+                value={agency}
+                className={style.formControl}
+                onChange={handleAgencyChange}
+              >
                 <option value="">Select Agency</option>
                 <option value="">None</option>
                 <option value="agency1">Agency 1</option>
@@ -126,7 +137,11 @@ const Users = () => {
               <button type="submit" className={style.saveBtn}>
                 Update
               </button>
-              <button type="button" className={style.deleteBtn} onClick={handleDelete}>
+              <button
+                type="button"
+                className={style.deleteBtn}
+                onClick={handleDelete}
+              >
                 Delete User
               </button>
             </div>

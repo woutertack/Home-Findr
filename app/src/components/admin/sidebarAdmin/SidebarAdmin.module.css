@@ -7,36 +7,35 @@
   position: fixed;
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
 }
 
-.title{
+.title {
   font-size: 36px;
   margin-top: 15px;
 }
 
-.iconLogo{
+.iconLogo {
   padding-left: 12px;
 }
 
-.links{
+.links {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 5px;
 }
 
-
-.link{
+.link {
   font-size: 30px;
   margin-top: 33px;
 }
 
-.link:hover{
+.link:hover {
   border: 1px solid #000000;
   background-color: #000000;
   border-radius: 25px;
@@ -44,11 +43,11 @@
   color: #ffffff;
 }
 
-.icon{
+.icon {
   padding-right: 10px;
 }
 
-.profileLink{
+.profileLink {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,15 +63,14 @@
   margin-bottom: 12px;
 }
 
-.name{
+.name {
   font-weight: bold;
 }
-.iconProfile{
+.iconProfile {
   color: white;
-  
 }
 
-.profileButton{
+.profileButton {
   border: none;
   background-color: #000000;
   border-radius: 25px;
@@ -84,7 +82,7 @@
   margin-top: 8px;
 }
 
-.selected{
+.selected {
   border: 1px solid #000000;
   background-color: #000000;
   border-radius: 25px;

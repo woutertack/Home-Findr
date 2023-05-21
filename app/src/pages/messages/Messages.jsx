@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
-import style from './Messages.module.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import style from "./Messages.module.css";
 
-import dewaelePic from '../../images/rent.jpg';
+import dewaelePic from "../../images/rent.jpg";
 
 const messages = [
   {
     id: 1,
-    from: 'Dewaele Vastgoedgroep',
+    from: "Dewaele Vastgoedgroep",
     pic: dewaelePic,
-    property: 'House in Roeselare',
-    date: '2023-01-01',
-    content: 'This is the first message.',
+    property: "House in Roeselare",
+    date: "2023-01-01",
+    content: "This is the first message.",
   },
   {
     id: 2,
-    from: 'Era Vastgoed',
+    from: "Era Vastgoed",
     pic: dewaelePic,
-    property: 'Garage in Gent',
-    date: '2023-01-01',
-    content: 'This is the second message.',
+    property: "Garage in Gent",
+    date: "2023-01-01",
+    content: "This is the second message.",
   },
   // Add more messages as needed
 ];
@@ -42,11 +42,17 @@ const Messages = () => {
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`${style.message}${selectedMessage === message ? ` ${style.selected}` : ''}`}
+            className={`${style.message}${
+              selectedMessage === message ? ` ${style.selected}` : ""
+            }`}
             onClick={() => handleSelectMessage(message)}
           >
             <div className={style.infoSender}>
-              <img src={message.pic} alt="Profile Pic" className={style.profilePic} />
+              <img
+                src={message.pic}
+                alt="Profile Pic"
+                className={style.profilePic}
+              />
               <div className={style.from}>{message.from}</div>
             </div>
             <div className={style.messageInfo}>
@@ -62,7 +68,7 @@ const Messages = () => {
           <div className={style.containerMessage}>
             <div className={style.propertyWrapper}>
               <h2>{selectedMessage.property}</h2>
-              <Link to='/detail'>
+              <Link to="/detail">
                 <button className={style.btn}>View Property</button>
               </Link>
             </div>
@@ -71,7 +77,9 @@ const Messages = () => {
               <textarea
                 className={style.textarea}
                 placeholder="Write your reply here..."
-                onChange={(e) => handleReply(selectedMessage.id, e.target.value)}
+                onChange={(e) =>
+                  handleReply(selectedMessage.id, e.target.value)
+                }
               />
               <button className={style.btnSend}>Send</button>
             </div>

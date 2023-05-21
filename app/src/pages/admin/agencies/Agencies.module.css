@@ -6,31 +6,28 @@
 .container {
   display: flex;
   flex-direction: column;
-  
+
   margin-left: 30%; /* Adjusted the margin to account for SidebarAdmin width */
   width: 70%; /* Added width to take 70% of the available space */
   margin-top: 3rem;
-  position:fixed;
-  
+  position: fixed;
 }
 
-.header{
+.header {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin-left: 50px;
 }
 
-.title{
+.title {
   font-size: 35px;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
-  
 }
-
 
 .btnAddAgency {
   position: absolute;
@@ -42,10 +39,9 @@
   cursor: pointer;
   background-color: #282828;
   margin-top: 10px;
-
 }
 
-.formRow{
+.formRow {
   width: 15%;
   margin-top: 40px;
   margin-left: 50px;
@@ -58,15 +54,12 @@
   margin-bottom: 15px;
 }
 
-
-
-.formGroup{
+.formGroup {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 17px;
-  
 }
 .formControl {
   width: 30%;
@@ -81,15 +74,13 @@
   bottom: 5px;
   right: 25px;
   font-size: 28px;
-  color:white;
+  color: white;
   background-color: #000000;
   border: none;
   border-radius: 50%;
   padding: 8px 12px;
   cursor: pointer;
 }
-
-
 
 .profileImgWrapper {
   position: relative;
@@ -103,8 +94,7 @@
   margin-top: 20px;
 }
 
-.saveBtn{ 
- 
+.saveBtn {
   padding: 0.5rem 1rem;
   color: white;
   border: none;
@@ -114,7 +104,7 @@
   margin-top: 10px;
 }
 
-.deleteBtn{
+.deleteBtn {
   position: absolute;
   right: 12%;
   padding: 0.5rem 1rem;
@@ -126,6 +116,6 @@
   margin-top: 10px;
 }
 
-.deleteBtn:hover{
+.deleteBtn:hover {
   background-color: #ff0000;
 }

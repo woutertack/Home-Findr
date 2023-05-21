@@ -29,11 +29,10 @@
   top: 20px;
   right: 15%;
   font-size: 28px;
-     
 }
 
 .bottomLeftIcon {
-  color: white ;
+  color: white;
   font-size: 28px;
   position: absolute;
   bottom: 20px;
@@ -42,7 +41,7 @@
 }
 
 .bottomRightIcon {
-  color: white ;
+  color: white;
   font-size: 28px;
   position: absolute;
   bottom: 20px;
@@ -52,7 +51,6 @@
 
 .infoListing {
   width: 50%;
-
 }
 
 .title {
@@ -74,29 +72,27 @@
   font-size: 18px;
 }
 
-
-
-.heart:hover{
-  
+.heart:hover {
   color: rgb(255, 43, 43);
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.bottomLeftIcon:hover, .bottomRightIcon:hover{
-    color: black;
-    cursor: pointer;
+.bottomLeftIcon:hover,
+.bottomRightIcon:hover {
+  color: black;
+  cursor: pointer;
 }
 
-.infoWrapper{
+.infoWrapper {
   display: flex;
- 
 }
 
-.buildYear, .surface{
+.buildYear,
+.surface {
   margin-right: 40px;
 }
 
-.span{
+.span {
   font-weight: 600;
   background-color: rgba(0, 0, 0, 0.136);
   backdrop-filter: blur(5px);
@@ -105,7 +101,7 @@
   border-radius: 5px;
 }
 
-.btn{
+.btn {
   margin-top: 7px;
   padding: 10px 20px;
   border-radius: 5px;
@@ -116,7 +112,6 @@
   cursor: pointer;
 }
 
-.btn:hover{
+.btn:hover {
   transform: scale(1.05);
-  
 }

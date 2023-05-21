@@ -24,7 +24,6 @@
   overflow: hidden;
 }
 
-
 .cardItemImgWrap::after {
   content: attr(data-category);
   position: absolute;
@@ -71,6 +70,6 @@
 @media only screen and (max-width: 960px) {
   .cardItem {
     margin-bottom: 2rem;
-    margin-left: 0
+    margin-left: 0;
   }
 }

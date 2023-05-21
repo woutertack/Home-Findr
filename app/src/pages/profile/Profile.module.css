@@ -6,11 +6,10 @@
   padding: 20px;
 }
 
-.form{
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 .profileImgContainer {
@@ -27,7 +26,7 @@
   margin-bottom: 5px;
 }
 
-.formGroup{
+.formGroup {
   display: flex;
   flex-direction: column;
   margin-bottom: 17px;
@@ -45,7 +44,7 @@
   bottom: 5px;
   right: 25px;
   font-size: 28px;
-  color:white;
+  color: white;
   background-color: #000000;
   border: none;
   border-radius: 50%;
@@ -53,9 +52,7 @@
   cursor: pointer;
 }
 
-
-.oldPassword{
-  
+.oldPassword {
   margin-bottom: 10px;
 }
 
@@ -71,9 +68,7 @@
   margin-top: 20px;
 }
 
-
-.saveBtn{
-  
+.saveBtn {
   margin-top: 13px;
   padding: 0.7rem 1rem;
   font-size: 0.85rem;
@@ -83,5 +78,4 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-
 }

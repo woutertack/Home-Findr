@@ -49,11 +49,11 @@ const Profile = () => {
         <div className={style.profileImgContainer}>
           <div className={style.profileImgWrapper}>
             <img
-              src={require('../../images/pf.jpg')}
+              src={require("../../images/pf.jpg")}
               alt="profileImg"
               className={style.profileImg}
             />
-            <button className={style.btnAdd}  onChange={handleProfilePicChange}>
+            <button className={style.btnAdd} onChange={handleProfilePicChange}>
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
@@ -78,22 +78,21 @@ const Profile = () => {
         </div>
         <div className={style.formGroup}>
           <label className={style.label}>Change Password</label>
-          
-            <input
-              type="password"
-              className={style.formControl + " " + style.oldPassword}
-              placeholder="Old Password"
-              value={oldPassword}
-              onChange={handleOldPasswordChange}
-            />
-            <input
-              type="password"
-              className={style.formControl}
-              placeholder="New Password"
-              value={newPassword}
-              onChange={handleNewPasswordChange}
-            />
-        
+
+          <input
+            type="password"
+            className={style.formControl + " " + style.oldPassword}
+            placeholder="Old Password"
+            value={oldPassword}
+            onChange={handleOldPasswordChange}
+          />
+          <input
+            type="password"
+            className={style.formControl}
+            placeholder="New Password"
+            value={newPassword}
+            onChange={handleNewPasswordChange}
+          />
         </div>
         <button type="submit" className={style.saveBtn}>
           Update

@@ -47,7 +47,6 @@
   transition: 0.3s ease-out;
 }
 
-
 .iconLogo {
   font-size: 2rem;
   margin-left: 1rem;
@@ -108,29 +107,26 @@
     margin: 0;
   }
 
- .linksWrapper{
-  display: flex;
-  flex: column wrap;
-  flex-direction: column;
- 
- }
- 
- .socialLogo{
-  font-size: 18px;
- }
+  .linksWrapper {
+    display: flex;
+    flex: column wrap;
+    flex-direction: column;
+  }
 
- .iconLogo{
-  font-size: 18px;
-  margin: 0px;
-  margin-right: 10px;
- }
-  .websiteRights{
+  .socialLogo {
+    font-size: 18px;
+  }
+
+  .iconLogo {
+    font-size: 18px;
+    margin: 0px;
+    margin-right: 10px;
+  }
+  .websiteRights {
     display: none;
   }
-  .socialIcons{
+  .socialIcons {
     margin: 25px;
     margin-bottom: 44px;
   }
- 
 }
-

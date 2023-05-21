@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-   
+
     phone: {
       type: String,
       required: true,
@@ -24,10 +24,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // isAdmin: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

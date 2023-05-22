@@ -2,11 +2,23 @@ import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import style from "./Sidebar.module.css";
+import useFetch from "../../../hooks/useFetch";
 
-const Sidebar = () => {
+const Sidebar = ({ onFilter }) => {
   const [priceRange, setPriceRange] = useState([0, 10000]);
   const [selectedType, setSelectedType] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const handleFilter = () => {
+    // Pass the selected filters to the onFilter function
+    onFilter({
+      priceRange,
+      selectedType,
+      selectedProvince,
+      selectedCity,
+    });
+  };
 
   const handlePriceChange = (value) => {
     setPriceRange(value);
@@ -18,6 +30,10 @@ const Sidebar = () => {
 
   const handleProvinceChange = (event) => {
     setSelectedProvince(event.target.value);
+  };
+  
+  const handleCityChange = (event) => {
+    setSelectedCity(event.target.value);
   };
 
   return (
@@ -71,8 +87,11 @@ const Sidebar = () => {
           className={style.search}
           type="text"
           placeholder="Search by city"
+          value={selectedCity}
+          onChange={handleCityChange}
         />
       </div>
+      <button onClick={handleFilter} className={style.btn}>Filter</button>
     </div>
   );
 };

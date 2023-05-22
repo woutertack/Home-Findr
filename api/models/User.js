@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    agency: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Agency",
+    },
   },
   { timestamps: true }
 );

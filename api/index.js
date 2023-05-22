@@ -18,8 +18,7 @@ dotenv.config();
 // set the port for the server to listen on
 const port = 3002;
 
-// enable cors
-app.use(cors());
+
 
 const connect = async () => {
   try {
@@ -35,6 +34,7 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middleware
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 

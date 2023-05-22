@@ -11,7 +11,7 @@ const useFetch = (path) =>{
     let user = true;
 
     fetch(`${process.env.REACT_APP_API_URL}${path}`, {
-      
+      headers: { Authorization: user }
     })
       .then(data => data.json())
       .then(data => isActive && setData(data))

@@ -60,3 +60,26 @@ select option:checked {
 input {
   padding-bottom: 4px;
 }
+
+.btn{
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+margin-bottom: 0;
+margin-left: auto;
+margin-right: 0;
+margin-top: -23px;
+padding: 0.7rem 1rem;
+font-size: 0.85rem;
+border-radius: 0.5rem;
+background: #181818;
+color: #fff;
+border: none;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background: #ebebeb;
+  color: #181818;
+  border: 1px solid #181818;
+}

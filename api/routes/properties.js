@@ -4,7 +4,7 @@ import { createError } from "../error/error.js";
 import {
   createProperty,
   deleteProperty,
-  getAllProperty,
+  getAllProperties,
   getProperty,
   updateProperty,
 } from "../controllers/propertyController.js";
@@ -25,6 +25,8 @@ router.delete("/:id",verifyAdmin, deleteProperty);
 router.get("/:id", getProperty);
 
 // get all
-router.get("/", getAllProperty);
+router.get("/", getAllProperties,);
+
+// router.get("/sale", getAllSaleProperties);
 
 export default router;

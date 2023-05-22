@@ -53,16 +53,22 @@
 }
 
 .cardItemTitle {
+  display: flex;
   color: #252e48;
   font-size: 18px;
   line-height: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
 }
 
 .cardItemPrice,
 .cardItemPlace {
   font-weight: normal;
   font-size: 14px;
+}
+
+.cardItemPrice {
+  font-weight: bolder;
+  margin-top: 5px;
 }
 
 .cardInfo {
@@ -119,4 +125,11 @@
     margin-bottom: 2rem;
     margin-left: 0;
   }
+}
+
+
+.cardType{
+  margin-left: 10px;
+  font-weight: 600;
+  margin-top: 1px;
 }

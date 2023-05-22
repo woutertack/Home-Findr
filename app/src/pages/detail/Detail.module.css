@@ -54,14 +54,15 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: 27px;
   margin-bottom: 10px;
 }
 
 .description {
+  font-size: 18px;
   margin-bottom: 10px;
 }
-
+.address,
 .price,
 .buildYear,
 .surface,
@@ -87,7 +88,7 @@
   display: flex;
 }
 
-.buildYear,
+.address,
 .surface {
   margin-right: 40px;
 }

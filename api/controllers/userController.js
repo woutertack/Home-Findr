@@ -1,21 +1,37 @@
 import User from "../models/User.js";
 
-export const updateUser = async (req, res, next) => {
-  const updatedUser = await User.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: req.body,
-    },
-    { new: true }
-  );
+import bcrypt from "bcryptjs";
 
+export const updateUser = async (req, res, next) => {
   try {
+    const { oldPassword, newPassword, ...otherData } = req.body;
+    const user = await User.findById(req.params.id);
+
+    if (oldPassword) {
+      const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: "Invalid old password" });
+      }
+    }
+
+    if (newPassword) {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      otherData.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: otherData },
+      { new: true }
+    );
+    
     const savedUser = await updatedUser.save();
     res.status(200).json(savedUser);
   } catch (err) {
     next(err);
   }
 };
+
 
 export const deleteUser = async (req, res, next) => {
   try {

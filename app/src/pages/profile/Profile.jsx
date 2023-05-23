@@ -2,46 +2,57 @@ import React, { useState } from "react";
 import style from "./Profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import useMutation from "../../hooks/useMutation";
+import { useAuthContext } from "../../contexts/AuthContext";
+
 
 const Profile = () => {
-  const [profilePic, setProfilePic] = useState("");
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const { user } = useAuthContext();
+  const { isLoading, error, mutate } = useMutation();
+  const [data, setData] = useState({
+    profilePic: "",
+    name: user.name,
+    phone: user.phone,
+    oldPassword: "",
+    newPassword: "",
+  });
+  const [message, setMessage] = useState(null);
 
-  const handleProfilePicChange = (event) => {
-    setProfilePic(event.target.value);
-  };
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-  };
-
-  const handleOldPasswordChange = (event) => {
-    setOldPassword(event.target.value);
-  };
-
-  const handleNewPasswordChange = (event) => {
-    setNewPassword(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    console.log({
-      profilePic,
-      name,
-      phoneNumber,
-      oldPassword,
-      newPassword,
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
     });
   };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
+    // Check if new password is the same as the old password
+    if (data.oldPassword === data.newPassword) {
+      setMessage("New password cannot be the same as the old password");
+      return;
+    }
+    try {
+      await mutate(`${process.env.REACT_APP_API_URL}/users/${user._id}`, {
+        method: "PUT",
+        data,
+        onSuccess: (data) => {
+          console.log(data);
+          // update the user in the context
+          localStorage.setItem("USER", JSON.stringify(data));
+          setMessage("Profile updated"); // Set success message
+         
+        },
+        onError: (error) => {
+          console.log(error);
+          setMessage("Password is not correct"); // Set error message
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      setMessage("An error occurred. Please try again."); // Set error message
+    }
+  };
   return (
     <div className={style.container}>
       <h1>Profile</h1>
@@ -53,7 +64,7 @@ const Profile = () => {
               alt="profileImg"
               className={style.profileImg}
             />
-            <button className={style.btnAdd} onChange={handleProfilePicChange}>
+            <button className={style.btnAdd} onChange={handleChange}>
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
@@ -63,8 +74,9 @@ const Profile = () => {
           <input
             type="text"
             className={style.formControl}
-            value={name}
-            onChange={handleNameChange}
+            name="name"
+            value={data.name}
+            onChange={handleChange}
           />
         </div>
         <div className={style.formGroup}>
@@ -72,28 +84,31 @@ const Profile = () => {
           <input
             type="text"
             className={style.formControl}
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
+            name="phone"
+            value={data.phone}
+            onChange={handleChange}
           />
         </div>
         <div className={style.formGroup}>
           <label className={style.label}>Change Password</label>
-
           <input
             type="password"
-            className={style.formControl + " " + style.oldPassword}
+            className={`${style.formControl} ${style.oldPassword}`}
             placeholder="Old Password"
-            value={oldPassword}
-            onChange={handleOldPasswordChange}
+            name="oldPassword"
+            value={data.oldPassword}
+            onChange={handleChange}
           />
           <input
             type="password"
             className={style.formControl}
             placeholder="New Password"
-            value={newPassword}
-            onChange={handleNewPasswordChange}
+            name="newPassword"
+            value={data.newPassword}
+            onChange={handleChange}
           />
         </div>
+        {message && <p className={style.message}>{message}</p>}
         <button type="submit" className={style.saveBtn}>
           Update
         </button>

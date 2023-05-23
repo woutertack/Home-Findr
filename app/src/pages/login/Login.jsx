@@ -28,7 +28,7 @@ const Login = () => {
       method: "POST",
       data,
       onSuccess: (data) => {
-        console.log(data);
+        
         onLogin(data);
         navigate("/");
       },

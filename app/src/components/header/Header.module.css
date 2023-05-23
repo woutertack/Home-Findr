@@ -83,6 +83,13 @@
   font-size: 1.7rem;
 }
 
+.iconEnvelope:hover{
+  color: rgb(216, 216, 216);
+}
+.iconHeart:hover{
+  color: rgb(255, 43, 43);
+}
+
 .profileImg {
   width: 45px;
   height: 45px;

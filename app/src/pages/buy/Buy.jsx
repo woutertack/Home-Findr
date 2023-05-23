@@ -49,6 +49,7 @@ const Buy = () => {
           <div className={style.container}>
             {filteredData?.map((property) => (
               <CardListing
+                key={property._id}
                 src={require("../../images/rent.jpg")}
                 alt="buy"
                 title={property.title}
@@ -57,6 +58,7 @@ const Buy = () => {
                 city={property.city}
                 zipcode={property.zipcode}
                 province={property.province}
+                buildyear={property.buildyear}
                 path={`/detail/${property._id}`}
               />
             ))}

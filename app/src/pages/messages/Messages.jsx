@@ -33,7 +33,7 @@ const Messages = () => {
 
   const handleReply = (messageId, reply) => {
     // Handle the reply logic (e.g., sending the reply to a server)
-    console.log(`Reply to message ${messageId}: ${reply}`);
+
   };
 
   return (

@@ -54,3 +54,15 @@ export const getAllFavorite = async (req, res, next) => {
     next(err);
   }
 };
+
+
+export const getUserFavorites = async (req, res, next) => {
+  const userId = req.params.userId;
+
+  try {
+    const favorites = await Favorite.find({ user: userId }).populate("property");
+    res.status(200).json(favorites);
+  } catch (err) {
+    next(err);
+  }
+};

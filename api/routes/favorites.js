@@ -5,6 +5,7 @@ import {
   deleteFavorite,
   getAllFavorite,
   getFavorite,
+  getUserFavorites,
   updateFavorite,
 } from "../controllers/favoriteController.js";
 
@@ -24,4 +25,7 @@ router.get("/:id", getFavorite);
 
 // get all
 router.get("/", getAllFavorite);
+
+// get user favorites
+router.get("/user/:userId", getUserFavorites)
 export default router;

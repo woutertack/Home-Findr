@@ -116,3 +116,9 @@
 .btn:hover {
   transform: scale(1.05);
 }
+
+
+.favorite{
+  color: rgb(255, 43, 43);
+  cursor: pointer;
+}

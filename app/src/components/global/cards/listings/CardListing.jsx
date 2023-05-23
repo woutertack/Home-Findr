@@ -20,6 +20,7 @@ const CardListing = (props) => {
           <h4 className={style.cardItemPlace}>
             {props.city} ({props.zipcode}), {props.province}
           </h4>
+          <p className={style.buildYear}>Buildyear: {props.buildyear}</p>
           <div className={style.cardInfo}>
             <h4 className={style.cardItemPrice}>€ {props.price} per month</h4>
             <button className={style.cardItemButton}>

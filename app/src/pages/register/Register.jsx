@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import style from "./Register.module.css";
 import useMutation from "../../hooks/useMutation";
-import { useAuthContext } from "../../contexts/AuthContainer";
+import { useAuthContext } from "../../contexts/AuthContext";
 
-const Register = ({ onLogin }) => {
-  const [showPassword, setShowPassword] = useState(false);
-
+const Register = () => {
+  const { onLogin } = useAuthContext();
+  const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [data, setData] = useState({
     name: "",
@@ -26,17 +28,16 @@ const Register = ({ onLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // mutate(`${process.env.REACT_APP_API_URL}/register`, {
-    //   method: "POST",
-    //   data,
-    //   onSuccess: (data) => {
-
-    //     onLogin(data);
-
-    //     window.location.replace = "/";
-    //   }
-    // });
+    mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
+      method: "POST",
+      data,
+      onSuccess: (data) => {
+        onLogin(data);
+        navigate("/");
+      },
+    });
   };
+
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -87,7 +88,10 @@ const Register = ({ onLogin }) => {
           </button>
         </div>
 
-        <button className={style.submit}>Submit</button>
+        <button className={style.submit} disabled={isLoading}>
+          Submit
+        </button>
+        {error && <p>{error}</p>}
       </form>
       <Link to="/login" className={style.link}>
         Already have an account? Login here

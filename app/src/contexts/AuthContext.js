@@ -1,32 +1,60 @@
-import { createContext, useReducer } from "react";
-import Reducer from "./Reducer";
-import { useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
-const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
-  isFetching: false,
-  error: null,
+const KEY = "USER";
+
+const AuthContext = createContext();
+
+// Function to retrieve user object from local storage if it exists
+const getUserFromStorage = () => {
+  const user = localStorage.getItem(KEY);
+  if (user) {
+    return JSON.parse(user);
+  }
+  return null;
 };
 
-export const AuthContext = createContext(INITIAL_STATE);
-
-export const ContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(Reducer, INITIAL_STATE);
+const AuthContainer = ({ children }) => {
+  const [user, setUser] = useState(() => getUserFromStorage());
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user));
-  }, [state.user]);
+    if (user) {
+      localStorage.setItem(KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(KEY);
+    }
+  }, [user]);
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  const handleLogin = (user) => {
+    setUser(user);
+    localStorage.setItem(KEY, JSON.stringify(user));
+  };
+
+  const handleSignup = (user) => {
+    setUser(user);
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        user: state.user,
-        isFetching: state.isFetching,
-        error: state.error,
-        dispatch,
+        user: user,
+        onLogin: handleLogin, // Pass the onLogin prop here
+        logout: handleLogout,
+        signup: handleSignup,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
+
+// Custom hook to access AuthContext in child components
+export const useAuthContext = () => {
+  return useContext(AuthContext);
+};
+
+// Export AuthContainer component as default
+export default AuthContainer;

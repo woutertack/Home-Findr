@@ -19,9 +19,9 @@ const AgencySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    members: {
-      type: [String],
-      default: [],
+    users: {
+      type: [ mongoose.Schema.Types.ObjectId ],
+      ref: "User",
     },
   },
   { timestamps: true }

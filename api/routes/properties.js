@@ -16,16 +16,16 @@ const router = express.Router();
 router.post("/", verifyAdmin, createProperty);
 
 // update
-router.put("/:id",verifyAdmin, updateProperty);
+router.put("/:id", verifyAdmin, updateProperty);
 
 // delete
-router.delete("/:id",verifyAdmin, deleteProperty);
+router.delete("/:id", verifyAdmin, deleteProperty);
 
 // get
 router.get("/:id", getProperty);
 
 // get all
-router.get("/", getAllProperties,);
+router.get("/", getAllProperties);
 
 // router.get("/sale", getAllSaleProperties);
 

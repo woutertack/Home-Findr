@@ -30,7 +30,7 @@ const Contact = () => {
           </h2>
           <h2 className={style.address}>
             <span class={style.span}>Address: </span>
-            homefindr@hotmail.com
+            Papegaaistraat 42, 9000 Gent, Belgium
           </h2>
         </div>
       </div>

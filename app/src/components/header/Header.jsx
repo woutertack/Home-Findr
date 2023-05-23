@@ -9,10 +9,10 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMobile from "./HeaderMobile"; // Import the HeaderMobile component
-import { AuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext"; // Import the AuthContext
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useAuthContext();
   return (
     <header className={style.header}>
       <div className={style.container}>
@@ -97,7 +97,7 @@ const Header = () => {
               </li>
               {/* Logout */}
               <li className={style.navItem}>
-                <Link to="/logout" className={style.navLink}>
+                <Link to="/" className={style.navLink} onClick={logout}>
                   <FontAwesomeIcon
                     icon={faRightFromBracket}
                     className={style.iconLogout}

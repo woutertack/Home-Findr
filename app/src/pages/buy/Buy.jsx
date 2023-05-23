@@ -9,7 +9,12 @@ const Buy = () => {
   const { isLoading, data, error, invalidate } = useFetch("/properties");
   const [filteredData, setFilteredData] = useState(null);
 
-  const handleFilter = ({ priceRange, selectedType, selectedProvince, selectedCity }) => {
+  const handleFilter = ({
+    priceRange,
+    selectedType,
+    selectedProvince,
+    selectedCity,
+  }) => {
     const filteredData = filterProperties(data, {
       priceRange,
       selectedType,

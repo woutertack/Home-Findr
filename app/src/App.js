@@ -12,11 +12,11 @@ import Favorites from "./pages/favorites/Favorites";
 import Messages from "./pages/messages/Messages";
 import Profile from "./pages/profile/Profile";
 import DashboardAdmin from "./pages/admin/dashboard/DashboardAdmin";
-import MessageProperty from "./pages/messageProperty/MessageProperty";
+import PropertyMessage from "./pages/propertyMessage/PropertyMessage";
 import AddProperty from "./pages/admin/addProperty/AddProperty";
 import Agencies from "./pages/admin/agencies/Agencies";
 import Users from "./pages/admin/users/Users";
-import AuthContainer from "./contexts/AuthContainer";
+import AuthContainer from "./contexts/AuthContext";
 
 const App = () => {
   const location = useLocation();
@@ -28,14 +28,16 @@ const App = () => {
         {!isAdminRoute && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route path="/rent" element={<Rent />} />
           <Route path="/buy" element={<Buy />} />
+
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/message" element={<MessageProperty />} />
+          <Route path="/message/:id" element={<PropertyMessage />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

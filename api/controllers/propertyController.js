@@ -47,9 +47,11 @@ export const getProperty = async (req, res, next) => {
 };
 
 export const getAllProperties = async (req, res, next) => {
-  const { min , max, ...others} = req.query;
+  const { min, max, ...others } = req.query;
   try {
-    const property = await Property.find({...others, price: {$gte: min || 1, $lte: max || 5000000},
+    const property = await Property.find({
+      ...others,
+      price: { $gte: min || 1, $lte: max || 5000000 },
     }).limit(req.query.limit);
     res.status(200).json(property);
   } catch (err) {

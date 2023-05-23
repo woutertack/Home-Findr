@@ -1,6 +1,6 @@
 // Importing useState and the custom hooks for authentication and handling API errors
 import { useState } from "react";
-import { useAuthContext } from "../contexts/AuthContainer";
+import { useAuthContext } from "../contexts/AuthContext";
 import { handleErrors } from "../helpers/api";
 
 const useMutation = () => {

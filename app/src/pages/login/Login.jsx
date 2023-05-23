@@ -1,15 +1,41 @@
 import React, { useState } from "react";
 import style from "./Login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useMutation from "../../hooks/useMutation";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { isLoading, error, mutate } = useMutation();
+  const { onLogin } = useAuthContext();
+  const navigate = useNavigate();
+
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform login logic here
+
+    mutate(`${process.env.REACT_APP_API_URL}/auth/login`, {
+      method: "POST",
+      data,
+      onSuccess: (data) => {
+        console.log(data);
+        onLogin(data);
+        navigate("/");
+      },
+    });
   };
+
+ 
 
   return (
     <div className={style.container}>
@@ -18,20 +44,25 @@ const Login = () => {
         <input
           type="text"
           name="email"
-          value={email}
+          value={data.email}
+          id="email"
           placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
           className={style.email}
         />
         <input
           type="password"
           name="password"
-          value={password}
+          value={data.password}
+          id="password"
           placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChange}
           className={style.password}
         />
-        <button className={style.submit}>Submit</button>
+        <button className={style.submit} disabled={isLoading}>
+          Submit
+        </button>
+        {error && <p>{error}</p>}
       </form>
       <Link to="/register" className={style.link}>
         No account yet? Register here

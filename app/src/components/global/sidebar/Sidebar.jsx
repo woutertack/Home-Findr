@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import style from "./Sidebar.module.css";
-import useFetch from "../../../hooks/useFetch";
 
 const Sidebar = ({ onFilter }) => {
   const [priceRange, setPriceRange] = useState([0, 10000]);
@@ -31,7 +30,7 @@ const Sidebar = ({ onFilter }) => {
   const handleProvinceChange = (event) => {
     setSelectedProvince(event.target.value);
   };
-  
+
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
   };
@@ -91,7 +90,9 @@ const Sidebar = ({ onFilter }) => {
           onChange={handleCityChange}
         />
       </div>
-      <button onClick={handleFilter} className={style.btn}>Filter</button>
+      <button onClick={handleFilter} className={style.btn}>
+        Filter
+      </button>
     </div>
   );
 };

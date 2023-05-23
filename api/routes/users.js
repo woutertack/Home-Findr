@@ -23,17 +23,16 @@ const router = express.Router();
 //   res.send("you are admin in and you can delete all accounts");
 // });
 
-
 // update
-router.put("/:id",verifyUser, updateUser);
+router.put("/:id", verifyUser, updateUser);
 
 // delete
-router.delete("/:id",verifyUser, deleteUser);
+router.delete("/:id", verifyUser, deleteUser);
 
 // get
-router.get("/:id",verifyUser, getUser);
+router.get("/:id", verifyUser, getUser);
 
 // get all
-router.get("/",verifyAdmin, getAllUser);
+router.get("/", verifyAdmin, getAllUser);
 
 export default router;

@@ -7,17 +7,11 @@ import {
   faTimes,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const HeaderMobile = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-
-  // Simulating user login/logout
-  useEffect(() => {
-    // Replace this with your actual login/logout logic
-    const user = true;
-    setLoggedIn(user);
-  }, []);
+  const { user } = useAuthContext();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -66,7 +60,7 @@ const HeaderMobile = () => {
                   </Link>
                 </li>
                 {/* Login/Sign Up */}
-                {!loggedIn && (
+                {!user && (
                   <>
                     <li className={style.navItemMobile}>
                       <Link to="/login" className={style.navLinkMobile}>
@@ -84,7 +78,7 @@ const HeaderMobile = () => {
                 )}
 
                 {/* if Logged in */}
-                {loggedIn && (
+                {user && (
                   <>
                     {/* Messages */}
                     <li className={style.navItemMobile}>

@@ -1,4 +1,7 @@
-export const filterProperties = (data, { priceRange, selectedType, selectedProvince, selectedCity }) => {
+export const filterProperties = (
+  data,
+  { priceRange, selectedType, selectedProvince, selectedCity }
+) => {
   // Apply filters to the property data
   const filteredData = data.filter((property) => {
     // Apply price range filter

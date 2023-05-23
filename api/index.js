@@ -12,13 +12,10 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-
 dotenv.config();
 
 // set the port for the server to listen on
 const port = 3002;
-
-
 
 const connect = async () => {
   try {

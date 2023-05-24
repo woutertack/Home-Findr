@@ -46,9 +46,29 @@ export const getMessage = async (req, res, next) => {
   }
 };
 
-export const getAllMessage = async (req, res, next) => {
+// get all messages where agencyId, userId and propertyId match
+export const getMatchingMessages = async (req, res, next) => {
+  const { agencyId, userId, propertyId } = req.query;
+
   try {
-    const messages = await Message.find();
+    const matchingMessages = await Message.find({
+      sender: userId,
+      receiver: agencyId,
+      property: propertyId
+    }).exec();
+
+    res.status(200).json(matchingMessages);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// get all user messages
+export const getUserMessages = async (req, res, next) => {
+  const { userId } = req.params;
+
+  try {
+    const messages = await Message.find({ sender: userId }).exec();
     res.status(200).json(messages);
   } catch (err) {
     next(err);

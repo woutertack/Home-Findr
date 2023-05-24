@@ -14,10 +14,13 @@ const PropertyMessage = () => {
     error,
     invalidate,
   } = useFetch(`/properties/${id}`);
-  const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
+  
+  const { data: agencyData, isLoading: agencyLoading, error: agencyError } = useFetch(`/agencies/${propertyData?.agency}`);
+  
   const { user } = useAuthContext();
   const navigate = useNavigate();
-
+  
+  
   const { mutate, isLoading: isMessageLoading, error: messageError } = useMutation();
 
   const [isMessageSent, setIsMessageSent] = useState(false);
@@ -27,12 +30,18 @@ const PropertyMessage = () => {
 
     const message = e.target.elements.message.value;
 
+    
     const postData = {
       sender: user._id,
-      receiver: agencyData._id,
-      property: propertyData._id,
+      agencyName: agencyData?.name,
+      agencyImg: agencyData?.profileImg,
+      receiver: agencyData?._id,
+      property: propertyData?._id,
+      propertyTitle: propertyData?.title,
       message: message,
     };
+  
+
 
     try {
       await  mutate(`${process.env.REACT_APP_API_URL}/messages`, {
@@ -51,6 +60,7 @@ const PropertyMessage = () => {
     return null;
   }
 
+  
   return (
     <div className={style.container}>
       {isPropertyLoading ? (

@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+
+  font-weight: bold;
+}
+
+.title {
+  font-size: 1.6rem;
+}
+
+.description {
+  font-style: italic;
+}

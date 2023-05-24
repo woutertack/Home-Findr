@@ -21,7 +21,8 @@ const Detail = () => {
       invalidate,
     } = useFetch(`/properties/${id}`);
     const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
-  
+    
+    const agencyName = agencyData?.name; 
     const { mutate } = useMutation();
   
     const [isFavorite, setIsFavorite] = useState(false); // State variable to track favorite status
@@ -179,7 +180,7 @@ const Detail = () => {
               Price: €{propertyData.price} per month
             </h2>
             {user && (
-              <Link to={`/message/${propertyData._id}`} className={style.link}>
+              <Link to={`/message/${propertyData._id}`} className={style.link} >
                 <button className={style.btn}>Send a message</button>
               </Link>
             )}

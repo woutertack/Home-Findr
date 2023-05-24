@@ -13,6 +13,7 @@ import { useAuthContext } from "../../contexts/AuthContext"; // Import the AuthC
 
 const Header = () => {
   const { user, logout } = useAuthContext();
+  const PF = "http://localhost:3002/images/"
   return (
     <header className={style.header}>
       <div className={style.container}>
@@ -89,7 +90,7 @@ const Header = () => {
               <li className={style.navItem}>
                 <Link to="/profile" className={style.navLink}>
                   <img
-                    src={require("../../images/pf.jpg")}
+                    src={PF + user.profileImg}
                     alt="profileImg"
                     className={style.profileImg}
                   />

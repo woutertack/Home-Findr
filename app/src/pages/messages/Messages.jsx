@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import style from "./Messages.module.css";
 
 import dewaelePic from "../../images/rent.jpg";
+import { useAuthContext } from "../../contexts/AuthContext";
+import useFetch from "../../hooks/useFetch";
 
 const messages = [
   {
@@ -26,6 +28,14 @@ const messages = [
 
 const Messages = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
+  
+
+  const { user } = useAuthContext();
+  const { isLoading, data: messagesData, error } = useFetch(
+    `/messages/user/${user._id}`
+  );
+
+ 
 
   const handleSelectMessage = (message) => {
     setSelectedMessage(message);
@@ -33,35 +43,39 @@ const Messages = () => {
 
   const handleReply = (messageId, reply) => {
     // Handle the reply logic (e.g., sending the reply to a server)
-
   };
 
   return (
     <div className={style.container}>
       <div className={style.sidebar}>
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`${style.message}${
-              selectedMessage === message ? ` ${style.selected}` : ""
-            }`}
-            onClick={() => handleSelectMessage(message)}
-          >
-            <div className={style.infoSender}>
-              <img
-                src={message.pic}
-                alt="Profile Pic"
-                className={style.profilePic}
-              />
-              <div className={style.from}>{message.from}</div>
+        {messagesData &&
+          messagesData.map((message) => (
+            <div
+              key={message.id}
+              className={`${style.message}${
+                selectedMessage === message ? ` ${style.selected}` : ""
+              }`}
+              onClick={() => handleSelectMessage(message)}
+            >
+              <div className={style.infoSender}>
+                <img
+                  src={selectedMessage?.pic || message.pic}
+                  alt="Profile Pic"
+                  className={style.profilePic}
+                />
+                <div className={style.from}>
+                  {selectedMessage?.from || message.from}
+                </div>
+              </div>
+              <div className={style.messageInfo}>
+                <div className={style.property}>
+                  {selectedMessage?.property || message.property}
+                </div>
+                <div className={style.date}>{message.date}</div>
+              </div>
+              <div className={style.line}></div>
             </div>
-            <div className={style.messageInfo}>
-              <div className={style.property}>{message.property}</div>
-              <div className={style.date}>{message.date}</div>
-            </div>
-            <div class={style.line}></div>
-          </div>
-        ))}
+          ))}
       </div>
       <div className={style.messageViewer}>
         {selectedMessage ? (

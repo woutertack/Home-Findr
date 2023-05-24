@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import style from "./Favorites.module.css";
-import CardFavorites from "../../components/global/cards/favorites/CardFavorites";
 import useFetch from "../../hooks/useFetch";
 import { useAuthContext } from "../../contexts/AuthContext";
 import CardListing from "../../components/global/cards/listings/CardListing";

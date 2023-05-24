@@ -1,33 +1,20 @@
 import mongoose from "mongoose";
 
-const MessageSchema = new mongoose.Schema(
+const AgencyMessageSchema = new mongoose.Schema(
   {
     sender: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    receiver: {
       type: mongoose.Types.ObjectId,
       ref: "Agency",
       required: true,
     },
-    agencyName:{
-      type: String,
+    receiver: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
       required: true,
     },
-    agencyImg:{
-      type: String,
-      required: true,
-    },
-
     property: {
       type: mongoose.Types.ObjectId,
       ref: "Property",
-      required: true,
-    },
-    propertyTitle:{
-      type: String,
       required: true,
     },
     message: {
@@ -42,4 +29,4 @@ const MessageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Message", MessageSchema);
+export default mongoose.model("AgencyMessage", AgencyMessageSchema);

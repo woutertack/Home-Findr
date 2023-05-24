@@ -3,9 +3,10 @@ import Message from "../models/Message.js";
 import {
   createMessage,
   deleteMessage,
-  getAllMessage,
+  getMatchingMessages,
   getMessage,
   updateMessage,
+  getUserMessages
 } from "../controllers/messageController.js";
 
 const router = express.Router();
@@ -22,7 +23,10 @@ router.delete("/:id", deleteMessage);
 // get
 router.get("/:id", getMessage);
 
-// get all
-router.get("/", getAllMessage);
+// get all matching messages where userId, propertyId, and agencyId matches
+router.get("/", getMatchingMessages);
+
+// get user messages
+router.get("/user/:userId", getUserMessages);
 
 export default router;

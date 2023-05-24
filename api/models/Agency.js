@@ -13,7 +13,7 @@ const AgencySchema = new mongoose.Schema(
     },
     profileImg: {
       type: String,
-      default: "",
+      default: "house.webp",
     },
     phone: {
       type: String,

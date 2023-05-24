@@ -9,6 +9,13 @@ import agenciesRoute from "./routes/agencies.js";
 import favoritesRoute from "./routes/favorites.js";
 import messagesRoute from "./routes/messages.js";
 import cookieParser from "cookie-parser";
+import multer from "multer";
+import path from "path";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -34,6 +41,23 @@ mongoose.connection.on("disconnected", () => {
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "/images")))
+
+// add image upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  }, filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  }
+});
+
+const upload = multer({ storage: storage });
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  res.status(200).json("File has been uploaded");
+});
+
+
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);

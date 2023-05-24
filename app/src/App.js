@@ -17,6 +17,7 @@ import AddProperty from "./pages/admin/addProperty/AddProperty";
 import Agencies from "./pages/admin/agencies/Agencies";
 import Users from "./pages/admin/users/Users";
 import AuthContainer from "./contexts/AuthContext";
+import NotFound from "./pages/notFound/NotFound";
 
 const App = () => {
   const location = useLocation();
@@ -48,6 +49,9 @@ const App = () => {
           <Route path="/admin/add" element={<AddProperty />} />
           <Route path="/admin/agencies" element={<Agencies />} />
           <Route path="/admin/users" element={<Users />} />
+
+          {/* not found path */}
+          <Route path="*" element={<NotFound />} /> 
         </Routes>
 
         {!isAdminRoute && <Footer />}

@@ -10,6 +10,7 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { IMG } from "../../../consts/Img";
 
 const SidebarAdmin = () => {
   const location = useLocation();
@@ -62,7 +63,7 @@ const SidebarAdmin = () => {
         </div>
         <Link to="/admin/profile" className={style.profileLink}>
           <img
-            src={require("../../../images/pf.jpg")}
+            src={IMG + user?.profileImg}
             alt="profileImg"
             className={style.profileImg}
           />

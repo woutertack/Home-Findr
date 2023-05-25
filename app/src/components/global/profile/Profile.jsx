@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import style from "./Profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import useMutation from "../../hooks/useMutation";
-import { useAuthContext } from "../../contexts/AuthContext";
-import {IMG} from "../../consts/Img"
+import useMutation from "../../../hooks/useMutation";
+import { useAuthContext } from "../../../contexts/AuthContext";
+import { IMG } from "../../../consts/Img";
 
 const Profile = () => {
-  
   const { user } = useAuthContext();
   const { isLoading, error, mutate } = useMutation();
   const [data, setData] = useState({
-    profileImg: IMG + user.profileImg,
+    profileImg:  user.profileImg,
     name: user.name,
     phone: user.phone,
     oldPassword: "",
@@ -30,9 +29,9 @@ const Profile = () => {
   useEffect(() => {
     setData((prevState) => ({
       ...prevState,
-      profileImg: IMG + user.profileImg,
+      profileImg:  user.profileImg,
     }));
-  }, [user.profileImg]);
+  }, [user?.profileImg]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,8 +64,6 @@ const Profile = () => {
           ...prevState,
           profileImg: fileName,
         }));
-
-        console.log(IMG + user.profileImg);
       } catch (err) {
         console.log(err);
       }
@@ -102,7 +99,7 @@ const Profile = () => {
         <div className={style.profileImgContainer}>
           <div className={style.profileImgWrapper}>
             <img
-              src={file ? URL.createObjectURL(file) : data.profileImg}
+              src={file ? URL.createObjectURL(file) :  IMG + data.profileImg}
               alt="profileImg"
               className={style.profileImg}
             />
@@ -114,7 +111,7 @@ const Profile = () => {
               id="fileInput"
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
-            ></input>
+            />
           </div>
         </div>
         <div className={style.formGroup}>

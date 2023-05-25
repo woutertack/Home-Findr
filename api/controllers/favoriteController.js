@@ -67,3 +67,15 @@ export const getUserFavorites = async (req, res, next) => {
     next(err);
   }
 };
+
+
+export const deleteFavoritesByPropertyId = async (req, res, next) => {
+  const propertyId = req.params.propertyId;
+
+  try {
+    await Favorite.deleteMany({ property: propertyId });
+    res.status(200).json("Favorites deleted");
+  } catch (err) {
+    next(err);
+  }
+};

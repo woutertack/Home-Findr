@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import style from "./Agencies.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,32 +10,28 @@ import { Link } from "react-router-dom";
 
 const Agencies = () => {
   const { data: agencies } = useFetch("/agencies");
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
-  const [file, setFile] = useState(null);
-  const [data, setData] = useState({
-    agency: "",
-    profileImg: "",
-    name: "",
-    email: "",
-    phone: "",
-  });
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleChangeName = (e) => {
+    setName(e.target.value);
   };
 
-  
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleChangePhone = (e) => {
+    setPhone(e.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Add your submit logic here
-  };
-
-  const handleDelete = () => {
-    // Add your delete logic here
+    console.log({ name, email, phone });
+    closeModal();
   };
 
   const openModal = () => {
@@ -57,28 +53,24 @@ const Agencies = () => {
             + Add New Agency
           </button>
         </div>
-        <h1 className={style.info}> Click on an Agency to edit it</h1>
-            
-              {agencies &&
-                agencies.map((agency) => (
+        <h1 className={style.info}>Click on an Agency to edit it</h1>
 
-                  <Link to={agency._id} key={agency._id} value={agency._id} className={style.link}>
-                    {agency.name}  <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
-                  </Link>
-                ))}
-           
-          
+        {agencies &&
+          agencies.map((agency) => (
+            <Link to={agency._id} key={agency._id} value={agency._id} className={style.link}>
+              {agency.name} <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
+            </Link>
+          ))}
       </div>
-
 
       {showModal && (
         <ModalAgencies
-          name={data.name}
-          email={data.email}
-          phoneNumber={data.phone}
-          handleNameChange={handleChange}
-          handleEmailChange={handleChange}
-          handlePhoneNumberChange={handleChange}
+          name={name}
+          email={email}
+          phone={phone}
+          handleChangeName={handleChangeName}
+          handleChangeEmail={handleChangeEmail}
+          handleChangePhone={handleChangePhone}
           handleSubmit={handleSubmit}
           closeModal={closeModal}
         />

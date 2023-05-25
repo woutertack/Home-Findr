@@ -1,15 +1,13 @@
 import React from "react";
-import style from "./ModalUsers.module.css";
+import style from "./ModalAgencies.module.css";
 
-const ModalUsers = ({
+const ModalAgencies = ({
   name,
   email,
-  phoneNumber,
-
-  handleNameChange,
-  handleEmailChange,
-  handlePhoneNumberChange,
-
+  phone,
+  handleChangeName,
+  handleChangeEmail,
+  handleChangePhone,
   handleSubmit,
   closeModal,
 }) => {
@@ -21,30 +19,28 @@ const ModalUsers = ({
         </span>
         <h2 className={style.titleModal}>Add New Agency</h2>
         <form onSubmit={handleSubmit} className={style.formModal}>
-          {/* Add the input fields for name, email, phone number, password, and agency */}
           <input
             type="text"
             placeholder="Name"
             className={style.formControlModal}
             value={name}
-            onChange={handleNameChange}
+            onChange={handleChangeName}
           />
           <input
             type="text"
             placeholder="Email"
             className={style.formControlModal}
             value={email}
-            onChange={handleEmailChange}
+            onChange={handleChangeEmail}
           />
           <input
             type="text"
             placeholder="Phone Number"
             className={style.formControlModal}
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
+            value={phone}
+            onChange={handleChangePhone}
           />
 
-          {/* Add the button to submit the form */}
           <button type="submit" className={style.saveBtn}>
             Add
           </button>
@@ -54,4 +50,4 @@ const ModalUsers = ({
   );
 };
 
-export default ModalUsers;
+export default ModalAgencies;

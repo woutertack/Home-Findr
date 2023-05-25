@@ -26,7 +26,7 @@ const UpdateProperty = () => {
   const { mutate } = useMutation();
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
-    img: IMG + propertyData?.img,
+    img: propertyData?.img,
     title: propertyData?.title,
     desc: propertyData?.desc,
     type: propertyData?.type,
@@ -57,7 +57,7 @@ const UpdateProperty = () => {
   useEffect(() => {
     setData((prevState) => ({
       ...prevState,
-      img: IMG + propertyData?.img,
+      img:  propertyData?.img,
       title: propertyData?.title,
       desc: propertyData?.desc,
       type: propertyData?.type,
@@ -123,8 +123,9 @@ const UpdateProperty = () => {
           console.log("success")
         
          
-          // refresh the page
-          window.location.reload();
+          // go to admin page
+          window.location.href = "/admin";
+         
         },
         onError: (error) => {
           console.log(error);
@@ -142,10 +143,39 @@ const UpdateProperty = () => {
     try {
       await mutate(`${process.env.REACT_APP_API_URL}/properties/${id}`, {
         method: "DELETE",
-        onSuccess: (data) => {
-          console.log("success")
-          // go to admin page
-          window.location.href = "/admin";
+        onSuccess: async (data) => {
+          console.log("success prop deleted");
+  
+          // also delete the property from favorites
+          try {
+            await mutate(`${process.env.REACT_APP_API_URL}/favorites/property/${id}`, {
+              method: "DELETE",
+              onSuccess: async (data) => {
+                console.log("success favorite deleted");
+
+                // delete messages related to the property
+                try {
+                  await mutate(`${process.env.REACT_APP_API_URL}/messages/property/${id}`, {
+                    method: "DELETE",
+                    onSuccess: async (data) => {
+                      console.log("success messages deleted");
+                      // go to admin page
+                      window.location.href = "/admin";
+                    }
+                  });
+                } catch (err) {
+                  console.log(err);
+                }
+              },
+              onError: (err) => {
+                console.log(err);
+              },
+            });
+          } catch (err) {
+            console.log(err);
+          }
+  
+          
         },
         onError: (error) => {
           console.log(error);
@@ -155,6 +185,7 @@ const UpdateProperty = () => {
       console.log(err);
     }
   };
+  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -176,7 +207,7 @@ const UpdateProperty = () => {
         <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.imgWrapper}>
             <img
-              src={file ? URL.createObjectURL(file) : data.img}
+              src={file ? URL.createObjectURL(file) : IMG + data.img}
               alt="img"
               className={style.img}
             />

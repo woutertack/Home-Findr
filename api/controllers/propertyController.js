@@ -60,11 +60,14 @@ export const getAllProperties = async (req, res, next) => {
   }
 };
 
-// export const getAllSaleProperties = async (req, res, next) => {
-//   try {
-//     const properties = await Property.find( property => property.saleType === rent );
-//     res.status(200).json(properties);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+export const deletePropertiesByAgencyId = async (req, res, next) => {
+  const agencyId = req.params.agencyId;
+
+  try {
+    await Property.deleteMany({ agency: agencyId });
+    res.status(200).json("Properties deleted");
+  } catch (err) {
+    next(err);
+  }
+};
+

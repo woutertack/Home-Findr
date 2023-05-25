@@ -3,6 +3,7 @@ import Favorite from "../models/Favorite.js";
 import {
   createFavorite,
   deleteFavorite,
+  deleteFavoritesByPropertyId,
   getAllFavorite,
   getFavorite,
   getUserFavorites,
@@ -28,4 +29,9 @@ router.get("/", getAllFavorite);
 
 // get user favorites
 router.get("/user/:userId", getUserFavorites);
+
+// delete favorites by property id
+router.delete("/property/:propertyId", deleteFavoritesByPropertyId);
+
+
 export default router;

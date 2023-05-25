@@ -263,7 +263,7 @@ const AddProperty = () => {
                     {agencies &&
                       agencies.map((agency) => (
                         <option key={agency._id} value={agency._id}>
-                          {agency.name} {agency._id}
+                          {agency.name} 
                         </option>
                       ))}
                   </select>

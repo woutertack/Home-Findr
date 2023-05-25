@@ -3,6 +3,7 @@ import Property from "../models/Property.js";
 import { createError } from "../error/error.js";
 import {
   createProperty,
+  deletePropertiesByAgencyId,
   deleteProperty,
   getAllProperties,
   getProperty,
@@ -27,6 +28,7 @@ router.get("/:id", getProperty);
 // get all
 router.get("/", getAllProperties);
 
-// router.get("/sale", getAllSaleProperties);
+// delete properties from an agency
+router.delete("/agency/:agencyId", deletePropertiesByAgencyId);
 
 export default router;

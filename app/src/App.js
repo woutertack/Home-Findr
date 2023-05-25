@@ -10,7 +10,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Favorites from "./pages/favorites/Favorites";
 import Messages from "./pages/messages/Messages";
-import Profile from "./pages/profile/Profile";
+import Profile from "./pages/profileUser/ProfileUser";
 import DashboardAdmin from "./pages/admin/dashboard/DashboardAdmin";
 import PropertyMessage from "./pages/propertyMessage/PropertyMessage";
 import AddProperty from "./pages/admin/addProperty/AddProperty";
@@ -20,6 +20,8 @@ import AuthContainer, { useAuthContext } from "./contexts/AuthContext";
 import NotFound from "./pages/notFound/NotFound";
 import UpdateProperty from "./pages/admin/updateProperty/UpdateProperty";
 import AgencyProfile from "./pages/admin/agencies/AgencyProfile";
+import ProfileUser from "./pages/profileUser/ProfileUser";
+import ProfileAdmin from "./pages/admin/profileAdmin/ProfileAdmin";
 
 const App = () => {
   const location = useLocation();
@@ -40,7 +42,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProfileUser />} />
           <Route path="/message/:id" element={<PropertyMessage />} />
 
           <Route path="/login" element={<Login />} />
@@ -66,6 +68,7 @@ const App = () => {
           <Route path="/admin/agencies" element={<Agencies />} />
           <Route path="/admin/agencies/:id" element={<AgencyProfile />} />
           <Route path="/admin/users" element={<Users />} />
+          <Route path="/admin/profile" element={<ProfileAdmin />} />
 
           {/* not found path */}
           <Route path="*" element={<NotFound />} />

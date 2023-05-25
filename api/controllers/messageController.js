@@ -74,3 +74,27 @@ export const getUserMessages = async (req, res, next) => {
     next(err);
   }
 };
+
+// delete all messages when agency is deleted
+export const deleteMessagesByAgencyId = async (req, res, next) => {
+  const agencyId = req.params.agencyId;
+
+  try {
+    await Message.deleteMany({ receiver: agencyId });
+    res.status(200).json("Messages deleted");
+  } catch (err) {
+    next(err);
+  }
+};
+
+// delete all messages when property is deleted
+export const deleteMessagesByPropertyId = async (req, res, next) => {
+  const propertyId = req.params.propertyId;
+
+  try {
+    await Message.deleteMany({ property: propertyId });
+    res.status(200).json("Messages deleted");
+  } catch (err) {
+    next(err);
+  }
+}

@@ -12,11 +12,11 @@ const MessageSchema = new mongoose.Schema(
       ref: "Agency",
       required: true,
     },
-    agencyName:{
+    agencyName: {
       type: String,
       required: true,
     },
-    agencyImg:{
+    agencyImg: {
       type: String,
       required: true,
     },
@@ -26,7 +26,7 @@ const MessageSchema = new mongoose.Schema(
       ref: "Property",
       required: true,
     },
-    propertyTitle:{
+    propertyTitle: {
       type: String,
       required: true,
     },

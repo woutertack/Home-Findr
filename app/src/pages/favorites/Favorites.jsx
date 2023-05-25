@@ -3,18 +3,24 @@ import style from "./Favorites.module.css";
 import useFetch from "../../hooks/useFetch";
 import { useAuthContext } from "../../contexts/AuthContext";
 import CardListing from "../../components/global/cards/listings/CardListing";
+import {IMG} from "../../consts/Img"
 
 const Favorites = () => {
   const { user } = useAuthContext();
-  const { isLoading, data: favorites, error, invalidate } = useFetch(`/favorites/user/${user?._id}`);
+  const {
+    isLoading,
+    data: favorites,
+    error,
+    invalidate,
+  } = useFetch(`/favorites/user/${user?._id}`);
   const [filteredData, setFilteredData] = useState(null);
-  
+
   useEffect(() => {
     if (favorites) {
-      setFilteredData(favorites.map(favorite => favorite.property));
+      setFilteredData(favorites.map((favorite) => favorite.property));
     }
   }, [favorites]);
-  
+
   return (
     <div className={style.main}>
       {isLoading ? (
@@ -24,7 +30,7 @@ const Favorites = () => {
           {filteredData?.map((property) => (
             <CardListing
               key={property._id}
-              src={require("../../images/rent.jpg")}
+              src={IMG + property.img}
               alt="buy"
               title={property.title}
               type={property.type}
@@ -40,7 +46,6 @@ const Favorites = () => {
       )}
     </div>
   );
-  
 };
 
 export default Favorites;

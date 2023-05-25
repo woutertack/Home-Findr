@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/header/Header";
 import Home from "./pages/home/Home";
 import Footer from "./components/footer/Footer";
@@ -16,12 +16,15 @@ import PropertyMessage from "./pages/propertyMessage/PropertyMessage";
 import AddProperty from "./pages/admin/addProperty/AddProperty";
 import Agencies from "./pages/admin/agencies/Agencies";
 import Users from "./pages/admin/users/Users";
-import AuthContainer from "./contexts/AuthContext";
+import AuthContainer, { useAuthContext } from "./contexts/AuthContext";
 import NotFound from "./pages/notFound/NotFound";
+import UpdateProperty from "./pages/admin/updateProperty/UpdateProperty";
+import AgencyProfile from "./pages/admin/agencies/AgencyProfile";
 
 const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
+ 
 
   return (
     <>
@@ -44,14 +47,28 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           {/* <Route path="*" element={<NotFound />} /> */}
 
-          {/* Admin Routes */}
+          {/* Admin Routes
+          <Route path="/admin">
+            <Route 
+              index
+              element={
+                <AdminRoute>
+                  <DashboardAdmin/>
+                </AdminRoute>
+              }
+            />
+          </Route> */}
+
           <Route path="/admin" element={<DashboardAdmin />} />
+          {/* update property */}
+          <Route path="/admin/:id" element={<UpdateProperty />} />
           <Route path="/admin/add" element={<AddProperty />} />
           <Route path="/admin/agencies" element={<Agencies />} />
+          <Route path="/admin/agencies/:id" element={<AgencyProfile />} />
           <Route path="/admin/users" element={<Users />} />
 
           {/* not found path */}
-          <Route path="*" element={<NotFound />} /> 
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         {!isAdminRoute && <Footer />}

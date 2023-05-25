@@ -3,21 +3,106 @@ import style from "./AddProperty.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileImage } from "@fortawesome/free-solid-svg-icons";
+import useMutation from "../../../hooks/useMutation";
+import  useFetch  from "../../../hooks/useFetch";
 
 const AddProperty = () => {
-  const [title, setTitle] = useState("");
-  const [listingType, setListingType] = useState("rent");
-  const [propertyType, setPropertyType] = useState("house");
-  const [buildYear, setBuildYear] = useState("");
-  const [province, setProvince] = useState("West Flanders");
-  const [zipCode, setZipCode] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [price, setPrice] = useState("");
-  const [squareMetre, setSquareMetre] = useState("");
 
-  const handleFormSubmit = (event) => {
+  const { mutate } = useMutation();
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
+  const [data, setData] = useState({
+    img: "",
+    title: "",
+    desc: "",
+    saleType: "rent",
+    type: "house",
+    buildyear: "",
+    sqmeters: "",
+    address: "",
+    city: "",
+    zipcode: "",
+    province: "West Flanders",
+    price: "",
+    sold: false,
+    agency: "646bd0e4ad8b039061254c71",
+  });
+
+  // fetch all agencies
+  const { data: agencies } = useFetch("/agencies");
+ 
+
+  const handleChange = (e) => {
+    if (e.target.name === "agency") {
+      // Set the agency ID instead of the whole agency object
+      setData({
+        ...data,
+        agency: e.target.value,
+      });
+    } else {
+      setData({
+        ...data,
+        [e.target.name]: e.target.value,
+      });
+    }
+    console.log(data);
+  };
+
+  
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    if (data.title === "" || data.desc === "" || data.buildyear === "" || data.sqmeters === "" || data.address === "" || data.city === "" || data.zipcode === "" || data.price === "") {
+      setError("Make sure everything is filled in.")
+      return; // Don't submit if the form is not valid
+    }
+
+    if(file){
+      const dataImg = new FormData();
+      const fileName = Date.now() + file.name;
+      dataImg.append("name", fileName);
+      dataImg.append("file", file);
+      data.img = fileName;
+
+      try {
+        await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
+          method: "POST",
+          body: dataImg,
+        });
+
+         // Update the profile picture value in data state
+         setData((prevState) => ({
+          ...prevState,
+          img: fileName,
+        }));
+        
+        
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    try {
+      await mutate(`${process.env.REACT_APP_API_URL}/properties/`, {
+        method: "POST",
+        data,
+        onSuccess: (data) => {
+          console.log(data);
+          console.log("success")
+        
+          window.location.href = "/admin";
+        },
+        onError: (error) => {
+          console.log(error);
+         
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      
+    }
+    console.log(data);
   };
 
   return (
@@ -33,18 +118,30 @@ const AddProperty = () => {
               <div className={style.formRow}>
                 <input
                   type="text"
+                  name="title"
                   className={style.input}
                   placeholder="Title property"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={data.title}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={style.formRow}>
+                <textarea
+                  type="textarea"
+                  name="desc"
+                  className={style.input + " " + style.textarea}
+                  placeholder="Description"
+                  value={data.desc}
+                  onChange={handleChange}
                 />
               </div>
 
               <div className={style.formRow}>
                 <select
-                  value={listingType}
+                  value={data.saleType}
+                  name="saleType"
                   className={style.input}
-                  onChange={(e) => setListingType(e.target.value)}
+                  onChange={handleChange}
                 >
                   <option value="rent">For Rent</option>
                   <option value="sale">For Sale</option>
@@ -53,9 +150,10 @@ const AddProperty = () => {
 
               <div className={style.formRow}>
                 <select
-                  value={propertyType}
+                  value={data.type}
                   className={style.input}
-                  onChange={(e) => setPropertyType(e.target.value)}
+                  name="type"
+                  onChange={handleChange}
                 >
                   <option value="house">House</option>
                   <option value="apartment">Apartment</option>
@@ -66,9 +164,10 @@ const AddProperty = () => {
 
               <div className={style.formRow}>
                 <select
-                  value={province}
+                  value={data.province}
                   className={style.input}
-                  onChange={(e) => setProvince(e.target.value)}
+                  name="province"
+                  onChange={handleChange}
                 >
                   <option value="West Flanders">West Flanders</option>
                   <option value="East Flanders">East Flanders</option>
@@ -83,8 +182,9 @@ const AddProperty = () => {
                   type="number"
                   className={style.input}
                   placeholder="Zip code"
-                  value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
+                  value={data.zipcode}
+                  name="zipcode"
+                  onChange={handleChange}
                 />
               </div>
 
@@ -93,8 +193,9 @@ const AddProperty = () => {
                   type="text"
                   className={style.input}
                   placeholder="City"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  value={data.city}
+                  name="city"
+                  onChange={handleChange}
                 />
               </div>
 
@@ -102,19 +203,43 @@ const AddProperty = () => {
                 <input
                   type="text"
                   className={style.input}
-                  value={street}
+                  value={data.address}
                   placeholder="Street and number"
-                  onChange={(e) => setStreet(e.target.value)}
+                  name="address"
+                  onChange={handleChange}
                 />
               </div>
 
+              
+
+
+           
+              <div className={style.buttonContainer}>
+                <button type="submit" className={style.submitButton}>
+                  Create Property
+                </button>
+                {error && <p className={style.error}>{error}</p>}
+              </div>
+            </div>
+            <div className={style.infoWrapper2}>
+            <div className={style.formRow}>
+                <input
+                  type="number"
+                  className={style.input}
+                  value={data.price}
+                  placeholder="Price"
+                  name="price"
+                  onChange={handleChange}
+                />
+              </div>
               <div className={style.formRow}>
                 <input
-                  type="text"
+                  type="number"
                   className={style.input}
-                  value={price}
-                  placeholder="Price"
-                  onChange={(e) => setPrice(e.target.value)}
+                  placeholder="Buildyear"
+                  value={data.buildyear}
+                  name="buildyear"
+                  onChange={handleChange}
                 />
               </div>
 
@@ -122,34 +247,47 @@ const AddProperty = () => {
                 <input
                   type="number"
                   className={style.input}
-                  placeholder="Buildyear"
-                  value={buildYear}
-                  onChange={(e) => setBuildYear(e.target.value)}
+                  value={data.sqmeters}
+                  placeholder="Square metres"
+                  name="sqmeters"
+                  onChange={handleChange}
                 />
               </div>
-
-              <div className={style.formRow}>
-                <input
-                  type="text"
-                  className={style.input}
-                  value={squareMetre}
-                  placeholder="Square metre"
-                  onChange={(e) => setSquareMetre(e.target.value)}
+               <div className={style.formRow}>
+                  <select
+                    value={data.agency}
+                    className={style.input}
+                    name="agency"
+                    onChange={handleChange}
+                  >
+                    {agencies &&
+                      agencies.map((agency) => (
+                        <option key={agency._id} value={agency._id}>
+                          {agency.name} {agency._id}
+                        </option>
+                      ))}
+                  </select>
+                </div>  
+              {file ? (
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="img"
+                  className={style.img}
                 />
-              </div>
+              ) : (
+                <FontAwesomeIcon icon={faFileImage} className={style.imageIcon} />
+              )}
+              <label htmlFor="fileInput" className={style.btnAdd}>
+                <FontAwesomeIcon icon={faPlus}/> Add Image
+              </label>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </div>
 
-              <div className={style.buttonContainer}>
-                <button type="submit" className={style.submitButton}>
-                  Create Property
-                </button>
-              </div>
-            </div>
-            <div className={style.imgWrapper}>
-              <FontAwesomeIcon icon={faFileImage} className={style.image} />
-              <button className={style.btnAdd}>
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
-            </div>
           </form>
         </div>
       </div>

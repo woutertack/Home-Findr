@@ -9,9 +9,11 @@ import {
   faUser,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 const SidebarAdmin = () => {
   const location = useLocation();
+  const { user, logout } = useAuthContext();
 
   return (
     <div className={style.sidebar}>
@@ -64,18 +66,18 @@ const SidebarAdmin = () => {
             alt="profileImg"
             className={style.profileImg}
           />
-          <span className={style.name}>Wouter Tack</span>
-          <span className={style.email}>tackwouter@hotmail.com</span>
+          <span className={style.name}>{user.name}</span>
+          <span className={style.email}>{user.email}</span>
           <div className={style.profileButtons}>
             <button className={style.profileButton}>
               <FontAwesomeIcon icon={faUser} className={style.iconProfile} />
             </button>
-            <button className={style.profileButton}>
+            <Link  to="/" className={style.profileButton} onClick={logout}>
               <FontAwesomeIcon
                 icon={faRightFromBracket}
                 className={style.iconProfile}
               />
-            </button>
+            </Link>
           </div>
         </Link>
       </div>

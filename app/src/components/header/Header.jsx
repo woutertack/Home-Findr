@@ -13,7 +13,7 @@ import { useAuthContext } from "../../contexts/AuthContext"; // Import the AuthC
 
 const Header = () => {
   const { user, logout } = useAuthContext();
-  const PF = "http://localhost:3002/images/"
+  const PF = "http://localhost:3002/images/";
   return (
     <header className={style.header}>
       <div className={style.container}>

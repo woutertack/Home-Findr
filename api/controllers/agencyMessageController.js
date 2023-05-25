@@ -9,7 +9,7 @@ export const createAgencyMessage = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 export const getAgencyMessage = async (req, res, next) => {
   try {
@@ -18,7 +18,7 @@ export const getAgencyMessage = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // get all messages where agencyId, userId and propertyId match
 export const getMatchingMessages = async (req, res, next) => {
@@ -28,7 +28,7 @@ export const getMatchingMessages = async (req, res, next) => {
     const matchingMessages = await AgencyMessage.find({
       sender: agencyId,
       receiver: userId,
-      property: propertyId
+      property: propertyId,
     }).exec();
 
     res.status(200).json(matchingMessages);

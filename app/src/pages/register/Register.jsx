@@ -25,8 +25,22 @@ const Register = () => {
     });
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validateEmail(data.email)) {
+      // Invalid email format
+      setData({
+        ...data,
+        email: "",
+      });
+      return;
+    }
 
     mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
       method: "POST",
@@ -92,6 +106,7 @@ const Register = () => {
           Submit
         </button>
         {error && <p>{error}</p>}
+        {!validateEmail(data.email) && <p>Invalid email</p>}
       </form>
       <Link to="/login" className={style.link}>
         Already have an account? Login here

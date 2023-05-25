@@ -24,14 +24,13 @@ export const updateUser = async (req, res, next) => {
       { $set: otherData },
       { new: true }
     );
-    
+
     const savedUser = await updatedUser.save();
     res.status(200).json(savedUser);
   } catch (err) {
     next(err);
   }
 };
-
 
 export const deleteUser = async (req, res, next) => {
   try {

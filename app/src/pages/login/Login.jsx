@@ -28,14 +28,17 @@ const Login = () => {
       method: "POST",
       data,
       onSuccess: (data) => {
-        
+        if (data.isAdmin) {
+          onLogin(data);
+          navigate("/admin");
+          return;
+        }
+
         onLogin(data);
         navigate("/");
       },
     });
   };
-
- 
 
   return (
     <div className={style.container}>

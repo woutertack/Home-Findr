@@ -27,5 +27,5 @@ router.get("/:id", getFavorite);
 router.get("/", getAllFavorite);
 
 // get user favorites
-router.get("/user/:userId", getUserFavorites)
+router.get("/user/:userId", getUserFavorites);
 export default router;

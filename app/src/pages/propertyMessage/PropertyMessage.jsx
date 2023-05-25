@@ -14,14 +14,21 @@ const PropertyMessage = () => {
     error,
     invalidate,
   } = useFetch(`/properties/${id}`);
-  
-  const { data: agencyData, isLoading: agencyLoading, error: agencyError } = useFetch(`/agencies/${propertyData?.agency}`);
-  
+
+  const {
+    data: agencyData,
+    isLoading: agencyLoading,
+    error: agencyError,
+  } = useFetch(`/agencies/${propertyData?.agency}`);
+
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  
-  
-  const { mutate, isLoading: isMessageLoading, error: messageError } = useMutation();
+
+  const {
+    mutate,
+    isLoading: isMessageLoading,
+    error: messageError,
+  } = useMutation();
 
   const [isMessageSent, setIsMessageSent] = useState(false);
 
@@ -30,7 +37,6 @@ const PropertyMessage = () => {
 
     const message = e.target.elements.message.value;
 
-    
     const postData = {
       sender: user._id,
       agencyName: agencyData?.name,
@@ -40,11 +46,9 @@ const PropertyMessage = () => {
       propertyTitle: propertyData?.title,
       message: message,
     };
-  
-
 
     try {
-      await  mutate(`${process.env.REACT_APP_API_URL}/messages`, {
+      await mutate(`${process.env.REACT_APP_API_URL}/messages`, {
         method: "POST",
         data: postData,
       });
@@ -60,7 +64,6 @@ const PropertyMessage = () => {
     return null;
   }
 
-  
   return (
     <div className={style.container}>
       {isPropertyLoading ? (
@@ -82,8 +85,15 @@ const PropertyMessage = () => {
                 name="message"
               ></textarea>
             </div>
-            <button className={style.send} disabled={isMessageLoading || isMessageSent}>
-              {isMessageLoading ? "Sending..." : isMessageSent ? "Message Sent" : "Send"}
+            <button
+              className={style.send}
+              disabled={isMessageLoading || isMessageSent}
+            >
+              {isMessageLoading
+                ? "Sending..."
+                : isMessageSent
+                ? "Message Sent"
+                : "Send"}
             </button>
           </form>
           {messageError && <p>Error: {messageError}</p>}

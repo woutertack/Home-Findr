@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./DashboardAdmin.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import OptionLabel from "../../../components/admin/OptionLabel";
-import CardListing from "../../../components/global/cards/listings/CardListing";
+import CardListing from "../../../components/admin/cards/CardListing";
+import useFetch from "../../../hooks/useFetch";
+import {IMG} from "../../../consts/Img"
 
 const DashboardAdmin = () => {
+  
+  const { isLoading, data, error, invalidate } = useFetch("/properties");
+  const [selectedOption, setSelectedOption] = useState("rent");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  useEffect(() => {}, [selectedOption]);
+
+  const filteredData = data?.filter((property) => {
+    if (selectedOption === "rent") {
+      return property.saleType === "rent";
+    } else if (selectedOption === "sale") {
+      return property.saleType === "sale";
+    }
+    return true; // Display all properties if no option is selected
+  });
+
   return (
     <div className={style.main}>
       <SidebarAdmin />
@@ -19,25 +40,29 @@ const DashboardAdmin = () => {
           />
         </div>
 
-        <OptionLabel />
+        <OptionLabel
+          selectedOption={selectedOption}
+          onChange={handleOptionChange}
+        />
 
-        <div className={style.listings}>
-          <CardListing
-            src={require("../../../images/rent.jpg")}
-            alt="rent"
-            title="Explore the best quality "
-            price="1000"
-            place="Roeselare (8800), West Flanders"
-            path="/detail"
-          />
-          <CardListing
-            src={require("../../../images/rent.jpg")}
-            alt="rent"
-            title="Explore the best quality "
-            price="1000"
-            place="Roeselare (8800), West Flanders"
-            path="/detail"
-          />
+        <div className={style.listingsContainer}>
+          <div className={style.listings}>
+            {filteredData?.map((property) => (
+              <CardListing
+                key={property._id}
+                src={IMG + property.img}
+                alt="buy"
+                title={property.title}
+                type={property.type}
+                price={property.price}
+                city={property.city}
+                zipcode={property.zipcode}
+                province={property.province}
+                buildyear={property.buildyear}
+                path={`/admin/${property._id}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

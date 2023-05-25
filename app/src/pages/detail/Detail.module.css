@@ -117,8 +117,7 @@
   transform: scale(1.05);
 }
 
-
-.favorite{
+.favorite {
   color: rgb(255, 43, 43);
   cursor: pointer;
 }

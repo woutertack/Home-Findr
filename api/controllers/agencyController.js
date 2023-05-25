@@ -56,19 +56,22 @@ export const getAllAgency = async (req, res, next) => {
   }
 };
 
-
 export const getAgencyMembers = async (req, res, next) => {
   try {
     const agencyId = req.params.id; // Make sure req.params.id is the correct value
     if (!agencyId) {
       // Handle case where agencyId is missing
-      return res.status(400).json({ success: false, message: "Agency ID is required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Agency ID is required" });
     }
 
     const agency = await Agency.findById(agencyId);
     if (!agency) {
       // Handle case where agency is not found
-      return res.status(404).json({ success: false, message: "Agency not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Agency not found" });
     }
 
     const users = await Promise.all(

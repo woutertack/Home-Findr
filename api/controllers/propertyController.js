@@ -7,6 +7,7 @@ export const createProperty = async (req, res, next) => {
     const savedProperty = await newProperty.save();
     res.status(200).json(savedProperty);
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

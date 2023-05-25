@@ -13,13 +13,13 @@ import { verifyAdmin } from "../auth/verifyToken.js";
 const router = express.Router();
 
 // create
-router.post("/", verifyAdmin, createProperty);
+router.post("/", createProperty);
 
 // update
-router.put("/:id", verifyAdmin, updateProperty);
+router.put("/:id",  updateProperty);
 
 // delete
-router.delete("/:id", verifyAdmin, deleteProperty);
+router.delete("/:id", deleteProperty);
 
 // get
 router.get("/:id", getProperty);

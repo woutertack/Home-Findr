@@ -94,7 +94,7 @@
   margin-top: 20px;
 }
 
-.saveBtn {
+.link {
   padding: 0.5rem 1rem;
   color: white;
   border: none;
@@ -102,6 +102,8 @@
   cursor: pointer;
   background-color: #282828;
   margin-top: 10px;
+  width: fit-content;
+  margin-left: 5%;
 }
 
 .deleteBtn {
@@ -118,4 +120,15 @@
 
 .deleteBtn:hover {
   background-color: #ff0000;
+}
+
+.icon{
+  margin-left: 10px;
+}
+
+.info{
+ display: flex;
+ justify-content: center;
+ font-size: large;
+ margin: 15px 0px
 }

@@ -28,7 +28,9 @@ const PropertySchema = new mongoose.Schema(
       required: true,
     },
     img: {
-      type: [String],
+      type: String,
+      required: true,
+      default: "test.png",
     },
     address: {
       type: String,

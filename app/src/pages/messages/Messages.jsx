@@ -5,42 +5,44 @@ import style from "./Messages.module.css";
 import dewaelePic from "../../images/rent.jpg";
 import { useAuthContext } from "../../contexts/AuthContext";
 import useFetch from "../../hooks/useFetch";
-
-const messages = [
-  {
-    id: 1,
-    from: "Dewaele Vastgoedgroep",
-    pic: dewaelePic,
-    property: "House in Roeselare",
-    date: "2023-01-01",
-    content: "This is the first message.",
-  },
-  {
-    id: 2,
-    from: "Era Vastgoed",
-    pic: dewaelePic,
-    property: "Garage in Gent",
-    date: "2023-01-01",
-    content: "This is the second message.",
-  },
-  // Add more messages as needed
-];
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import useMutation from "../../hooks/useMutation";
+import {IMG} from "../../consts/Img"
 
 const Messages = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
   
 
   const { user } = useAuthContext();
-  const { isLoading, data: messagesData, error } = useFetch(
-    `/messages/user/${user._id}`
-  );
+  const {
+    isLoading,
+    data: messagesData,
+    error,
+  } = useFetch(`/messages/user/${user._id}`);
 
- 
+  const { mutate } = useMutation();
+
+  const date = new Date(selectedMessage?.createdAt);
+  const dateFormatted = date.toLocaleTimeString("en-GB", {
+    weekday: "short",
+
+    month: "short",
+    day: "numeric",
+  });
 
   const handleSelectMessage = (message) => {
     setSelectedMessage(message);
-  };
 
+    mutate(`${process.env.REACT_APP_API_URL}/messages/${message._id}`, {
+      method: "PUT",
+      data: { read: true },
+      onSuccess: (res) => {},
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  };
   const handleReply = (messageId, reply) => {
     // Handle the reply logic (e.g., sending the reply to a server)
   };
@@ -59,19 +61,20 @@ const Messages = () => {
             >
               <div className={style.infoSender}>
                 <img
-                  src={selectedMessage?.pic || message.pic}
+                  src={IMG + message.agencyImg}
                   alt="Profile Pic"
                   className={style.profilePic}
                 />
-                <div className={style.from}>
-                  {selectedMessage?.from || message.from}
-                </div>
+                <div className={style.from}>{message.agencyName}</div>
               </div>
               <div className={style.messageInfo}>
-                <div className={style.property}>
-                  {selectedMessage?.property || message.property}
-                </div>
-                <div className={style.date}>{message.date}</div>
+                <div className={style.property}>{message.propertyTitle}</div>
+
+                {!message.read && (
+                  <div className={style.unread}>
+                    <FontAwesomeIcon icon={faEnvelope} />
+                  </div>
+                )}
               </div>
               <div className={style.line}></div>
             </div>
@@ -81,12 +84,26 @@ const Messages = () => {
         {selectedMessage ? (
           <div className={style.containerMessage}>
             <div className={style.propertyWrapper}>
-              <h2>{selectedMessage.property}</h2>
-              <Link to="/detail">
+              <h2>{selectedMessage.propertyTitle}</h2>
+              <Link to={`/detail/${selectedMessage.property}`}>
                 <button className={style.btn}>View Property</button>
               </Link>
             </div>
-            <p>{selectedMessage.content}</p>
+            <div className={style.content}>
+              <p className={style.message}>{selectedMessage.message}</p>
+              <div className={style.infoMessage}>
+                {/* if user._id = sender , put by you otherwise its agency*/}
+
+                {user._id === selectedMessage.sender ? (
+                  <div className={style.byYou}>From: you</div>
+                ) : (
+                  <div className={style.byAgency}>
+                    From: {selectedMessage.agencyName}
+                  </div>
+                )}
+                <p className={style.date}>{dateFormatted}</p>
+              </div>
+            </div>
             <div className={style.reply}>
               <textarea
                 className={style.textarea}

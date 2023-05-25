@@ -58,16 +58,6 @@
   margin-right: 10px;
 }
 
-.date {
-  font-size: small;
-  margin-top: 3px;
-}
-
-.message {
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
 .line {
   margin-top: 15px;
   height: 1px;
@@ -128,4 +118,33 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+}
+
+.infoMessage {
+  display: flex;
+  font-size: small;
+}
+.byYou,
+.byAgency {
+  margin-right: 7px;
+}
+
+.content {
+  position: absolute;
+  left: 7%;
+  top: 17%;
+  width: 30%;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+
+.message {
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.unread {
+  font-size: 24px;
 }

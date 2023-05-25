@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../hooks/useMutation";
 import { useAuthContext } from "../../contexts/AuthContext";
-
+import {IMG} from "../../consts/Img"
 
 const Profile = () => {
-  const PF = "http://localhost:3002/images/"
+  
   const { user } = useAuthContext();
   const { isLoading, error, mutate } = useMutation();
   const [data, setData] = useState({
-    profileImg: PF + user.profileImg,
+    profileImg: IMG + user.profileImg,
     name: user.name,
     phone: user.phone,
     oldPassword: "",
@@ -20,7 +20,6 @@ const Profile = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState(null);
 
-  
   const handleChange = (e) => {
     setData({
       ...data,
@@ -28,72 +27,73 @@ const Profile = () => {
     });
   };
 
-
   useEffect(() => {
     setData((prevState) => ({
       ...prevState,
-      profileImg: PF + user.profileImg,
+      profileImg: IMG + user.profileImg,
     }));
   }, [user.profileImg]);
-  
+
   const handleSubmit = async (event) => {
-  event.preventDefault();
+    event.preventDefault();
 
-  // Check if new password is the same as the old password
-  if (data.oldPassword && data.newPassword && data.oldPassword === data.newPassword) {
-    setMessage("New password cannot be the same as the old password");
-    return;
-  }
+    // Check if new password is the same as the old password
+    if (
+      data.oldPassword &&
+      data.newPassword &&
+      data.oldPassword === data.newPassword
+    ) {
+      setMessage("New password cannot be the same as the old password");
+      return;
+    }
 
-  if (file) {
-    const dataImg = new FormData();
-    const fileName = Date.now() + file.name;
-    dataImg.append("name", fileName);
-    dataImg.append("file", file);
-    data.profileImg = fileName;
+    if (file) {
+      const dataImg = new FormData();
+      const fileName = Date.now() + file.name;
+      dataImg.append("name", fileName);
+      dataImg.append("file", file);
+      data.profileImg = fileName;
+
+      try {
+        await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
+          method: "POST",
+          body: dataImg,
+        });
+
+        // Update the profile picture value in data state
+        setData((prevState) => ({
+          ...prevState,
+          profileImg: fileName,
+        }));
+
+        console.log(IMG + user.profileImg);
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
     try {
-      await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
-        method: "POST",
-        body: dataImg,
+      await mutate(`${process.env.REACT_APP_API_URL}/users/${user._id}`, {
+        method: "PUT",
+        data,
+        onSuccess: (data) => {
+          console.log(data);
+          // Update the user in the context
+          localStorage.setItem("USER", JSON.stringify(data));
+          setMessage("Profile updated"); // Set success message
+          // refresh the page
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.log(error);
+          setMessage("Password is not correct"); // Set error message
+        },
       });
-
-      // Update the profile picture value in data state
-      setData((prevState) => ({
-        ...prevState,
-        profileImg: fileName,
-      }));
-
-      console.log(PF+user.profileImg)
     } catch (err) {
       console.log(err);
+      setMessage("An error occurred. Please try again."); // Set error message
     }
-  }
-
-  try {
-    await mutate(`${process.env.REACT_APP_API_URL}/users/${user._id}`, {
-      method: "PUT",
-      data,
-      onSuccess: (data) => {
-        console.log(data);
-        // Update the user in the context
-        localStorage.setItem("USER", JSON.stringify(data));
-        setMessage("Profile updated"); // Set success message
-        // refresh the page
-        window.location.reload();
-      },
-      onError: (error) => {
-        console.log(error);
-        setMessage("Password is not correct"); // Set error message
-      },
-    });
-  } catch (err) {
-    console.log(err);
-    setMessage("An error occurred. Please try again."); // Set error message
-  }
-};
-
-
+  };
 
   return (
     <div className={style.container}>
@@ -101,19 +101,20 @@ const Profile = () => {
       <form onSubmit={handleSubmit} className={style.form}>
         <div className={style.profileImgContainer}>
           <div className={style.profileImgWrapper}>
-          <img
-            src={file ? URL.createObjectURL(file) : PF+user.profileImg}
-            alt="profileImg"
-            className={style.profileImg}
-          />
-            <label htmlFor="fileInput" >
-            <FontAwesomeIcon icon={faPlus} className={style.fileInput}/>
+            <img
+              src={file ? URL.createObjectURL(file) : data.profileImg}
+              alt="profileImg"
+              className={style.profileImg}
+            />
+            <label htmlFor="fileInput">
+              <FontAwesomeIcon icon={faPlus} className={style.fileInput} />
             </label>
-            <input type="file" id="fileInput"   style={{ display: "none" }} 
-              onChange={(e) => setFile(e.target.files[0])}>
-             
-            </input>
-           
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            ></input>
           </div>
         </div>
         <div className={style.formGroup}>
@@ -165,4 +166,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

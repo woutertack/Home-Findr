@@ -1,6 +1,6 @@
 export const filterProperties = (
   data,
-  { priceRange, selectedType, selectedProvince, selectedCity }
+  { priceRange, selectedType, selectedProvince, selectedCity, sortOrder }
 ) => {
   // Apply filters to the property data
   const filteredData = data.filter((property) => {
@@ -30,6 +30,13 @@ export const filterProperties = (
 
     return true;
   });
+
+  // Sort by build year
+  if (sortOrder === "oldToNew") {
+    filteredData.sort((a, b) => a.buildyear - b.buildyear);
+  } else if (sortOrder === "newToOld") {
+    filteredData.sort((a, b) => b.buildyear - a.buildyear);
+  }
 
   return filteredData;
 };

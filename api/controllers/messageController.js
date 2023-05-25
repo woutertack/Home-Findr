@@ -54,7 +54,7 @@ export const getMatchingMessages = async (req, res, next) => {
     const matchingMessages = await Message.find({
       sender: userId,
       receiver: agencyId,
-      property: propertyId
+      property: propertyId,
     }).exec();
 
     res.status(200).json(matchingMessages);

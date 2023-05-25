@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./Agencies.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import ModalAgencies from "../../../components/admin/modal/ModalAgencies";
+import useFetch from "../../../hooks/useFetch";
+import { IMG } from "../../../consts/Img";
+import { Link } from "react-router-dom";
 
 const Agencies = () => {
-  const [agency, setAgency] = useState("");
-  const [profilePic, setProfilePic] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const { data: agencies } = useFetch("/agencies");
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [file, setFile] = useState(null);
+  const [data, setData] = useState({
+    agency: "",
+    profileImg: "",
+    name: "",
+    email: "",
+    phone: "",
+  });
 
-  const handleProfilePicChange = (event) => {
-    setProfilePic(event.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-  };
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     // Add your submit logic here
@@ -57,89 +57,28 @@ const Agencies = () => {
             + Add New Agency
           </button>
         </div>
+        <h1 className={style.info}> Click on an Agency to edit it</h1>
+            
+              {agencies &&
+                agencies.map((agency) => (
 
-        <div className={style.wrapper}>
-          <div className={style.formRow}>
-            <select
-              value={agency}
-              className={style.input}
-              onChange={(e) => setAgency(e.target.value)}
-            >
-              <option value="">Select Agency</option>
-              <option value="agency1">Agency 1</option>
-              <option value="agency2">Agency 2</option>
-              <option value="agency3">Agency 3</option>
-            </select>
-          </div>
-
-          <form onSubmit={handleSubmit} className={style.form}>
-            <div className={style.profileImgContainer}>
-              <div className={style.profileImgWrapper}>
-                <img
-                  src={require("../../../images/pf.jpg")}
-                  alt="profileImg"
-                  className={style.profileImg}
-                />
-                <button
-                  className={style.btnAdd}
-                  value={profilePic}
-                  onChange={handleProfilePicChange}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                </button>
-              </div>
-            </div>
-            <div className={style.formGroup}>
-              <input
-                type="text"
-                placeholder="Name"
-                className={style.formControl}
-                value={name}
-                onChange={handleNameChange}
-              />
-            </div>
-            <div className={style.formGroup}>
-              <input
-                type="text"
-                placeholder="Email"
-                className={style.formControl}
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-            <div className={style.formGroup}>
-              <input
-                type="text"
-                placeholder="Phone Number"
-                className={style.formControl}
-                value={phoneNumber}
-                onChange={handlePhoneNumberChange}
-              />
-            </div>
-            <div className={style.formGroup}>
-              <button type="submit" className={style.saveBtn}>
-                Update
-              </button>
-              <button
-                type="button"
-                className={style.deleteBtn}
-                onClick={handleDelete}
-              >
-                Delete Agency
-              </button>
-            </div>
-          </form>
-        </div>
+                  <Link to={agency._id} key={agency._id} value={agency._id} className={style.link}>
+                    {agency.name}  <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
+                  </Link>
+                ))}
+           
+          
       </div>
+
 
       {showModal && (
         <ModalAgencies
-          name={name}
-          email={email}
-          phoneNumber={phoneNumber}
-          handleNameChange={handleNameChange}
-          handleEmailChange={handleEmailChange}
-          handlePhoneNumberChange={handlePhoneNumberChange}
+          name={data.name}
+          email={data.email}
+          phoneNumber={data.phone}
+          handleNameChange={handleChange}
+          handleEmailChange={handleChange}
+          handlePhoneNumberChange={handleChange}
           handleSubmit={handleSubmit}
           closeModal={closeModal}
         />

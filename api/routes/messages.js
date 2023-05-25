@@ -6,7 +6,7 @@ import {
   getMatchingMessages,
   getMessage,
   updateMessage,
-  getUserMessages
+  getUserMessages,
 } from "../controllers/messageController.js";
 
 const router = express.Router();

@@ -1,0 +1,147 @@
+.main {
+  display: flex;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 30%; /* Adjusted the margin to account for SidebarAdmin width */
+  width: 70%; /* Added width to take 70% of the available space */
+  margin-top: 3rem;
+  position: fixed;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 50px;
+}
+
+.title {
+  font-size: 35px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnAddAgency {
+  position: absolute;
+  right: 12%;
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #282828;
+  margin-top: 10px;
+}
+
+.formRow {
+  width: 15%;
+  margin-top: 40px;
+  margin-left: 50px;
+}
+
+.profileImgContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 17px;
+}
+.formControl {
+  width: 30%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #aeaeae;
+}
+
+.btnAdd {
+  position: absolute;
+  bottom: 5px;
+  right: 25px;
+  font-size: 28px;
+  color: white;
+  background-color: #000000;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.profileImgWrapper {
+  position: relative;
+}
+
+.profileImg {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.link {
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #282828;
+  margin-top: 10px;
+  width: fit-content;
+  margin-left: 5%;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 12%;
+  padding: 0.5rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #c11818;
+  margin-top: 10px;
+}
+
+.deleteBtn:hover {
+  background-color: #ff0000;
+}
+
+.icon{
+  margin-left: 10px;
+}
+
+.info{
+ display: flex;
+ justify-content: center;
+ font-size: large;
+ margin: 15px 0px
+}
+
+.fileInput {
+  position: absolute;
+  bottom: 5px;
+  right: 25px;
+  font-size: 28px;
+  color: white;
+  background-color: #000000;
+  border: none;
+  border-radius: 50%;
+  padding: 8px 12px;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import CardListing from "../../components/global/cards/listings/CardListing";
 import style from "./Rent.module.css";
 import useFetch from "../../hooks/useFetch";
 import { filterProperties } from "../../components/global/filter/filterProperties";
+import {IMG} from "../../consts/Img"
 
 const Rent = () => {
   const { isLoading, data, error, invalidate } = useFetch("/properties");
@@ -14,12 +15,14 @@ const Rent = () => {
     selectedType,
     selectedProvince,
     selectedCity,
+    sortOrder,
   }) => {
     const filteredData = filterProperties(data, {
       priceRange,
       selectedType,
       selectedProvince,
       selectedCity,
+      sortOrder,
     });
     const filteredType = filteredData.filter(
       (property) => property.saleType === "rent"
@@ -50,7 +53,7 @@ const Rent = () => {
             {filteredData?.map((property) => (
               <CardListing
                 key={property._id}
-                src={require("../../images/rent.jpg")}
+                src={IMG + property.img}
                 alt="buy"
                 title={property.title}
                 type={property.type}

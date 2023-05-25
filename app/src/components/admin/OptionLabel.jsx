@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "./OptionLabel.module.css";
 
-const OptionLabel = () => {
-  const [selectedOption, setSelectedOption] = useState("rent");
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+const OptionLabel = ({ selectedOption, onChange }) => {
   return (
     <div className={style.option}>
       <label
@@ -22,7 +17,7 @@ const OptionLabel = () => {
           id="rentOption"
           value="rent"
           checked={selectedOption === "rent"}
-          onChange={handleOptionChange}
+          onChange={onChange}
         />
         <div
           className={`${style.line} ${
@@ -43,7 +38,7 @@ const OptionLabel = () => {
           id="saleOption"
           value="sale"
           checked={selectedOption === "sale"}
-          onChange={handleOptionChange}
+          onChange={onChange}
         />
         <div
           className={`${style.line} ${

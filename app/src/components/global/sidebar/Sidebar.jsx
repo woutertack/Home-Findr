@@ -8,14 +8,16 @@ const Sidebar = ({ onFilter }) => {
   const [selectedType, setSelectedType] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [sortOrder, setSortOrder] = useState(""); // Add sortOrder state
 
   const handleFilter = () => {
-    // Pass the selected filters to the onFilter function
+    // Pass the selected filters and sort order to the onFilter function
     onFilter({
       priceRange,
       selectedType,
       selectedProvince,
       selectedCity,
+      sortOrder, // Pass sortOrder
     });
   };
 
@@ -33,6 +35,10 @@ const Sidebar = ({ onFilter }) => {
 
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
+  };
+
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
   };
 
   return (
@@ -89,6 +95,14 @@ const Sidebar = ({ onFilter }) => {
           value={selectedCity}
           onChange={handleCityChange}
         />
+      </div>
+      <div className={style.filter}>
+        <h3>Sort by build year</h3>
+        <select value={sortOrder} onChange={handleSortChange}>
+          <option value="">None</option>
+          <option value="oldToNew">Old to New</option>
+          <option value="newToOld">New to Old</option>
+        </select>
       </div>
       <button onClick={handleFilter} className={style.btn}>
         Filter

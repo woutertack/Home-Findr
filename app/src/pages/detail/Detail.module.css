@@ -121,3 +121,8 @@
   color: rgb(255, 43, 43);
   cursor: pointer;
 }
+
+.unfavorite{
+  color: blue;
+  cursor: pointer;
+}

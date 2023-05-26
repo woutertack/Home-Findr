@@ -59,6 +59,7 @@ const Buy = () => {
                 type={property.type}
                 price={property.price}
                 city={property.city}
+                saleType={property.saleType}
                 zipcode={property.zipcode}
                 province={property.province}
                 buildyear={property.buildyear}

@@ -98,3 +98,15 @@ export const deleteMessagesByPropertyId = async (req, res, next) => {
     next(err);
   }
 }
+
+// delete all messages when user is deleted
+export const deleteMessagesByUserId = async (req, res, next) => {
+  const userId = req.params.userId;
+
+  try {
+    await Message.deleteMany({ sender: userId });
+    res.status(200).json("Messages deleted");
+  } catch (err) {
+    next(err);
+  }
+}

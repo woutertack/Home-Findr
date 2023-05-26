@@ -58,6 +58,7 @@ const Rent = () => {
                 title={property.title}
                 type={property.type}
                 price={property.price}
+                saleType={property.saleType}
                 city={property.city}
                 zipcode={property.zipcode}
                 province={property.province}

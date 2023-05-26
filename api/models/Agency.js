@@ -13,15 +13,15 @@ const AgencySchema = new mongoose.Schema(
     },
     profileImg: {
       type: String,
-      default: "house.webp",
+      default: "defaultUser.png",
     },
     phone: {
       type: String,
       required: true,
     },
     users: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "User",
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true }

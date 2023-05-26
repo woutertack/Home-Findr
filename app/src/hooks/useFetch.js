@@ -14,7 +14,7 @@ const useFetch = (path) => {
       .catch((error) => isActive && setError(String(error)));
 
     return () => (isActive = false);
-  }, [path]);
+  }, [path]);  
 
   useEffect(() => {
     return fetchData();

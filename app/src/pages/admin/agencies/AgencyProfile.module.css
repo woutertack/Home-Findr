@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
 
-  margin-left: 30%; /* Adjusted the margin to account for SidebarAdmin width */
-  width: 70%; /* Added width to take 70% of the available space */
+  margin-left: 30%; 
+  width: 70%; 
   margin-top: 3rem;
   position: fixed;
 }
@@ -31,15 +31,20 @@
 
 .btnAddAgency {
   position: absolute;
-  right: 12%;
-  padding: 0.5rem 1rem;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #282828;
-  margin-top: 10px;
+right: 12%;
+top: 10%;
+padding: 0.7rem 1.2rem;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+background-color: #282828;
+margin-top: 10px;
+
+font-size: 18px;
 }
+
+
 
 .formRow {
   width: 15%;
@@ -108,7 +113,7 @@
 
 .deleteBtn {
   position: absolute;
-  right: 15%;
+  right: 12%;
   padding: 0.7rem 1rem;
   color: white;
   border: none;

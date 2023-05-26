@@ -10,7 +10,7 @@ const PropertySchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      min: 6,
+      
     },
     type: {
       type: String,
@@ -20,7 +20,7 @@ const PropertySchema = new mongoose.Schema(
     desc: {
       type: String,
       required: true,
-      min: 50,
+      
     },
     saleType: {
       type: String,
@@ -30,7 +30,6 @@ const PropertySchema = new mongoose.Schema(
     img: {
       type: String,
       required: true,
-      default: "test.png",
     },
     address: {
       type: String,
@@ -49,6 +48,7 @@ const PropertySchema = new mongoose.Schema(
         "Limburg",
         "Flemish Brabant",
       ],
+      required: true,
     },
     zipcode: {
       type: Number,
@@ -61,7 +61,7 @@ const PropertySchema = new mongoose.Schema(
     buildyear: {
       type: Number,
       required: true,
-      min: 1900,
+      min: 1700,
     },
 
     sqmeters: {

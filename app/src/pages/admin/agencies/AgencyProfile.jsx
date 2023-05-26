@@ -3,7 +3,7 @@ import style from "./AgencyProfile.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
-import ModalAgencies from "../../../components/admin/modal/ModalAgencies";
+import ModalAddUsers from "../../../components/admin/modal/ModalAddUsers";
 import useFetch from "../../../hooks/useFetch";
 import { IMG } from "../../../consts/Img";
 import { Link, useParams } from "react-router-dom";
@@ -15,13 +15,23 @@ const AgencyProfile = () => {
   const { data: agencyData, isLoading, error } = useFetch(`/agencies/${id}`);
   const { mutate } = useMutation();
   const [message, setMessage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
-    profileImg: IMG + agencyData?.profileImg,
+    profileImg:  agencyData?.profileImg,
     name: agencyData?.name,
     email: agencyData?.email,
     phone: agencyData?.phone,
   });
+
+  const [dataUser, setDataUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    agency: id,
+  });
+
 
   const handleChange = (e) => {
     setData({
@@ -30,10 +40,17 @@ const AgencyProfile = () => {
     });
   };
 
+  const handleChangeUser = (e) => {
+    setDataUser({
+      ...dataUser,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
-      profileImg: IMG + agencyData?.profileImg,
+      profileImg:  agencyData?.profileImg,
       name: agencyData?.name,
       email: agencyData?.email,
       phone: agencyData?.phone,
@@ -81,7 +98,7 @@ const AgencyProfile = () => {
         },
         onError: (error) => {
           console.log(error);
-          setMessage("Password is not correct"); // Set error message
+          // Set error message
         },
       });
     } catch (err) {
@@ -139,6 +156,60 @@ const AgencyProfile = () => {
 
   };
 
+
+
+  // this is for the modal add new user function
+  const handleSubmitAddUser = async (event) => {
+    event.preventDefault();
+
+    console.log(dataUser);
+    
+    // add user with the agency id
+    try {
+      await mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
+        method: "POST",
+        data: dataUser,
+        onSuccess: async (data) => {
+          console.log("User added"); 
+        // // add the user email to the agency in members array
+        //   try {
+        //     await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
+        //       method: "PUT",
+        //       data: {
+        //         members: [...agencyData.members, dataUser.email]
+        //       },
+        //       onSuccess: (data) => {
+        //         console.log("User added to agency array"); // Set success message
+        //         // refresh the page
+        //         window.location.reload();
+        //       }
+        //     });
+        //   } catch (err) {
+        //     console.log(err);
+            
+        //   }
+       
+        },
+        onError: (error) => {
+          console.log(error);
+          // Set error message
+        },
+      });
+    } catch (err) {
+      console.log(err); 
+    }
+
+    closeModal();
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -150,17 +221,22 @@ const AgencyProfile = () => {
 
   return (
   <>
-    <Link to="/admin/agencies" className={style.linkBack}>
-      <div className={style.back}>
-        <FontAwesomeIcon icon={faAnglesLeft} />
-        Go back
-      </div>
-    </Link>
+    <div className={style.header}>
+      <Link to="/admin/agencies" className={style.linkBack}>
+        <div className={style.back}>
+          <FontAwesomeIcon icon={faAnglesLeft} />
+          Go back
+        </div>
+      </Link>
+      <button className={style.btnAddAgency} onClick={openModal}>
+              + Add Users
+      </button>
+    </div>
     <form onSubmit={handleSubmit} className={style.form}>
       <div className={style.profileImgContainer}>
         <div className={style.profileImgWrapper}>
           <img
-            src={file ? URL.createObjectURL(file) : data.profileImg}
+            src={file ? URL.createObjectURL(file) : IMG + data.profileImg}
             alt="profileImg"
             className={style.profileImg}
           />
@@ -220,6 +296,14 @@ const AgencyProfile = () => {
         </button>
       </div>
     </form>
+    {showModal && (
+        <ModalAddUsers
+          data={dataUser}
+          handleChange={handleChangeUser}
+          handleSubmit={handleSubmitAddUser}
+          closeModal={closeModal}
+        />
+      )}
   </>
   );
 };

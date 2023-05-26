@@ -42,7 +42,7 @@ const Detail = () => {
           );
           const favorites = await response.json();
           const favorite = favorites.find(
-            (f) => f.property === propertyData._id
+            (f) => f.property === propertyData._id && f.user === user._id
           );
           if (favorite) {
             setIsFavorite(true);
@@ -188,7 +188,7 @@ const Detail = () => {
               </h2>
             )}
             <h2 className={style.price}>
-              Price: €{propertyData.price} per month
+              Price: €{propertyData.price} 
             </h2>
             {user && (
               <Link to={`/message/${propertyData._id}`} className={style.link}>

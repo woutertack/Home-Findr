@@ -2,49 +2,55 @@ import React, { useState } from "react";
 import style from "./Users.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import ModalUsers from "../../../components/admin/modal/ModalUsers";
+import { faPlus, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import ModalAddUsers from "../../../components/admin/modal/ModalAddUsers";
+import useFetch from "../../../hooks/useFetch";
+import { Link } from "react-router-dom";
+import useMutation from "../../../hooks/useMutation";
+
 
 const Users = () => {
-  const [profilePic, setProfilePic] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [agency, setAgency] = useState("");
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const { data: users } = useFetch("/users");
+  
+  const { mutate } = useMutation();
+  const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
 
-  const handleProfilePicChange = (event) => {
-    setProfilePic(event.target.value);
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  
   };
+ 
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleAgencyChange = (event) => {
-    setAgency(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Add your submit logic here
-  };
 
-  const handleDelete = () => {
-    // Add your delete logic here
+    // add new user
+    try{
+      await mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
+        method: "POST",
+        data,
+        onSuccess: (data) => {
+       
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.log(error);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    closeModal();
   };
 
   const openModal = () => {
@@ -62,105 +68,26 @@ const Users = () => {
       <div className={style.container}>
         <div className={style.header}>
           <h1 className={style.title}>Dashboard Admin</h1>
-          <button className={style.btnAddUser} onClick={openModal}>
+          <button className={style.btnAddAgency} onClick={openModal}>
             + Add New User
           </button>
         </div>
-
-        <div className={style.wrapper}>
-          <div className={style.formRow}>
-            <input
-              type="text"
-              className={style.search}
-              placeholder="Search by name or email"
-            />
-          </div>
-
-          <form onSubmit={handleSubmit} className={style.form}>
-            <div className={style.profileImgContainer}>
-              <div className={style.profileImgWrapper}>
-                <img
-                  src={require("../../../images/pf.jpg")}
-                  alt="profileImg"
-                  className={style.profileImg}
-                />
-                <button
-                  className={style.btnAdd}
-                  value={profilePic}
-                  onChange={handleProfilePicChange}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                </button>
-              </div>
-            </div>
-            <div className={style.formGroup}>
-              <input
-                type="text"
-                placeholder="Name"
-                className={style.formControl}
-                value={name}
-                onChange={handleNameChange}
-              />
-            </div>
-            <div className={style.formGroup}>
-              <input
-                type="text"
-                placeholder="Email"
-                className={style.formControl}
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-            <div className={style.formGroup}>
-              <input
-                type="text"
-                placeholder="Phone Number"
-                className={style.formControl}
-                value={phoneNumber}
-                onChange={handlePhoneNumberChange}
-              />
-            </div>
-            <div className={style.formGroup}>
-              <select
-                value={agency}
-                className={style.formControl}
-                onChange={handleAgencyChange}
-              >
-                <option value="">Select Agency</option>
-                <option value="">None</option>
-                <option value="agency1">Agency 1</option>
-                <option value="agency2">Agency 2</option>
-                <option value="agency3">Agency 3</option>
-              </select>
-            </div>
-            <div className={style.formGroup}>
-              <button type="submit" className={style.saveBtn}>
-                Update
-              </button>
-              <button
-                type="button"
-                className={style.deleteBtn}
-                onClick={handleDelete}
-              >
-                Delete User
-              </button>
-            </div>
-          </form>
+        <h1 className={style.info}>Click on a User to edit it</h1>
+        <div className={style.userContainer}>
+          {users &&
+            users.map((user) => (
+              <Link to={user._id} key={user._id} value={user._id} className={style.link}>
+                {user.name} <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
+              </Link>
+            ))}
         </div>
       </div>
 
       {showModal && (
-        <ModalUsers
-          name={name}
-          email={email}
-          phoneNumber={phoneNumber}
-          password={password}
-          agency={agency}
-          handleNameChange={handleNameChange}
-          handleEmailChange={handleEmailChange}
-          handlePhoneNumberChange={handlePhoneNumberChange}
-          handlePasswordChange={handlePasswordChange}
-          handleAgencyChange={handleAgencyChange}
+        <ModalAddUsers
+          data={data}
+          
+          handleChange={handleChange}
           handleSubmit={handleSubmit}
           closeModal={closeModal}
         />

@@ -8,6 +8,7 @@ const Register = () => {
   const { onLogin } = useAuthContext();
   const navigate = useNavigate();
   const { isLoading, error, mutate } = useMutation();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,12 +35,7 @@ const Register = () => {
     e.preventDefault();
 
     if (!validateEmail(data.email)) {
-      // Invalid email format
-      setData({
-        ...data,
-        email: "",
-      });
-      return;
+      setErrorMessage("Invalid email");
     }
 
     mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
@@ -106,7 +102,7 @@ const Register = () => {
           Submit
         </button>
         {error && <p>{error}</p>}
-        {!validateEmail(data.email) && <p>Invalid email</p>}
+        <p>{errorMessage}</p>
       </form>
       <Link to="/login" className={style.link}>
         Already have an account? Login here

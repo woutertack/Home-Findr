@@ -10,7 +10,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Favorites from "./pages/favorites/Favorites";
 import Messages from "./pages/messages/Messages";
-import Profile from "./pages/profileUser/ProfileUser";
+
 import DashboardAdmin from "./pages/admin/dashboard/DashboardAdmin";
 import PropertyMessage from "./pages/propertyMessage/PropertyMessage";
 import AddProperty from "./pages/admin/addProperty/AddProperty";
@@ -21,11 +21,15 @@ import NotFound from "./pages/notFound/NotFound";
 import UpdateProperty from "./pages/admin/updateProperty/UpdateProperty";
 import AgencyProfile from "./pages/admin/agencies/AgencyProfile";
 import ProfileUser from "./pages/profileUser/ProfileUser";
-import ProfileAdmin from "./pages/admin/profileAdmin/ProfileAdmin";
+import ProfileAdminUser from "./pages/admin/profileAdminUser/ProfileAdminUser";
+import UserProfile from "./pages/admin/users/UserProfile";
+import DashboardAgency from "./pages/agency/dashboard/DashboardAgency";
+import ProfileAgencyUser from "./pages/agency/profileAgencyUser/ProfileAgencyUser";
+import MessagesAgency from "./pages/agency/messagesAgency/MessagesAgency";
 
 const App = () => {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isAdminRoute = location.pathname.startsWith("/admin") || location.pathname.startsWith( "/agency");
  
 
   return (
@@ -61,14 +65,24 @@ const App = () => {
             />
           </Route> */}
 
+          {/* ADMIN ROUTES */}
           <Route path="/admin" element={<DashboardAdmin />} />
-          {/* update property */}
+          
           <Route path="/admin/:id" element={<UpdateProperty />} />
           <Route path="/admin/add" element={<AddProperty />} />
           <Route path="/admin/agencies" element={<Agencies />} />
           <Route path="/admin/agencies/:id" element={<AgencyProfile />} />
           <Route path="/admin/users" element={<Users />} />
-          <Route path="/admin/profile" element={<ProfileAdmin />} />
+          <Route path="/admin/users/:id" element={<UserProfile />} />
+          <Route path="/admin/profile" element={<ProfileAdminUser />} />
+
+          {/* AGENCY ROUTES */}
+          <Route path="/agency" element={<DashboardAgency />} />
+          <Route path="/agency/:id" element={<UpdateProperty />} />
+          <Route path="/agency/add" element={<AddProperty />} />
+          <Route path="/agency/profile" element={<ProfileAgencyUser />} />
+          <Route path="/agency/agencyProfile" element={<AgencyProfile />} />
+          <Route path="/agency/messages" element={<MessagesAgency />} />
 
           {/* not found path */}
           <Route path="*" element={<NotFound />} />

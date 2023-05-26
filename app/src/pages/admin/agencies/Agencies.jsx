@@ -3,34 +3,53 @@ import style from "./Agencies.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import ModalAgencies from "../../../components/admin/modal/ModalAgencies";
+import ModalAddAgencies from "../../../components/admin/modal/ModalAddAgencies";
 import useFetch from "../../../hooks/useFetch";
-import { IMG } from "../../../consts/Img";
+
 import { Link } from "react-router-dom";
+import useMutation from "../../../hooks/useMutation";
 
 const Agencies = () => {
   const { data: agencies } = useFetch("/agencies");
+  
+  const { mutate } = useMutation();
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
 
-  const handleChangeName = (e) => {
-    setName(e.target.value);
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  
   };
+ 
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleChangePhone = (e) => {
-    setPhone(e.target.value);
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Add your submit logic here
-    console.log({ name, email, phone });
+  
+    // add new agency
+    try{
+      await mutate(`${process.env.REACT_APP_API_URL}/agencies`, {
+        method: "POST",
+        data,
+        onSuccess: (data) => {
+       
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.log(error);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
     closeModal();
   };
 
@@ -64,13 +83,9 @@ const Agencies = () => {
       </div>
 
       {showModal && (
-        <ModalAgencies
-          name={name}
-          email={email}
-          phone={phone}
-          handleChangeName={handleChangeName}
-          handleChangeEmail={handleChangeEmail}
-          handleChangePhone={handleChangePhone}
+        <ModalAddAgencies
+          data={data}
+          handleChange={handleChange}
           handleSubmit={handleSubmit}
           closeModal={closeModal}
         />

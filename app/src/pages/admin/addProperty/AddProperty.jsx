@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
 import  useFetch  from "../../../hooks/useFetch";
+import { set } from "mongoose";
 
 const AddProperty = () => {
 
@@ -25,7 +26,7 @@ const AddProperty = () => {
     province: "West Flanders",
     price: "",
     sold: false,
-    agency: "646bd0e4ad8b039061254c71",
+    agency: "",
   });
 
   // fetch all agencies
@@ -45,7 +46,7 @@ const AddProperty = () => {
         [e.target.name]: e.target.value,
       });
     }
-    console.log(data);
+    
   };
 
   
@@ -88,21 +89,20 @@ const AddProperty = () => {
         method: "POST",
         data,
         onSuccess: (data) => {
-          console.log(data);
-          console.log("success")
+        
         
           window.location.href = "/admin";
         },
         onError: (error) => {
-          console.log(error);
+          setError(error.response.data.message);
          
         },
       });
     } catch (err) {
-      console.log(err);
-      
+    
+      setError("Please fill in all fields correctly.");
     }
-    console.log(data);
+  
   };
 
   return (
@@ -260,6 +260,7 @@ const AddProperty = () => {
                     name="agency"
                     onChange={handleChange}
                   >
+                    <option value="">Select Agency</option>
                     {agencies &&
                       agencies.map((agency) => (
                         <option key={agency._id} value={agency._id}>

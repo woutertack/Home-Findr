@@ -21,6 +21,7 @@ const UpdateProperty = () => {
   } = useFetch(`/properties/${id}`);
  
   const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
+  const {data: agencies} = useFetch("/agencies");
 
   
   const { mutate } = useMutation();
@@ -123,8 +124,8 @@ const UpdateProperty = () => {
           console.log("success")
         
          
-          // go to admin page
-          window.location.href = "/admin";
+          // reload the page
+          window.location.reload();
          
         },
         onError: (error) => {
@@ -209,6 +210,7 @@ const UpdateProperty = () => {
             <img
               src={file ? URL.createObjectURL(file) : IMG + data.img}
               alt="img"
+              name="img"
               className={style.img}
             />
             <label htmlFor="fileInput">
@@ -256,7 +258,7 @@ const UpdateProperty = () => {
                 <option value="apartment">Apartment</option>
                 <option value="garage">Garage</option>
                 <option value="office">Office</option>
-                <option value="other">Other</option>
+      
               </select>
             </h2>
               <h2 className={style.buildYear}>
@@ -282,7 +284,29 @@ const UpdateProperty = () => {
                 />{" "}
                 m²
               </h2>
-              <h2 className={style.agency}>Agency: {agencyData.name}</h2>
+              
+              <div className={style.agency}>
+                Agency:
+                <select
+                  value={data.agency}
+                  className={style.input}
+                  name="agency"
+                  onChange={handleChange}
+                >
+                  <option value={agencyData?._id}>{agencyData.name}</option>
+                  {/* map agencies but exclude where agencyData._id == agency._id */}
+                  {agencies &&
+                    agencies.map((agency) => {
+                      if (agencyData?._id !== agency._id) {
+                        return (
+                          <option key={agency._id} value={agency._id}>
+                            {agency.name}
+                          </option>
+                        );
+                      }
+                    })}
+                </select>
+              </div> 
             </div>
 
             <h2 className={style.address}>
@@ -333,7 +357,7 @@ const UpdateProperty = () => {
                 onChange={handleChange}
                 className={style.input}
               />{" "}
-              per month
+           
             </h2>
             <h2 className={style.sold}>
               <input

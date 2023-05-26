@@ -9,6 +9,7 @@ import {
   getUserMessages,
   deleteMessagesByAgencyId,
   deleteMessagesByPropertyId,
+  deleteMessagesByUserId,
 } from "../controllers/messageController.js";
 
 const router = express.Router();
@@ -36,5 +37,8 @@ router.delete("/agency/:agencyId", deleteMessagesByAgencyId);
 
 // delete messages when property is deleted
 router.delete("/property/:propertyId", deleteMessagesByPropertyId);
+
+// delete messages when user is deleted
+router.delete("/user/:userId", deleteMessagesByUserId);
 
 export default router;

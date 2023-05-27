@@ -29,7 +29,8 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
     agency: {
-      type: String,
+      type: mongoose.Types.ObjectId,
+      ref: "Agency",
       
     },
   },

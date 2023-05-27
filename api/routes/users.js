@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import {
   deleteUser,
+  deleteUserAgency,
   getAllUser,
   getUser,
   updateUser,
@@ -28,6 +29,9 @@ router.put("/:id", updateUser);
 
 // delete
 router.delete("/:id",  deleteUser);
+
+// delete all users of an agency
+router.delete("/delete/:id",  deleteUserAgency);
 
 // get
 router.get("/:id",  getUser);

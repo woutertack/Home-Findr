@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import style from "./AddProperty.module.css";
+import style from "./AddPropertyAgency.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
 import  useFetch  from "../../../hooks/useFetch";
 
+import { useAuthContext } from "../../../contexts/AuthContext";
+import SidebarAgency from "../../../components/agency/sidebarAgency/SidebarAgency";
 
-const AddProperty = () => {
+const AddPropertyAgency = () => {
+  const {user } = useAuthContext();
+  const agencyId = user?.agency;
 
   const { mutate } = useMutation();
   const [file, setFile] = useState(null);
@@ -26,11 +30,11 @@ const AddProperty = () => {
     province: "West Flanders",
     price: "",
     sold: false,
-    agency: "",
+    agency: agencyId,
   });
 
-  // fetch all agencies
-  const { data: agencies } = useFetch("/agencies");
+  // fetch agency
+  const { data: agency } = useFetch(`/agencies/${user?.agency}`);
  
 
   const handleChange = (e) => {
@@ -91,7 +95,7 @@ const AddProperty = () => {
         onSuccess: (data) => {
         
         
-          window.location.href = "/admin";
+          window.location.href = "/agency";
         },
         onError: (error) => {
           setError(error.response.data.message);
@@ -107,10 +111,10 @@ const AddProperty = () => {
 
   return (
     <div className={style.main}>
-      <SidebarAdmin />
+      <SidebarAgency />
       <div className={style.container}>
         <div className={style.header}>
-          <h1 className={style.title}>Dashboard Admin</h1>
+          <h1 className={style.title}>Dashboard Agency</h1>
         </div>
         <div className={style.body}>
           <form className={style.form} onSubmit={handleFormSubmit}>
@@ -254,20 +258,7 @@ const AddProperty = () => {
                 />
               </div>
                <div className={style.formRow}>
-                  <select
-                    value={data.agency}
-                    className={style.input}
-                    name="agency"
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Agency</option>
-                    {agencies &&
-                      agencies.map((agency) => (
-                        <option key={agency._id} value={agency._id}>
-                          {agency.name} 
-                        </option>
-                      ))}
-                  </select>
+                  Agency: {agency?.name}
                 </div>  
               {file ? (
                 <img
@@ -296,4 +287,4 @@ const AddProperty = () => {
   );
 };
 
-export default AddProperty;
+export default AddPropertyAgency;

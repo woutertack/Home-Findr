@@ -33,11 +33,11 @@ const DashboardAdmin = () => {
       <div className={style.container}>
         <div className={style.header}>
           <h1 className={style.title}>Dashboard Admin</h1>
-          <input
+          {/* <input
             type="text"
             className={style.search}
             placeholder="Search by title, city, ..."
-          />
+          /> */}
         </div>
 
         <OptionLabel

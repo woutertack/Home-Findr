@@ -19,10 +19,6 @@ const AgencySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    users: {
-      type: [String],
-      default: [],
-    },
   },
   { timestamps: true }
 );

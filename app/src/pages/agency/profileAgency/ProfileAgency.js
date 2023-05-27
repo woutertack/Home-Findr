@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import style from "./AgencyProfile.module.css";
+import style from "./ProfileAgency.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
@@ -8,11 +8,13 @@ import useFetch from "../../../hooks/useFetch";
 import { IMG } from "../../../consts/Img";
 import { Link, useParams } from "react-router-dom";
 import useMutation from "../../../hooks/useMutation";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
-const AgencyProfile = () => {
-  const { id } = useParams();
+const ProfileAgency = () => {
+  const { user } = useAuthContext();
+  const agencyId = user?.agency;
 
-  const { data: agencyData, isLoading, error } = useFetch(`/agencies/${id}`);
+  const { data: agencyData, isLoading, error } = useFetch(`/agencies/${agencyId}`);
   const { mutate } = useMutation();
   const [message, setMessage] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +31,7 @@ const AgencyProfile = () => {
     email: "",
     phone: "",
     password: "",
-    agency: id,
+    agency: agencyId,
   });
 
 
@@ -85,7 +87,7 @@ const AgencyProfile = () => {
     }
 
     try {
-      await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
+      await mutate(`${process.env.REACT_APP_API_URL}/agencies/${agencyId}`, {
         method: "PUT",
         data,
         onSuccess: (data) => {
@@ -107,71 +109,7 @@ const AgencyProfile = () => {
     }
   };
 
-  const handleDelete = async (event) => {
-    event.preventDefault();
-    // Handle agency deletion
-    try {
-      await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
-        method: "DELETE",
-        onSuccess: async (data) => {
-          console.log("Agency deleted"); // Set success message
-          
-          // also delete all properties of this agency
-          try {
-            await mutate(`${process.env.REACT_APP_API_URL}/properties/agency/${id}`, {
-              method: "DELETE",
-              onSuccess: async (data) => {
-                console.log("Properties deleted"); // Set success message
-             
-                // also delete all the messages of this agency
-                try {
-                  await mutate(`${process.env.REACT_APP_API_URL}/messages/agency/${id}`, {
-                    method: "DELETE",
-                    onSuccess: async(data) => {
-                      console.log("Messages deleted"); // Set success message
 
-                      // also delete all the users of this agency
-                      try {
-                        await mutate(`${process.env.REACT_APP_API_URL}/users/delete/${id}`, {
-                          method: "DELETE",
-                          onSuccess: (data) => {
-                            console.log("Users deleted"); // Set success message
-                            // go to agencies page
-                            window.location.href = "/admin/agencies";
-                          },
-                          onError: (error) => {
-                            console.log(error);
-                            setMessage("An error occurred. Please try again."); // Set error message
-                          },
-                        });
-                      } catch (err) {
-                        console.log(err);
-                        setMessage("An error occurred. Please try again."); // Set error message
-                      }
-                    }
-                  });
-                } catch (err) {
-                  console.log(err);
-                  
-                }
-              }
-            });
-          } catch (err) {
-            console.log(err);
-            setMessage("An error occurred. Please try again."); // Set error message
-          }
-        },
-        onError: (error) => {
-          console.log(error);
-          setMessage("Password is not correct"); // Set error message
-        },
-      });
-    } catch (err) {
-      console.log(err);
-      setMessage("An error occurred. Please try again."); // Set error message
-    }
-
-  };
 
 
 
@@ -187,7 +125,8 @@ const AgencyProfile = () => {
         method: "POST",
         data: dataUser,
         onSuccess: async (data) => {
-          setMessage("User added"); // Set success message
+          console.log("User added"); 
+       
         },
         onError: (error) => {
           console.log(error);
@@ -199,16 +138,6 @@ const AgencyProfile = () => {
     }
 
     closeModal();
-    
-
-    // reset the form
-    setDataUser({
-      name: "",
-      email: "",
-      phone: "",
-      password: "",
-      agency: id,
-    });
   };
 
   const openModal = () => {
@@ -231,7 +160,7 @@ const AgencyProfile = () => {
   return (
   <>
     <div className={style.header}>
-      <Link to="/admin/agencies" className={style.linkBack}>
+      <Link to="/agency" className={style.linkBack}>
         <div className={style.back}>
           <FontAwesomeIcon icon={faAnglesLeft} />
           Go back
@@ -296,13 +225,7 @@ const AgencyProfile = () => {
           Update
         </button>
         {message && <p className={style.message}>{message}</p>}
-        <button
-          type="button"
-          className={style.deleteBtn}
-          onClick={handleDelete}
-        >
-          Delete Agency
-        </button>
+     
       </div>
     </form>
     {showModal && (
@@ -317,4 +240,4 @@ const AgencyProfile = () => {
   );
 };
 
-export default AgencyProfile;
+export default ProfileAgency;

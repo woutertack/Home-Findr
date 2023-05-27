@@ -26,6 +26,9 @@ import UserProfile from "./pages/admin/users/UserProfile";
 import DashboardAgency from "./pages/agency/dashboard/DashboardAgency";
 import ProfileAgencyUser from "./pages/agency/profileAgencyUser/ProfileAgencyUser";
 import MessagesAgency from "./pages/agency/messagesAgency/MessagesAgency";
+import UpdatePropertyAgency from "./pages/agency/updateProperty/UpdatePropertyAgency";
+import AddPropertyAgency from "./pages/agency/addProperty/AddPropertyAgency";
+import ProfileAgency from "./pages/agency/profileAgency/ProfileAgency";
 
 const App = () => {
   const location = useLocation();
@@ -78,10 +81,10 @@ const App = () => {
 
           {/* AGENCY ROUTES */}
           <Route path="/agency" element={<DashboardAgency />} />
-          <Route path="/agency/:id" element={<UpdateProperty />} />
-          <Route path="/agency/add" element={<AddProperty />} />
-          <Route path="/agency/profile" element={<ProfileAgencyUser />} />
-          <Route path="/agency/agencyProfile" element={<AgencyProfile />} />
+          <Route path="/agency/:id" element={<UpdatePropertyAgency />} />
+          <Route path="/agency/add" element={<AddPropertyAgency />} />
+          <Route path="/agency/userProfile" element={<ProfileAgencyUser />} />
+          <Route path="/agency/profileAgency" element={<ProfileAgency />} />
           <Route path="/agency/messages" element={<MessagesAgency />} />
 
           {/* not found path */}

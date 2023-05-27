@@ -8,6 +8,7 @@ import {
   faHotel,
   faUser,
   faRightFromBracket,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMG } from "../../../consts/Img";
@@ -43,25 +44,25 @@ const SidebarAgency = () => {
             <span className={style.span}>Put on sale/rent</span>
           </Link>
           <Link
-            to="/agency/agencies"
+            to="/agency/profileAgency"
             className={`${style.link} ${
-              location.pathname === "/agency/agencies" ? style.selected : ""
+              location.pathname === "/agency/profileAgency" ? style.selected : ""
             }`}
           >
             <FontAwesomeIcon icon={faHotel} className={style.icon} />
-            <span className={style.span}>Agencies</span>
+            <span className={style.span}>Agency</span>
           </Link>
           <Link
-            to="/agency/users"
+            to="/agency/messages"
             className={`${style.link} ${
-              location.pathname === "/agency/users" ? style.selected : ""
+              location.pathname === "/agency/messages" ? style.selected : ""
             }`}
           >
-            <FontAwesomeIcon icon={faUser} className={style.icon} />
-            <span className={style.span}>Users</span>
+            <FontAwesomeIcon icon={faEnvelope} className={style.icon} />
+            <span className={style.span}>Messages</span>
           </Link>
         </div>
-        <Link to="/agency/profile" className={style.profileLink}>
+        <Link to="/agency/userProfile" className={style.profileLink}>
           <img
             src={IMG + user?.profileImg}
             alt="profileImg"

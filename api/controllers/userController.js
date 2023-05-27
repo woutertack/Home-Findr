@@ -41,6 +41,15 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
+export const deleteUserAgency = async (req, res, next) => {
+  try {
+    await User.deleteMany({ agency: req.params.id });
+    res.status(200).json("Users deleted");
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);

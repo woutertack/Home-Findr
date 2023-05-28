@@ -1,5 +1,5 @@
 import express from "express";
-import Message from "../models/Message.js";
+
 import {
   createMessage,
   deleteMessage,
@@ -10,6 +10,7 @@ import {
   deleteMessagesByAgencyId,
   deleteMessagesByPropertyId,
   deleteMessagesByUserId,
+  getAgencyMessages,
 } from "../controllers/messageController.js";
 
 const router = express.Router();
@@ -31,6 +32,9 @@ router.get("/", getMatchingMessages);
 
 // get user messages
 router.get("/user/:userId", getUserMessages);
+
+// get agency messages
+router.get("/agency/:agencyId", getAgencyMessages);
 
 // delete messages when agency is deleted
 router.delete("/agency/:agencyId", deleteMessagesByAgencyId);

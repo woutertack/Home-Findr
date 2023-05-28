@@ -39,6 +39,8 @@ const PropertyMessage = () => {
 
     const postData = {
       sender: user._id,
+      senderName: user.name,
+      senderImg: user.profileImg,
       agencyName: agencyData?.name,
       agencyImg: agencyData?.profileImg,
       receiver: agencyData?._id,

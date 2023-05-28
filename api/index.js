@@ -8,6 +8,7 @@ import propertiesRoute from "./routes/properties.js";
 import agenciesRoute from "./routes/agencies.js";
 import favoritesRoute from "./routes/favorites.js";
 import messagesRoute from "./routes/messages.js";
+import agencyMessagesRoute from "./routes/agencyMessages.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
 import path from "path";
@@ -64,6 +65,7 @@ app.use("/api/properties", propertiesRoute);
 app.use("/api/agencies", agenciesRoute);
 app.use("/api/favorites", favoritesRoute);
 app.use("/api/messages", messagesRoute);
+app.use("/api/agencyMessages", agencyMessagesRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

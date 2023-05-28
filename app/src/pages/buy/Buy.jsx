@@ -7,7 +7,7 @@ import { filterProperties } from "../../components/global/filter/filterPropertie
 import {IMG} from "../../consts/Img"
 
 const Buy = () => {
-  const { isLoading, data, error, invalidate } = useFetch("/properties");
+  const { isLoading, data, error, invalidate } = useFetch("/properties?sold=false");
   const [filteredData, setFilteredData] = useState(null);
 
   const handleFilter = ({

@@ -32,6 +32,10 @@ const Login = () => {
           onLogin(data);
           navigate("/admin");
           return;
+        } else if (data.agency) {
+          onLogin(data);
+          navigate("/agency");
+          return;
         }
 
         onLogin(data);

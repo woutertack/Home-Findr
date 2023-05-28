@@ -25,6 +25,7 @@ export const register = async (req, res, next) => {
   }
 };
 
+// login, also checks if user is admin/agency or visitor and updates the cookie accordingly
 export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -42,14 +43,32 @@ export const login = async (req, res, next) => {
       process.env.JWT_SECRET
     );
 
-    const { password, isAdmin, ...others } = user._doc;
+    const { password, isAdmin, agency, ...others } = user._doc;
 
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json({ ...others, isAdmin });
+    if (user.isAdmin) {
+      res
+        .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .status(200)
+        .json({ ...others, isAdmin: true });
+    } else {
+      if (user.agency) {
+        res
+          .cookie("access_token", token, {
+            httpOnly: true,
+          })
+          .status(200)
+          .json({ ...others, agency });
+      } else {
+        res
+          .cookie("access_token", token, {
+            httpOnly: true,
+          })
+          .status(200)
+          .json({ ...others });
+      }
+    }
   } catch (err) {
     next(err);
   }

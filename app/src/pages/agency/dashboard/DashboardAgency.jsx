@@ -78,6 +78,7 @@ const DashboardAgency = () => {
                 zipcode={property.zipcode}
                 province={property.province}
                 buildyear={property.buildyear}
+                sold={property.sold}
                 path={`/agency/${property._id}`}
               />
             ))}

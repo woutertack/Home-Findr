@@ -16,7 +16,7 @@ import PropertyMessage from "./pages/propertyMessage/PropertyMessage";
 import AddProperty from "./pages/admin/addProperty/AddProperty";
 import Agencies from "./pages/admin/agencies/Agencies";
 import Users from "./pages/admin/users/Users";
-import AuthContainer, { useAuthContext } from "./contexts/AuthContext";
+import  { useAuthContext } from "./contexts/AuthContext";
 import NotFound from "./pages/notFound/NotFound";
 import UpdateProperty from "./pages/admin/updateProperty/UpdateProperty";
 import AgencyProfile from "./pages/admin/agencies/AgencyProfile";
@@ -33,11 +33,15 @@ import ProfileAgency from "./pages/agency/profileAgency/ProfileAgency";
 const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin") || location.pathname.startsWith( "/agency");
+  const { user } = useAuthContext();
  
+  
+  const isAdmin = user?.isAdmin;
+  const isAgency = user?.agency;
 
   return (
     <>
-      <AuthContainer>
+      
         {!isAdminRoute && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
@@ -56,19 +60,12 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           {/* <Route path="*" element={<NotFound />} /> */}
 
-          {/* Admin Routes
-          <Route path="/admin">
-            <Route 
-              index
-              element={
-                <AdminRoute>
-                  <DashboardAdmin/>
-                </AdminRoute>
-              }
-            />
-          </Route> */}
+        
+          
 
           {/* ADMIN ROUTES */}
+          {isAdmin && (
+          <>
           <Route path="/admin" element={<DashboardAdmin />} />
           
           <Route path="/admin/:id" element={<UpdateProperty />} />
@@ -78,21 +75,25 @@ const App = () => {
           <Route path="/admin/users" element={<Users />} />
           <Route path="/admin/users/:id" element={<UserProfile />} />
           <Route path="/admin/profile" element={<ProfileAdminUser />} />
-
+               </>
+          )}
           {/* AGENCY ROUTES */}
+          {isAgency && (
+          <>
           <Route path="/agency" element={<DashboardAgency />} />
           <Route path="/agency/:id" element={<UpdatePropertyAgency />} />
           <Route path="/agency/add" element={<AddPropertyAgency />} />
           <Route path="/agency/userProfile" element={<ProfileAgencyUser />} />
           <Route path="/agency/profileAgency" element={<ProfileAgency />} />
           <Route path="/agency/messages" element={<MessagesAgency />} />
-
+            </>
+          )}
           {/* not found path */}
           <Route path="*" element={<NotFound />} />
         </Routes>
 
         {!isAdminRoute && <Footer />}
-      </AuthContainer>
+     
     </>
   );
 };

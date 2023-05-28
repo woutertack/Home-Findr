@@ -6,10 +6,8 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const CardListing = (props) => {
   let priceText = "";
-  if(props.saleType === "rent"){
+  if (props.saleType === "rent") {
     priceText = "per month";
-  } else {
-    priceText = "";
   }
 
   return (
@@ -17,6 +15,7 @@ const CardListing = (props) => {
       <Link className={style.cardItemLink} to={props.path}>
         <div className={style.cardItemImgWrap}>
           <img className={style.cardItemImg} alt={props.alt} src={props.src} />
+          {props.sold && <h2 className={style.soldText}>SOLD</h2>}
         </div>
         <div className={style.cardItemInfo}>
           <div className={style.cardItemTitle}>
@@ -30,6 +29,7 @@ const CardListing = (props) => {
           <p className={style.buildYear}>Buildyear: {props.buildyear}</p>
           <div className={style.cardInfo}>
             <h4 className={style.cardItemPrice}>€ {props.price} {priceText} </h4>
+          
             <button className={style.cardItemButton}>
               Update info
               <FontAwesomeIcon icon={faArrowRight} className={style.icon} />

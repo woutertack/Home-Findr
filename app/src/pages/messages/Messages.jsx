@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import style from "./Messages.module.css";
-
-import dewaelePic from "../../images/rent.jpg";
 import { useAuthContext } from "../../contexts/AuthContext";
 import useFetch from "../../hooks/useFetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../hooks/useMutation";
-import {IMG} from "../../consts/Img"
+import { IMG } from "../../consts/Img";
 
 const Messages = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
-  
+  const [replyValue, setReplyValue] = useState("");
 
   const { user } = useAuthContext();
   const {
@@ -26,13 +24,33 @@ const Messages = () => {
   const date = new Date(selectedMessage?.createdAt);
   const dateFormatted = date.toLocaleTimeString("en-GB", {
     weekday: "short",
-
     month: "short",
     day: "numeric",
   });
 
-  const handleSelectMessage = (message) => {
+  const handleSelectMessage = async (message) => {
     setSelectedMessage(message);
+    
+    console.log(message.receiver);
+
+    const replyData = await fetch(`${process.env.REACT_APP_API_URL}/agencyMessages/agency/${message?.receiver}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const replyDataJson = await replyData.json();
+    const replyAgency = replyDataJson?.find(
+      (reply) => reply?.sender === message?.receiver && reply?.property === message?.property
+    );
+   
+    if (replyAgency) {
+      console.log(replyAgency);
+      setSelectedMessage((prevMessage) => ({
+        ...prevMessage,
+        reply: replyAgency.message,
+      }));
+    }
 
     mutate(`${process.env.REACT_APP_API_URL}/messages/${message._id}`, {
       method: "PUT",
@@ -43,9 +61,8 @@ const Messages = () => {
       },
     });
   };
-  const handleReply = (messageId, reply) => {
-    // Handle the reply logic (e.g., sending the reply to a server)
-  };
+
+  
 
   return (
     <div className={style.container}>
@@ -92,8 +109,6 @@ const Messages = () => {
             <div className={style.content}>
               <p className={style.message}>{selectedMessage.message}</p>
               <div className={style.infoMessage}>
-                {/* if user._id = sender , put by you otherwise its agency*/}
-
                 {user._id === selectedMessage.sender ? (
                   <div className={style.byYou}>From: you</div>
                 ) : (
@@ -104,16 +119,16 @@ const Messages = () => {
                 <p className={style.date}>{dateFormatted}</p>
               </div>
             </div>
-            <div className={style.reply}>
-              <textarea
-                className={style.textarea}
-                placeholder="Write your reply here..."
-                onChange={(e) =>
-                  handleReply(selectedMessage.id, e.target.value)
-                }
-              />
-              <button className={style.btnSend}>Send</button>
-            </div>
+            {selectedMessage.reply && (
+              <div className={style.replyContent}>
+                <p className={style.message}>{selectedMessage.reply}</p>
+                <div className={style.infoMessage}>
+                  <div className={style.byAgency}>From: {selectedMessage.agencyName}</div>
+                  
+                </div>
+              </div>
+            )}
+           
           </div>
         ) : (
           <p>Select a message to view</p>

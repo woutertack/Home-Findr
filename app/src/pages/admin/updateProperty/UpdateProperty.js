@@ -159,9 +159,21 @@ const UpdateProperty = () => {
                   await mutate(`${process.env.REACT_APP_API_URL}/messages/property/${id}`, {
                     method: "DELETE",
                     onSuccess: async (data) => {
-                      console.log("success messages deleted");
-                      // go to admin page
-                      window.location.href = "/admin";
+                      // also delete replyMessages
+                      try {
+                        await mutate(`${process.env.REACT_APP_API_URL}/agencyMessages/property/${id}`, {
+                          method: "DELETE",
+                          onSuccess: async (data) => {
+                            console.log("success replyMessages deleted");
+                            console.log("success messages deleted");
+                            // go to admin page
+                            window.location.href = "/admin";
+                          }
+                        });
+                      } catch (err) {
+                        console.log(err);
+                      }
+
                     }
                   });
                 } catch (err) {

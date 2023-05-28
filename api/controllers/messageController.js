@@ -75,6 +75,20 @@ export const getUserMessages = async (req, res, next) => {
   }
 };
 
+// get all agency messages
+export const getAgencyMessages = async (req, res, next) => {
+  const { agencyId } = req.params;
+
+  try {
+    const messages = await Message.find({ receiver: agencyId }).exec();
+    res.status(200).json(messages);
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+
 // delete all messages when agency is deleted
 export const deleteMessagesByAgencyId = async (req, res, next) => {
   const agencyId = req.params.agencyId;

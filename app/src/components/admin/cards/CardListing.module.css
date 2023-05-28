@@ -49,6 +49,7 @@
 }
 
 .cardItemInfo {
+  position: relative; /* Added */
   padding: 13px 30px 30px;
 }
 
@@ -91,16 +92,19 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
+
 .icon {
   margin-left: 0.5rem;
   font-size: 1.2rem;
   margin-bottom: -2px;
 }
+
 .cardItemButton:hover {
   background: white;
   color: #181818;
   border: 2px solid #181818;
 }
+
 @media only screen and (max-width: 960px) {
   .cardItem {
     display: flex;
@@ -131,4 +135,18 @@
   margin-left: 10px;
   font-weight: 600;
   margin-top: 1px;
+}
+
+.soldText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 54px;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 10px;
 }

@@ -7,6 +7,14 @@ const MessageSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    senderName: {
+      type: String,
+      required: true,
+    },
+    senderImg: {
+      type: String,
+      required: true,
+    },
     receiver: {
       type: mongoose.Types.ObjectId,
       ref: "Agency",

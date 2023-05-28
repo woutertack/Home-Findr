@@ -148,3 +148,15 @@
 .unread {
   font-size: 24px;
 }
+
+
+.replyContent {
+  position: absolute;
+  right: 7%;
+  top: 32%;
+  width: 30%;
+  background-color: rgb(97, 97, 97);
+  color: white;
+  padding: 12px 14px;
+  border-radius: 10px;
+}

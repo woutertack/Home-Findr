@@ -60,6 +60,7 @@ const DashboardAdmin = () => {
                 zipcode={property.zipcode}
                 province={property.province}
                 buildyear={property.buildyear}
+                sold={property.sold}
                 path={`/admin/${property._id}`}
               />
             ))}

@@ -144,16 +144,6 @@ const Detail = () => {
                 />
               </div>
             )}
-            {/* <div className={style.bottomIconsWrapper}>
-              <FontAwesomeIcon
-                icon={faAngleLeft}
-                className={style.bottomLeftIcon}
-              />
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                className={style.bottomRightIcon}
-              />
-            </div> */}
           </div>
 
           <div className={style.infoListing}>

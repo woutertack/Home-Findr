@@ -129,15 +129,31 @@ const AgencyProfile = () => {
                     method: "DELETE",
                     onSuccess: async(data) => {
                       console.log("Messages deleted"); // Set success message
+                      
 
                       // also delete all the users of this agency
                       try {
                         await mutate(`${process.env.REACT_APP_API_URL}/users/delete/${id}`, {
                           method: "DELETE",
-                          onSuccess: (data) => {
+                          onSuccess: async (data) => {
                             console.log("Users deleted"); // Set success message
-                            // go to agencies page
-                            window.location.href = "/admin/agencies";
+                            
+                            // also delete replies of this agency
+                            try {
+                              await mutate(`${process.env.REACT_APP_API_URL}/agencyMessages/agency/${id}`, {
+                                method: "DELETE",
+                                onSuccess: async (data) => {
+                                  
+                                  console.log("Replies deleted"); // Set success message
+                                  // refresh the page
+                                  window.location.reload();
+                                }
+                              });
+                            } catch (err) {
+                              console.log(err);
+                              setMessage("An error occurred. Please try again."); // Set error message
+                            }
+                            
                           },
                           onError: (error) => {
                             console.log(error);

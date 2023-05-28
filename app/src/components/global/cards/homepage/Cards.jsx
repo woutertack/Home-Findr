@@ -28,7 +28,7 @@ function Cards() {
             alt="contact"
             text="Looking for more info? Contact us"
             label="Contact Us"
-            path="/contactUs"
+            path="/contact"
           />
           <CardItem
             src={require("../../../../images/login.jpg")}

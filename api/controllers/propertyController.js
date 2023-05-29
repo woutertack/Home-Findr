@@ -70,4 +70,3 @@ export const deletePropertiesByAgencyId = async (req, res, next) => {
     next(err);
   }
 };
-

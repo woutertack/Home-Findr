@@ -4,14 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../hooks/useMutation";
 import { useAuthContext } from "../../contexts/AuthContext";
-import {IMG} from "../../consts/Img"
+import { IMG } from "../../consts/Img";
 import Profile from "../../components/global/profile/Profile";
 
 const ProfileUser = () => {
-  
-  return (
-    <Profile />
-  );
+  return <Profile />;
 };
 
 export default ProfileUser;

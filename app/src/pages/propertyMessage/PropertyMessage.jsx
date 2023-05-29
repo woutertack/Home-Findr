@@ -5,21 +5,22 @@ import useFetch from "../../hooks/useFetch";
 import style from "./PropertyMessage.module.css";
 import { useAuthContext } from "../../contexts/AuthContext";
 import useMutation from "../../hooks/useMutation";
+import Loading from "../../components/global/loading/Loading";
 
 const PropertyMessage = () => {
   const { id } = useParams();
   const {
-    isLoading: isPropertyLoading,
+    isLoading,
     data: propertyData,
     error,
     invalidate,
   } = useFetch(`/properties/${id}`);
-
+  
+  
   const {
     data: agencyData,
-    isLoading: agencyLoading,
-    error: agencyError,
   } = useFetch(`/agencies/${propertyData?.agency}`);
+
 
   const { user } = useAuthContext();
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const PropertyMessage = () => {
   } = useMutation();
 
   const [isMessageSent, setIsMessageSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,16 +51,16 @@ const PropertyMessage = () => {
       message: message,
     };
 
-    try {
-      await mutate(`${process.env.REACT_APP_API_URL}/messages`, {
-        method: "POST",
-        data: postData,
-      });
-
-      setIsMessageSent(true); // Update the state to indicate the message has been sent
-    } catch (error) {
-      console.error("Error creating message:", error);
-    }
+    mutate(`${process.env.REACT_APP_API_URL}/messages`, {
+      method: "POST",
+      data: postData,
+      onSuccess: (data) => {
+        setIsMessageSent(true);
+      },
+      onError: () => {
+        setErrorMessage("Message could not be sent");
+      },
+    });
   };
 
   if (!user) {
@@ -66,41 +68,33 @@ const PropertyMessage = () => {
     return null;
   }
 
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
+
   return (
     <div className={style.container}>
-      {isPropertyLoading ? (
-        "Loading..."
-      ) : (
-        <>
-          <p className={style.title}>Message</p>
-          <form className={style.form} onSubmit={handleSubmit}>
-            <div className={style.property}>
-              <p value={propertyData.title}>Property: {propertyData.title} </p>
-            </div>
-            <div className={style.agency}>
-              <p>Agency: {agencyData.name}</p>
-            </div>
-            <div className={style.message}>
-              <textarea
-                className={style.textarea}
-                placeholder="Type your message here..."
-                name="message"
-              ></textarea>
-            </div>
-            <button
-              className={style.send}
-              disabled={isMessageLoading || isMessageSent}
-            >
-              {isMessageLoading
-                ? "Sending..."
-                : isMessageSent
-                ? "Message Sent"
-                : "Send"}
-            </button>
-          </form>
-          {messageError && <p>Error: {messageError}</p>}
-        </>
-      )}
+      <p className={style.title}>Message</p>
+      <form className={style.form} onSubmit={handleSubmit}>
+        <div className={style.property}>
+          <p value={propertyData.title}>Property: {propertyData.title} </p>
+        </div>
+        <div className={style.agency}>
+          <p>Agency: {agencyData.name}</p>
+        </div>
+        <div className={style.message}>
+          <textarea
+            className={style.textarea}
+            placeholder="Type your message here..."
+            name="message"
+          ></textarea>
+        </div>
+        <p>{errorMessage}</p>
+        <button
+          className={style.send}
+          disabled={isMessageLoading || isMessageSent}
+        >
+          {isMessageLoading ? "Message send" : isMessageSent ? "Message Send" : "Send"}
+        </button>
+      </form>
     </div>
   );
 };

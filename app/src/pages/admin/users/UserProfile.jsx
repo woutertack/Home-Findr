@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import style from './UserProfile.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
-import { Link, useParams } from 'react-router-dom';
-import useFetch from '../../../hooks/useFetch';
-import { IMG } from '../../../consts/Img';
-import useMutation from '../../../hooks/useMutation';
+import React, { useEffect, useState } from "react";
+import style from "./UserProfile.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link, useParams } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
+import { IMG } from "../../../consts/Img";
+import useMutation from "../../../hooks/useMutation";
 
 const UserProfile = () => {
   const { id } = useParams();
@@ -31,7 +31,7 @@ const UserProfile = () => {
       name: userData?.name,
       email: userData?.email,
       phone: userData?.phone,
-      agency: userData?.agency || '', // Set initial agency value as an empty string
+      agency: userData?.agency || "", // Set initial agency value as an empty string
     }));
   }, [
     userData?.profileImg,
@@ -97,13 +97,16 @@ const UserProfile = () => {
 
           // delete user messages
           try {
-            await mutate(`${process.env.REACT_APP_API_URL}/messages/user/${id}`, {
-              method: "DELETE",
-              onSuccess: (data) => {
-                console.log("messages deleted");
-                window.location.replace("/admin/users");
-              },
-            });
+            await mutate(
+              `${process.env.REACT_APP_API_URL}/messages/user/${id}`,
+              {
+                method: "DELETE",
+                onSuccess: (data) => {
+                  console.log("messages deleted");
+                  window.location.replace("/admin/users");
+                },
+              }
+            );
           } catch (err) {
             console.log(err);
           }
@@ -183,7 +186,8 @@ const UserProfile = () => {
               value={data.agency}
               onChange={handleChange}
             >
-              <option value="">No Agency</option> {/* Add option for no agency */}
+              <option value="">No Agency</option>{" "}
+              {/* Add option for no agency */}
               {agenciesData.map((agency) => (
                 <option key={agency._id} value={agency._id}>
                   {agency.name}

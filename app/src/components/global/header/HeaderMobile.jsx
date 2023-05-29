@@ -7,7 +7,7 @@ import {
   faTimes,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 const HeaderMobile = () => {
   const [showMenu, setShowMenu] = useState(false);

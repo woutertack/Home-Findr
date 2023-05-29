@@ -7,16 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 
 const ProfileAdmin = () => {
-  
   return (
     <div className={style.main}>
-        <Link to="/admin" className={style.linkBack}>
-          <div className={style.back}>
-            <FontAwesomeIcon icon={faAnglesLeft} />
-            Go back
-          </div>
-        </Link>
-    <Profile />
+      <Link to="/admin" className={style.linkBack}>
+        <div className={style.back}>
+          <FontAwesomeIcon icon={faAnglesLeft} />
+          Go back
+        </div>
+      </Link>
+      <Profile />
     </div>
   );
 };

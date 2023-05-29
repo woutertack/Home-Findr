@@ -11,7 +11,7 @@ import useMutation from "../../../hooks/useMutation";
 
 const Agencies = () => {
   const { data: agencies } = useFetch("/agencies");
-  
+
   const { mutate } = useMutation();
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState({
@@ -25,26 +25,23 @@ const Agencies = () => {
       ...data,
       [e.target.name]: e.target.value,
     });
-  
   };
- 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Add your submit logic here
-  
+
     // add new agency
-    try{
+    try {
       await mutate(`${process.env.REACT_APP_API_URL}/agencies`, {
         method: "POST",
         data,
         onSuccess: (data) => {
-       
           window.location.reload();
         },
         onError: (error) => {
           console.log(error);
-        }
+        },
       });
     } catch (error) {
       console.log(error);
@@ -76,8 +73,14 @@ const Agencies = () => {
 
         {agencies &&
           agencies.map((agency) => (
-            <Link to={agency._id} key={agency._id} value={agency._id} className={style.link}>
-              {agency.name} <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
+            <Link
+              to={agency._id}
+              key={agency._id}
+              value={agency._id}
+              className={style.link}
+            >
+              {agency.name}{" "}
+              <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
             </Link>
           ))}
       </div>

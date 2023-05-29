@@ -17,7 +17,7 @@ const router = express.Router();
 router.post("/", createProperty);
 
 // update
-router.put("/:id",  updateProperty);
+router.put("/:id", updateProperty);
 
 // delete
 router.delete("/:id", deleteProperty);

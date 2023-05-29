@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ProfileAgencyUser = () => {
-  return (
-    <div>ProfileAgencyUser</div>
-  )
-}
+  return <div>ProfileAgencyUser</div>;
+};
 
-export default ProfileAgencyUser
+export default ProfileAgencyUser;

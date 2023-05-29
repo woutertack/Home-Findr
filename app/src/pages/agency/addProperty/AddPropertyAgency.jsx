@@ -4,13 +4,13 @@ import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
-import  useFetch  from "../../../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 
 import { useAuthContext } from "../../../contexts/AuthContext";
 import SidebarAgency from "../../../components/agency/sidebarAgency/SidebarAgency";
 
 const AddPropertyAgency = () => {
-  const {user } = useAuthContext();
+  const { user } = useAuthContext();
   const agencyId = user?.agency;
 
   const { mutate } = useMutation();
@@ -35,7 +35,6 @@ const AddPropertyAgency = () => {
 
   // fetch agency
   const { data: agency } = useFetch(`/agencies/${user?.agency}`);
- 
 
   const handleChange = (e) => {
     if (e.target.name === "agency") {
@@ -50,20 +49,26 @@ const AddPropertyAgency = () => {
         [e.target.name]: e.target.value,
       });
     }
-    
   };
-
-  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (data.title === "" || data.desc === "" || data.buildyear === "" || data.sqmeters === "" || data.address === "" || data.city === "" || data.zipcode === "" || data.price === "") {
-      setError("Make sure everything is filled in.")
+    if (
+      data.title === "" ||
+      data.desc === "" ||
+      data.buildyear === "" ||
+      data.sqmeters === "" ||
+      data.address === "" ||
+      data.city === "" ||
+      data.zipcode === "" ||
+      data.price === ""
+    ) {
+      setError("Make sure everything is filled in.");
       return; // Don't submit if the form is not valid
     }
 
-    if(file){
+    if (file) {
       const dataImg = new FormData();
       const fileName = Date.now() + file.name;
       dataImg.append("name", fileName);
@@ -76,13 +81,11 @@ const AddPropertyAgency = () => {
           body: dataImg,
         });
 
-         // Update the profile picture value in data state
-         setData((prevState) => ({
+        // Update the profile picture value in data state
+        setData((prevState) => ({
           ...prevState,
           img: fileName,
         }));
-        
-        
       } catch (err) {
         console.log(err);
       }
@@ -93,20 +96,15 @@ const AddPropertyAgency = () => {
         method: "POST",
         data,
         onSuccess: (data) => {
-        
-        
           window.location.href = "/agency";
         },
         onError: (error) => {
           setError(error.response.data.message);
-         
         },
       });
     } catch (err) {
-    
       setError("Please fill in all fields correctly.");
     }
-  
   };
 
   return (
@@ -214,10 +212,6 @@ const AddPropertyAgency = () => {
                 />
               </div>
 
-              
-
-
-           
               <div className={style.buttonContainer}>
                 <button type="submit" className={style.submitButton}>
                   Create Property
@@ -226,7 +220,7 @@ const AddPropertyAgency = () => {
               </div>
             </div>
             <div className={style.infoWrapper2}>
-            <div className={style.formRow}>
+              <div className={style.formRow}>
                 <input
                   type="number"
                   className={style.input}
@@ -257,9 +251,7 @@ const AddPropertyAgency = () => {
                   onChange={handleChange}
                 />
               </div>
-               <div className={style.formRow}>
-                  Agency: {agency?.name}
-                </div>  
+              <div className={style.formRow}>Agency: {agency?.name}</div>
               {file ? (
                 <img
                   src={URL.createObjectURL(file)}
@@ -267,10 +259,13 @@ const AddPropertyAgency = () => {
                   className={style.img}
                 />
               ) : (
-                <FontAwesomeIcon icon={faFileImage} className={style.imageIcon} />
+                <FontAwesomeIcon
+                  icon={faFileImage}
+                  className={style.imageIcon}
+                />
               )}
               <label htmlFor="fileInput" className={style.btnAdd}>
-                <FontAwesomeIcon icon={faPlus}/> Add Image
+                <FontAwesomeIcon icon={faPlus} /> Add Image
               </label>
               <input
                 type="file"
@@ -279,7 +274,6 @@ const AddPropertyAgency = () => {
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </div>
-
           </form>
         </div>
       </div>

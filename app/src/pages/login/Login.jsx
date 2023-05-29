@@ -3,11 +3,13 @@ import style from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import useMutation from "../../hooks/useMutation";
 import { useAuthContext } from "../../contexts/AuthContext";
+import Loading from "../../components/global/loading/Loading";
 
 const Login = () => {
-  const { isLoading, error, mutate } = useMutation();
+  const { mutate } = useMutation();
   const { onLogin } = useAuthContext();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [data, setData] = useState({
     email: "",
@@ -41,8 +43,13 @@ const Login = () => {
         onLogin(data);
         navigate("/");
       },
+      onError: () => {
+        setErrorMessage("Invalid combination of email and password");
+      }
     });
   };
+
+
 
   return (
     <div className={style.container}>
@@ -66,10 +73,10 @@ const Login = () => {
           onChange={handleChange}
           className={style.password}
         />
-        <button className={style.submit} disabled={isLoading}>
+        <button className={style.submit} >
           Submit
         </button>
-        {error && <p>{error}</p>}
+        <p>{errorMessage}</p>
       </form>
       <Link to="/register" className={style.link}>
         No account yet? Register here

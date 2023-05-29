@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./ModalAddUsers.module.css";
 
-const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal}) => {
+const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal }) => {
   const { name, email, phone, password } = data;
+  const [generatedPassword, setGeneratedPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const generatePassword = () => {
+    // Implement your password generation logic here
+    // This is just a simple example
+    const newPassword = Math.random().toString(36).slice(-8); // Generate an 8-character alphanumeric password
+    setGeneratedPassword(newPassword);
+    handleChange({ target: { name: "password", value: newPassword } });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className={style.modal}>
@@ -37,15 +51,28 @@ const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal}) => {
             value={phone}
             onChange={handleChange}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            className={style.formControlModal}
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
+          <div className={style.passwordContainer}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              className={style.formControlModal}
+              name="password"
+              value={password}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              className={style.showPasswordBtn}
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
        
+          {/* Add the button to generate a random password */}
+          <button type="button" className={style.generatePasswordBtn} onClick={generatePassword}>
+            Generate Password
+          </button>
           {/* Add the button to submit the form */}
           <button type="submit" className={style.saveBtn}>
             Add

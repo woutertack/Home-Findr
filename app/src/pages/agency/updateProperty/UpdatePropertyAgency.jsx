@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import useFetch from '../../../hooks/useFetch';
-import { useAuthContext } from '../../../contexts/AuthContext';
-import useMutation from '../../../hooks/useMutation';
-import style from './UpdatePropertyAgency.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons';
-import {IMG} from "../../../consts/Img"
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
+import { useAuthContext } from "../../../contexts/AuthContext";
+import useMutation from "../../../hooks/useMutation";
+import style from "./UpdatePropertyAgency.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
+import { IMG } from "../../../consts/Img";
 
 const UpdatePropertyAgency = () => {
-  
   const { id } = useParams();
   const { user } = useAuthContext();
 
@@ -19,11 +18,10 @@ const UpdatePropertyAgency = () => {
     error,
     invalidate,
   } = useFetch(`/properties/${id}`);
- 
-  const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
-  const {data: agency} = useFetch(`/agencies/${user?.agency}`);
 
-  
+  const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
+  const { data: agency } = useFetch(`/agencies/${user?.agency}`);
+
   const { mutate } = useMutation();
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
@@ -58,7 +56,7 @@ const UpdatePropertyAgency = () => {
   useEffect(() => {
     setData((prevState) => ({
       ...prevState,
-      img:  propertyData?.img,
+      img: propertyData?.img,
       title: propertyData?.title,
       desc: propertyData?.desc,
       type: propertyData?.type,
@@ -90,7 +88,7 @@ const UpdatePropertyAgency = () => {
     event.preventDefault();
     // Handle form submission
 
-    if(file){
+    if (file) {
       const dataImg = new FormData();
       const fileName = Date.now() + file.name;
       dataImg.append("name", fileName);
@@ -103,12 +101,12 @@ const UpdatePropertyAgency = () => {
           body: dataImg,
         });
 
-         // Update the profile picture value in data state
-         setData((prevState) => ({
+        // Update the profile picture value in data state
+        setData((prevState) => ({
           ...prevState,
           img: fileName,
         }));
-        
+
         console.log(IMG + data.img);
       } catch (err) {
         console.log(err);
@@ -121,21 +119,17 @@ const UpdatePropertyAgency = () => {
         data,
         onSuccess: (data) => {
           console.log(data);
-          console.log("success")
-        
-         
+          console.log("success");
+
           // reload the page
           window.location.reload();
-         
         },
         onError: (error) => {
           console.log(error);
-         
         },
       });
     } catch (err) {
       console.log(err);
-      
     }
   };
 
@@ -146,37 +140,41 @@ const UpdatePropertyAgency = () => {
         method: "DELETE",
         onSuccess: async (data) => {
           console.log("success prop deleted");
-  
+
           // also delete the property from favorites
           try {
-            await mutate(`${process.env.REACT_APP_API_URL}/favorites/property/${id}`, {
-              method: "DELETE",
-              onSuccess: async (data) => {
-                console.log("success favorite deleted");
+            await mutate(
+              `${process.env.REACT_APP_API_URL}/favorites/property/${id}`,
+              {
+                method: "DELETE",
+                onSuccess: async (data) => {
+                  console.log("success favorite deleted");
 
-                // delete messages related to the property
-                try {
-                  await mutate(`${process.env.REACT_APP_API_URL}/messages/property/${id}`, {
-                    method: "DELETE",
-                    onSuccess: async (data) => {
-                      console.log("success messages deleted");
-                      // go to admin page
-                      window.location.href = "/admin";
-                    }
-                  });
-                } catch (err) {
+                  // delete messages related to the property
+                  try {
+                    await mutate(
+                      `${process.env.REACT_APP_API_URL}/messages/property/${id}`,
+                      {
+                        method: "DELETE",
+                        onSuccess: async (data) => {
+                          console.log("success messages deleted");
+                          // go to admin page
+                          window.location.href = "/admin";
+                        },
+                      }
+                    );
+                  } catch (err) {
+                    console.log(err);
+                  }
+                },
+                onError: (err) => {
                   console.log(err);
-                }
-              },
-              onError: (err) => {
-                console.log(err);
-              },
-            });
+                },
+              }
+            );
           } catch (err) {
             console.log(err);
           }
-  
-          
         },
         onError: (error) => {
           console.log(error);
@@ -186,7 +184,6 @@ const UpdatePropertyAgency = () => {
       console.log(err);
     }
   };
-  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -225,7 +222,6 @@ const UpdatePropertyAgency = () => {
           </div>
 
           <div className={style.infoListing}>
-          
             <h1 className={style.title}>
               <input
                 type="text"
@@ -246,21 +242,20 @@ const UpdatePropertyAgency = () => {
             </p>
 
             <div className={style.form}>
-            <h2 className={style.address}>
-              Type:
-              <select
-                name="type"
-                value={data.type}
-                onChange={handleChange}
-                className={style.input}
-              >
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-                <option value="garage">Garage</option>
-                <option value="office">Office</option>
-      
-              </select>
-            </h2>
+              <h2 className={style.address}>
+                Type:
+                <select
+                  name="type"
+                  value={data.type}
+                  onChange={handleChange}
+                  className={style.input}
+                >
+                  <option value="house">House</option>
+                  <option value="apartment">Apartment</option>
+                  <option value="garage">Garage</option>
+                  <option value="office">Office</option>
+                </select>
+              </h2>
               <h2 className={style.buildYear}>
                 Buildyear:
                 <input
@@ -284,10 +279,8 @@ const UpdatePropertyAgency = () => {
                 />{" "}
                 m²
               </h2>
-              
-              <div className={style.agency}>
-                Agency: {agency?.name}
-              </div> 
+
+              <div className={style.agency}>Agency: {agency?.name}</div>
             </div>
 
             <h2 className={style.address}>
@@ -314,7 +307,8 @@ const UpdatePropertyAgency = () => {
                 value={data.zipcode}
                 onChange={handleChange}
                 className={style.input}
-              />),
+              />
+              ),
               <select
                 name="province"
                 value={data.province}
@@ -338,7 +332,6 @@ const UpdatePropertyAgency = () => {
                 onChange={handleChange}
                 className={style.input}
               />{" "}
-           
             </h2>
             <h2 className={style.sold}>
               <input
@@ -354,15 +347,18 @@ const UpdatePropertyAgency = () => {
               Update property
             </button>
           </div>
-          
         </form>
 
-            <button type="button" className={style.deleteBtn} onClick={handleDelete}>
-              Delete property
-            </button>
+        <button
+          type="button"
+          className={style.deleteBtn}
+          onClick={handleDelete}
+        >
+          Delete property
+        </button>
       </div>
     </div>
   );
 };
 
-export default UpdatePropertyAgency
+export default UpdatePropertyAgency;

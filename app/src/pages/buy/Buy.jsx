@@ -4,10 +4,13 @@ import CardListing from "../../components/global/cards/listings/CardListing";
 import style from "./Buy.module.css";
 import useFetch from "../../hooks/useFetch";
 import { filterProperties } from "../../components/global/filter/filterProperties";
-import {IMG} from "../../consts/Img"
+import { IMG } from "../../consts/Img";
+import Loading from "../../components/global/loading/Loading";
 
 const Buy = () => {
-  const { isLoading, data, error, invalidate } = useFetch("/properties?sold=false");
+  const { isLoading, data, error, invalidate } = useFetch(
+    "/properties?sold=false"
+  );
   const [filteredData, setFilteredData] = useState(null);
 
   const handleFilter = ({
@@ -41,12 +44,11 @@ const Buy = () => {
     }
   }, [data]);
 
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
+
   return (
     <div className={style.main}>
-      {isLoading ? (
-        "Loading..."
-      ) : (
-        <>
+      
           <Sidebar onFilter={handleFilter} />
 
           <div className={style.container}>
@@ -67,8 +69,8 @@ const Buy = () => {
               />
             ))}
           </div>
-        </>
-      )}
+      
+    
     </div>
   );
 };

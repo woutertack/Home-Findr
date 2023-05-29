@@ -73,7 +73,7 @@ const SidebarAdmin = () => {
             <button className={style.profileButton}>
               <FontAwesomeIcon icon={faUser} className={style.iconProfile} />
             </button>
-            <Link  to="/" className={style.profileButton} onClick={logout}>
+            <Link to="/" className={style.profileButton} onClick={logout}>
               <FontAwesomeIcon
                 icon={faRightFromBracket}
                 className={style.iconProfile}

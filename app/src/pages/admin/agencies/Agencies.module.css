@@ -123,13 +123,13 @@
   background-color: #ff0000;
 }
 
-.icon{
+.icon {
   margin-left: 10px;
 }
 
-.info{
- display: flex;
- justify-content: center;
- font-size: large;
- margin: 15px 0px
+.info {
+  display: flex;
+  justify-content: center;
+  font-size: large;
+  margin: 15px 0px;
 }

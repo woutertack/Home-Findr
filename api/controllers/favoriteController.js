@@ -68,7 +68,6 @@ export const getUserFavorites = async (req, res, next) => {
   }
 };
 
-
 export const deleteFavoritesByPropertyId = async (req, res, next) => {
   const propertyId = req.params.propertyId;
 

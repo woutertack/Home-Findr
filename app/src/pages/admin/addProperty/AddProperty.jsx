@@ -4,11 +4,9 @@ import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
-import  useFetch  from "../../../hooks/useFetch";
-
+import useFetch from "../../../hooks/useFetch";
 
 const AddProperty = () => {
-
   const { mutate } = useMutation();
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
@@ -31,7 +29,6 @@ const AddProperty = () => {
 
   // fetch all agencies
   const { data: agencies } = useFetch("/agencies");
- 
 
   const handleChange = (e) => {
     if (e.target.name === "agency") {
@@ -46,20 +43,26 @@ const AddProperty = () => {
         [e.target.name]: e.target.value,
       });
     }
-    
   };
-
-  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (data.title === "" || data.desc === "" || data.buildyear === "" || data.sqmeters === "" || data.address === "" || data.city === "" || data.zipcode === "" || data.price === "") {
-      setError("Make sure everything is filled in.")
+    if (
+      data.title === "" ||
+      data.desc === "" ||
+      data.buildyear === "" ||
+      data.sqmeters === "" ||
+      data.address === "" ||
+      data.city === "" ||
+      data.zipcode === "" ||
+      data.price === ""
+    ) {
+      setError("Make sure everything is filled in.");
       return; // Don't submit if the form is not valid
     }
 
-    if(file){
+    if (file) {
       const dataImg = new FormData();
       const fileName = Date.now() + file.name;
       dataImg.append("name", fileName);
@@ -72,13 +75,11 @@ const AddProperty = () => {
           body: dataImg,
         });
 
-         // Update the profile picture value in data state
-         setData((prevState) => ({
+        // Update the profile picture value in data state
+        setData((prevState) => ({
           ...prevState,
           img: fileName,
         }));
-        
-        
       } catch (err) {
         console.log(err);
       }
@@ -89,20 +90,15 @@ const AddProperty = () => {
         method: "POST",
         data,
         onSuccess: (data) => {
-        
-        
           window.location.href = "/admin";
         },
         onError: (error) => {
           setError(error.response.data.message);
-         
         },
       });
     } catch (err) {
-    
       setError("Please fill in all fields correctly.");
     }
-  
   };
 
   return (
@@ -210,10 +206,6 @@ const AddProperty = () => {
                 />
               </div>
 
-              
-
-
-           
               <div className={style.buttonContainer}>
                 <button type="submit" className={style.submitButton}>
                   Create Property
@@ -222,7 +214,7 @@ const AddProperty = () => {
               </div>
             </div>
             <div className={style.infoWrapper2}>
-            <div className={style.formRow}>
+              <div className={style.formRow}>
                 <input
                   type="number"
                   className={style.input}
@@ -253,22 +245,22 @@ const AddProperty = () => {
                   onChange={handleChange}
                 />
               </div>
-               <div className={style.formRow}>
-                  <select
-                    value={data.agency}
-                    className={style.input}
-                    name="agency"
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Agency</option>
-                    {agencies &&
-                      agencies.map((agency) => (
-                        <option key={agency._id} value={agency._id}>
-                          {agency.name} 
-                        </option>
-                      ))}
-                  </select>
-                </div>  
+              <div className={style.formRow}>
+                <select
+                  value={data.agency}
+                  className={style.input}
+                  name="agency"
+                  onChange={handleChange}
+                >
+                  <option value="">Select Agency</option>
+                  {agencies &&
+                    agencies.map((agency) => (
+                      <option key={agency._id} value={agency._id}>
+                        {agency.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
               {file ? (
                 <img
                   src={URL.createObjectURL(file)}
@@ -276,10 +268,13 @@ const AddProperty = () => {
                   className={style.img}
                 />
               ) : (
-                <FontAwesomeIcon icon={faFileImage} className={style.imageIcon} />
+                <FontAwesomeIcon
+                  icon={faFileImage}
+                  className={style.imageIcon}
+                />
               )}
               <label htmlFor="fileInput" className={style.btnAdd}>
-                <FontAwesomeIcon icon={faPlus}/> Add Image
+                <FontAwesomeIcon icon={faPlus} /> Add Image
               </label>
               <input
                 type="file"
@@ -288,7 +283,6 @@ const AddProperty = () => {
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </div>
-
           </form>
         </div>
       </div>

@@ -46,7 +46,9 @@ const SidebarAgency = () => {
           <Link
             to="/agency/profileAgency"
             className={`${style.link} ${
-              location.pathname === "/agency/profileAgency" ? style.selected : ""
+              location.pathname === "/agency/profileAgency"
+                ? style.selected
+                : ""
             }`}
           >
             <FontAwesomeIcon icon={faHotel} className={style.icon} />
@@ -74,7 +76,7 @@ const SidebarAgency = () => {
             <button className={style.profileButton}>
               <FontAwesomeIcon icon={faUser} className={style.iconProfile} />
             </button>
-            <Link  to="/" className={style.profileButton} onClick={logout}>
+            <Link to="/" className={style.profileButton} onClick={logout}>
               <FontAwesomeIcon
                 icon={faRightFromBracket}
                 className={style.iconProfile}

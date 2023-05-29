@@ -1,12 +1,11 @@
-.main{
+.main {
   margin-top: 40px;
 }
 
-
-.linkBack{
+.linkBack {
   font-size: 24px;
   display: flex;
   margin-left: 80px;
-  
+
   width: 150px;
 }

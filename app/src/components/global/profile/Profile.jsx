@@ -5,12 +5,13 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMG } from "../../../consts/Img";
+import Loading from "../loading/Loading";
 
 const Profile = () => {
   const { user } = useAuthContext();
   const { isLoading, error, mutate } = useMutation();
   const [data, setData] = useState({
-    profileImg:  user.profileImg,
+    profileImg: user.profileImg,
     name: user.name,
     phone: user.phone,
     oldPassword: "",
@@ -29,7 +30,7 @@ const Profile = () => {
   useEffect(() => {
     setData((prevState) => ({
       ...prevState,
-      profileImg:  user.profileImg,
+      profileImg: user.profileImg,
     }));
   }, [user?.profileImg]);
 
@@ -46,6 +47,13 @@ const Profile = () => {
       return;
     }
 
+    // check if password is 6 characters or more
+    if (data.newPassword && data.newPassword.length < 6) {
+      setMessage("Password must be 6 characters or more");
+      return;
+    }
+
+    // Check if the user uploaded a new profile picture
     if (file) {
       const dataImg = new FormData();
       const fileName = Date.now() + file.name;
@@ -92,6 +100,8 @@ const Profile = () => {
     }
   };
 
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
+
   return (
     <div className={style.container}>
       <h1>Profile</h1>
@@ -99,7 +109,7 @@ const Profile = () => {
         <div className={style.profileImgContainer}>
           <div className={style.profileImgWrapper}>
             <img
-              src={file ? URL.createObjectURL(file) :  IMG + data.profileImg}
+              src={file ? URL.createObjectURL(file) : IMG + data.profileImg}
               alt="profileImg"
               className={style.profileImg}
             />
@@ -127,7 +137,7 @@ const Profile = () => {
         <div className={style.formGroup}>
           <label className={style.label}>Phone Number</label>
           <input
-            type="text"
+            type="number"
             className={style.formControl}
             name="phone"
             value={data.phone}

@@ -8,8 +8,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-
-  
 }
 
 .imgWrapper {
@@ -25,9 +23,6 @@
   height: auto;
   border-radius: 10px;
 }
-
-
-
 
 .address,
 .price,
@@ -68,7 +63,7 @@
   transform: scale(1.05);
 }
 
-.linkBack{
+.linkBack {
   font-size: 24px;
   display: flex;
   margin-left: 80px;
@@ -76,7 +71,7 @@
   width: 150px;
 }
 
-.input{
+.input {
   border: none;
   border-radius: 5px;
   padding: 8px 12px;
@@ -87,7 +82,7 @@
   width: 200px;
 }
 
-.title{
+.title {
   border: none;
   border-radius: 5px;
   padding: 6px 12px;
@@ -98,15 +93,16 @@
   width: 95%;
 }
 
-.title:focus, .descriptionInput:focus{
+.title:focus,
+.descriptionInput:focus {
   width: 95%;
 }
 
-.description{
+.description {
   border: none;
   border-radius: 5px;
   padding: 6px 12px;
- 
+
   background-color: #f5f5f5;
   margin-right: 5px;
   margin-top: 20px;
@@ -129,11 +125,11 @@ input[type="checkbox"] {
   transform: scale(1.5);
   margin-top: 4px;
   margin-right: 5px;
-  pointer-events: auto; 
-  
+  pointer-events: auto;
 }
 
-.updateBtn, .deleteBtn{
+.updateBtn,
+.deleteBtn {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   margin-bottom: 0;
@@ -154,7 +150,7 @@ input[type="checkbox"] {
   transform: scale(1.05);
 }
 
-.deleteBtn{
+.deleteBtn {
   position: absolute;
   top: 8%;
   right: 4%;

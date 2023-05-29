@@ -30,7 +30,6 @@ const UserSchema = new mongoose.Schema(
     agency: {
       type: mongoose.Types.ObjectId,
       ref: "Agency",
-      
     },
   },
   { timestamps: true }

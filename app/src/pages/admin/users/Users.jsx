@@ -8,10 +8,9 @@ import useFetch from "../../../hooks/useFetch";
 import { Link } from "react-router-dom";
 import useMutation from "../../../hooks/useMutation";
 
-
 const Users = () => {
   const { data: users } = useFetch("/users");
-  
+
   const { mutate } = useMutation();
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState({
@@ -26,25 +25,22 @@ const Users = () => {
       ...data,
       [e.target.name]: e.target.value,
     });
-  
   };
- 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // add new user
-    try{
+    try {
       await mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
         method: "POST",
         data,
         onSuccess: (data) => {
-       
           window.location.reload();
         },
         onError: (error) => {
           console.log(error);
-        }
+        },
       });
     } catch (error) {
       console.log(error);
@@ -76,8 +72,14 @@ const Users = () => {
         <div className={style.userContainer}>
           {users &&
             users.map((user) => (
-              <Link to={user._id} key={user._id} value={user._id} className={style.link}>
-                {user.name} <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
+              <Link
+                to={user._id}
+                key={user._id}
+                value={user._id}
+                className={style.link}
+              >
+                {user.name}{" "}
+                <FontAwesomeIcon icon={faArrowRight} className={style.icon} />
               </Link>
             ))}
         </div>
@@ -86,7 +88,6 @@ const Users = () => {
       {showModal && (
         <ModalAddUsers
           data={data}
-          
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           closeModal={closeModal}

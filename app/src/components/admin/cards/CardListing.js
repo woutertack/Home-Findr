@@ -28,8 +28,10 @@ const CardListing = (props) => {
           </h4>
           <p className={style.buildYear}>Buildyear: {props.buildyear}</p>
           <div className={style.cardInfo}>
-            <h4 className={style.cardItemPrice}>€ {props.price} {priceText} </h4>
-          
+            <h4 className={style.cardItemPrice}>
+              € {props.price} {priceText}{" "}
+            </h4>
+
             <button className={style.cardItemButton}>
               Update info
               <FontAwesomeIcon icon={faArrowRight} className={style.icon} />

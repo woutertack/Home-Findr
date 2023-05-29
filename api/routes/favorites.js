@@ -33,5 +33,4 @@ router.get("/user/:userId", getUserFavorites);
 // delete favorites by property id
 router.delete("/property/:propertyId", deleteFavoritesByPropertyId);
 
-
 export default router;

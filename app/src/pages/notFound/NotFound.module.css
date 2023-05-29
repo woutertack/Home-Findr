@@ -2,15 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: column;
-
+  height: 80vh;
   font-weight: bold;
 }
 
 .title {
-  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  font-size: 2.5rem;
 }
 
 .description {
+
   font-style: italic;
+  font-size: 1.5rem;
 }

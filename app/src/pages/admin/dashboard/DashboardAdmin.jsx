@@ -4,10 +4,9 @@ import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import OptionLabel from "../../../components/admin/OptionLabel";
 import CardListing from "../../../components/admin/cards/CardListing";
 import useFetch from "../../../hooks/useFetch";
-import {IMG} from "../../../consts/Img"
+import { IMG } from "../../../consts/Img";
 
 const DashboardAdmin = () => {
-  
   const { isLoading, data, error, invalidate } = useFetch("/properties");
   const [selectedOption, setSelectedOption] = useState("rent");
 

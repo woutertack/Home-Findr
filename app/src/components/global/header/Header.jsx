@@ -9,7 +9,7 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMobile from "./HeaderMobile"; // Import the HeaderMobile component
-import { useAuthContext } from "../../contexts/AuthContext"; // Import the AuthContext
+import { useAuthContext } from "../../../contexts/AuthContext";
 
 const Header = () => {
   const { user, logout } = useAuthContext();

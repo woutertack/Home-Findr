@@ -21,15 +21,15 @@ const Contact = () => {
             <FontAwesomeIcon icon={faSignHanging} className={style.iconLogo} />
           </h1>
           <h2 className={style.email}>
-            <span class={style.span}>Email: </span>
+            <span className={style.span}>Email: </span>
             homefindr@hotmail.com
           </h2>
           <h2 className={style.phone}>
-            <span class={style.span}>Phone: </span>
+            <span className={style.span}>Phone: </span>
             +32 123 45 67 89
           </h2>
           <h2 className={style.address}>
-            <span class={style.span}>Address: </span>
+            <span className={style.span}>Address: </span>
             Papegaaistraat 42, 9000 Gent, Belgium
           </h2>
         </div>

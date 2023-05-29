@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import style from "./Messages.module.css";
 import { useAuthContext } from "../../contexts/AuthContext";
 import useFetch from "../../hooks/useFetch";
@@ -7,17 +8,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../hooks/useMutation";
 import { IMG } from "../../consts/Img";
+import Loading from "../../components/global/loading/Loading";
 
 const Messages = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
-  const [replyValue, setReplyValue] = useState("");
-
+  const navigate = useNavigate();
   const { user } = useAuthContext();
   const {
     isLoading,
     data: messagesData,
     error,
-  } = useFetch(`/messages/user/${user._id}`);
+  } = useFetch(`/messages/user/${user?._id}`);
 
   const { mutate } = useMutation();
 
@@ -30,20 +31,25 @@ const Messages = () => {
 
   const handleSelectMessage = async (message) => {
     setSelectedMessage(message);
-    
-    console.log(message.receiver);
 
-    const replyData = await fetch(`${process.env.REACT_APP_API_URL}/agencyMessages/agency/${message?.receiver}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  
+
+    const replyData = await fetch(
+      `${process.env.REACT_APP_API_URL}/agencyMessages/agency/${message?.receiver}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const replyDataJson = await replyData.json();
     const replyAgency = replyDataJson?.find(
-      (reply) => reply?.sender === message?.receiver && reply?.property === message?.property
+      (reply) =>
+        reply?.sender === message?.receiver &&
+        reply?.property === message?.property
     );
-   
+
     if (replyAgency) {
       console.log(replyAgency);
       setSelectedMessage((prevMessage) => ({
@@ -63,14 +69,20 @@ const Messages = () => {
   };
 
   
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
+
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
   return (
     <div className={style.container}>
       <div className={style.sidebar}>
         {messagesData &&
-          messagesData.map((message) => (
+          messagesData.map((message, index) => (
             <div
-              key={message.id}
+              key={index}
               className={`${style.message}${
                 selectedMessage === message ? ` ${style.selected}` : ""
               }`}
@@ -123,12 +135,12 @@ const Messages = () => {
               <div className={style.replyContent}>
                 <p className={style.message}>{selectedMessage.reply}</p>
                 <div className={style.infoMessage}>
-                  <div className={style.byAgency}>From: {selectedMessage.agencyName}</div>
-                  
+                  <div className={style.byAgency}>
+                    From: {selectedMessage.agencyName}
+                  </div>
                 </div>
               </div>
             )}
-           
           </div>
         ) : (
           <p>Select a message to view</p>

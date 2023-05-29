@@ -30,7 +30,6 @@
   flex-direction: row;
   width: 70%;
   margin: 0 50px;
-
 }
 .wrapper {
   width: 75%;
@@ -83,16 +82,15 @@ select {
 
 .imageIcon {
   font-size: 142px;
-  margin-top:15px
+  margin-top: 15px;
 }
 
-.img{
+.img {
   width: 100%;
   height: auto;
   object-fit: contain;
-  margin-top:15px
+  margin-top: 15px;
 }
-
 
 .btnAdd {
   padding: 0.7rem 1rem;
@@ -108,5 +106,3 @@ select {
 .btnAdd:hover {
   background-color: #000000;
 }
-
-

@@ -47,7 +47,7 @@ export const getAgencyMessages = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // get all user messages
 export const getUserMessages = async (req, res, next) => {
@@ -71,7 +71,7 @@ export const deleteMessagesByAgencyId = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // delete all messages when property is deleted
 export const deleteMessagesByPropertyId = async (req, res, next) => {
@@ -83,7 +83,7 @@ export const deleteMessagesByPropertyId = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // delete all messages when user is deleted
 export const deleteMessagesByUserId = async (req, res, next) => {
@@ -95,4 +95,4 @@ export const deleteMessagesByUserId = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};

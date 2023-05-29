@@ -87,8 +87,6 @@ export const getAgencyMessages = async (req, res, next) => {
   }
 };
 
-
-
 // delete all messages when agency is deleted
 export const deleteMessagesByAgencyId = async (req, res, next) => {
   const agencyId = req.params.agencyId;
@@ -111,7 +109,7 @@ export const deleteMessagesByPropertyId = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
 
 // delete all messages when user is deleted
 export const deleteMessagesByUserId = async (req, res, next) => {
@@ -123,4 +121,4 @@ export const deleteMessagesByUserId = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};

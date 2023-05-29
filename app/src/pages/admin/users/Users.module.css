@@ -105,24 +105,22 @@
   margin-top: 10px;
   width: fit-content;
   margin-left: 5%;
-
 }
 
-.userContainer{
+.userContainer {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   margin-top: 10px;
-  
 }
 
-.icon{
+.icon {
   margin-left: 10px;
 }
 
-.info{
- display: flex;
- justify-content: center;
- font-size: large;
- margin: 15px 0px
+.info {
+  display: flex;
+  justify-content: center;
+  font-size: large;
+  margin: 15px 0px;
 }

@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import useMutation from "../../hooks/useMutation";
-import {IMG} from "../../consts/Img"
+import { IMG } from "../../consts/Img";
 
 const Detail = () => {
   const { id } = useParams();
@@ -73,7 +73,6 @@ const Detail = () => {
             method: "DELETE",
           }
         );
-        console.log("Favorite deleted");
         setIsFavorite(false);
         setFavoriteId(null);
       } else {
@@ -177,9 +176,7 @@ const Detail = () => {
                 {propertyData.province}
               </h2>
             )}
-            <h2 className={style.price}>
-              Price: €{propertyData.price} 
-            </h2>
+            <h2 className={style.price}>Price: €{propertyData.price}</h2>
             {user && (
               <Link to={`/message/${propertyData._id}`} className={style.link}>
                 <button className={style.btn}>Send a message</button>

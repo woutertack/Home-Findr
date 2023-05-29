@@ -1,6 +1,5 @@
 import express from "express";
 
-
 import {
   createAgencyMessage,
   deleteMessagesByAgencyId,
@@ -19,7 +18,6 @@ router.post("/", createAgencyMessage);
 
 // get
 router.get("/:id", getAgencyMessage);
-
 
 // get all matching messages where userId, propertyId, and agencyId matches
 router.get("/", getMatchingMessages);

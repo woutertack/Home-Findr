@@ -51,7 +51,6 @@ const Messages = () => {
     );
 
     if (replyAgency) {
-      console.log(replyAgency);
       setSelectedMessage((prevMessage) => ({
         ...prevMessage,
         reply: replyAgency.message,

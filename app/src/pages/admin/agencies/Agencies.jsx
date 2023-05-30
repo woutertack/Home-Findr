@@ -8,9 +8,11 @@ import useFetch from "../../../hooks/useFetch";
 
 import { Link } from "react-router-dom";
 import useMutation from "../../../hooks/useMutation";
+import Loading from "../../../components/global/loading/Loading";
 
 const Agencies = () => {
-  const { data: agencies } = useFetch("/agencies");
+  const { data: agencies, error, isLoading } = useFetch("/agencies");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const { mutate } = useMutation();
   const [showModal, setShowModal] = useState(false);
@@ -27,27 +29,35 @@ const Agencies = () => {
     });
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Add your submit logic here
-
-    // add new agency
-    try {
+   
+    if(!validateEmail(data.email)){
+      setErrorMessage("Invalid email");
+    } else if (data.phone.length < 9) {
+      setErrorMessage("Invalid phone number");
+    } else if (data.name.length < 2) {
+      setErrorMessage("Invalid name");
+    } else {
+   
       await mutate(`${process.env.REACT_APP_API_URL}/agencies`, {
         method: "POST",
         data,
         onSuccess: (data) => {
           window.location.reload();
+          closeModal();
         },
         onError: (error) => {
           console.log(error);
         },
       });
-    } catch (error) {
-      console.log(error);
     }
-
-    closeModal();
+   
   };
 
   const openModal = () => {
@@ -57,6 +67,8 @@ const Agencies = () => {
   const closeModal = () => {
     setShowModal(false);
   };
+
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
   return (
     <div className={style.main}>
@@ -91,6 +103,7 @@ const Agencies = () => {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           closeModal={closeModal}
+          errorMessage={errorMessage}
         />
       )}
     </div>

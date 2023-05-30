@@ -8,7 +8,7 @@ import { IMG } from "../../consts/Img";
 import Loading from "../../components/global/loading/Loading";
 
 const Buy = () => {
-  const { isLoading, data, error, invalidate } = useFetch(
+  const { isLoading, data, error } = useFetch(
     "/properties?sold=false"
   );
   const [filteredData, setFilteredData] = useState(null);

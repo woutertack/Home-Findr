@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./ModalAddUsers.module.css";
 
-const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal }) => {
+const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal, errorMessage }) => {
   const { name, email, phone, password } = data;
   const [generatedPassword, setGeneratedPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -44,7 +44,7 @@ const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal }) => {
             onChange={handleChange}
           />
           <input
-            type="text"
+            type="number"
             placeholder="Phone Number"
             className={style.formControlModal}
             name="phone"
@@ -77,6 +77,7 @@ const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal }) => {
           <button type="submit" className={style.saveBtn}>
             Add
           </button>
+          {errorMessage}
         </form>
       </div>
     </div>

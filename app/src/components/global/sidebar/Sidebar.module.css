@@ -1,6 +1,5 @@
 .sidebar {
-  width: 25%;
-  height: 100vh;
+  min-width: 25%;
   background-color: #f5f5f5;
   padding: 20px;
   box-sizing: border-box;
@@ -45,12 +44,12 @@ select option:checked {
 }
 
 .slider {
-  width: 60%;
+  width: 90%;
 }
 
 .priceMin {
   font-weight: bold;
-  margin-right: 2rem;
+  margin-right: 8rem;
 }
 
 .priceMax {

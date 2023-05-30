@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import style from "./Sidebar.module.css";
@@ -9,6 +10,19 @@ const Sidebar = ({ onFilter }) => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [sortOrder, setSortOrder] = useState(""); // Add sortOrder state
+  const location = useLocation();
+
+  // Update the priceMax based on the location's pathname
+  let priceMax = 500000;
+  let priceStep = 100;
+  if (location.pathname.startsWith("/rent")) {
+    priceMax = 10000;
+    priceStep = 100;
+  } else if (location.pathname.startsWith("/buy")) {
+    priceMax = 1500000;
+    priceStep = 10000;
+  }
+
 
   const handleFilter = () => {
     // Pass the selected filters and sort order to the onFilter function
@@ -49,8 +63,8 @@ const Sidebar = ({ onFilter }) => {
         <Slider
           range
           min={0}
-          max={10000}
-          step={100}
+          max={priceMax}
+          step={priceStep}
           value={priceRange}
           onChange={handlePriceChange}
           className={style.slider}

@@ -85,6 +85,7 @@ const AddProperty = () => {
       }
     }
 
+    if(data.title === "" || data.desc === "" || data.buildyear === "" || data.sqmeters === "" || data.address === "" || data.city === "" || data.zipcode === "" || data.price === "", data.agency) {
     try {
       await mutate(`${process.env.REACT_APP_API_URL}/properties/`, {
         method: "POST",
@@ -99,7 +100,10 @@ const AddProperty = () => {
     } catch (err) {
       setError("Please fill in all fields correctly.");
     }
-  };
+  }else {
+    setError("Please fill in all fields correctly.");
+  }
+};
 
   return (
     <div className={style.main}>

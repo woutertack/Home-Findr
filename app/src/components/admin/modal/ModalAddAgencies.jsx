@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./ModalAddAgencies.module.css";
 
-const ModalAddAgencies = ({ data, handleChange, handleSubmit, closeModal }) => {
+const ModalAddAgencies = ({ data, handleChange, handleSubmit, closeModal, errorMessage }) => {
   const { name, email, phone } = data;
 
   return (
@@ -29,7 +29,7 @@ const ModalAddAgencies = ({ data, handleChange, handleSubmit, closeModal }) => {
             onChange={handleChange}
           />
           <input
-            type="text"
+            type="number"
             placeholder="Phone Number"
             className={style.formControlModal}
             name="phone"
@@ -40,6 +40,7 @@ const ModalAddAgencies = ({ data, handleChange, handleSubmit, closeModal }) => {
           <button type="submit" className={style.saveBtn}>
             Add
           </button>
+          <p>{errorMessage}</p>
         </form>
       </div>
     </div>

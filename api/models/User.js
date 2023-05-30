@@ -28,8 +28,7 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
     agency: {
-      type: mongoose.Types.ObjectId,
-      ref: "Agency",
+      type: String,
     },
   },
   { timestamps: true }

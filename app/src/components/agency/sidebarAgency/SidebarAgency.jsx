@@ -64,7 +64,7 @@ const SidebarAgency = () => {
             <span className={style.span}>Messages</span>
           </Link>
         </div>
-        <Link to="/agency/userProfile" className={style.profileLink}>
+        <div className={style.profile}>
           <img
             src={IMG + user?.profileImg}
             alt="profileImg"
@@ -73,9 +73,9 @@ const SidebarAgency = () => {
           <span className={style.name}>{user.name}</span>
           <span className={style.email}>{user.email}</span>
           <div className={style.profileButtons}>
-            <button className={style.profileButton}>
+            <Link to="/agency/userProfile" className={style.profileButton}>
               <FontAwesomeIcon icon={faUser} className={style.iconProfile} />
-            </button>
+            </Link>
             <Link to="/" className={style.profileButton} onClick={logout}>
               <FontAwesomeIcon
                 icon={faRightFromBracket}
@@ -83,7 +83,7 @@ const SidebarAgency = () => {
               />
             </Link>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

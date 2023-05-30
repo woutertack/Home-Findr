@@ -7,6 +7,7 @@ import style from "./UpdatePropertyAgency.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import { IMG } from "../../../consts/Img";
+import Loading from "../../../components/global/loading/Loading";
 
 const UpdatePropertyAgency = () => {
   const { id } = useParams();
@@ -16,27 +17,25 @@ const UpdatePropertyAgency = () => {
     isLoading,
     data: propertyData,
     error,
-    invalidate,
   } = useFetch(`/properties/${id}`);
 
-  const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
   const { data: agency } = useFetch(`/agencies/${user?.agency}`);
 
   const { mutate } = useMutation();
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
-    img: propertyData?.img,
-    title: propertyData?.title,
-    desc: propertyData?.desc,
-    type: propertyData?.type,
-    buildyear: propertyData?.buildyear,
-    sqmeters: propertyData?.sqmeters,
-    address: propertyData?.address,
-    city: propertyData?.city,
-    zipcode: propertyData?.zipcode,
-    province: propertyData?.province,
-    price: propertyData?.price,
-    sold: propertyData?.sold,
+    img: propertyData?.img || "",
+    title: propertyData?.title || "",
+    desc: propertyData?.desc || "",
+    type: propertyData?.type || "house",
+    buildyear: propertyData?.buildyear || "",
+    sqmeters: propertyData?.sqmeters || "",
+    address: propertyData?.address || "",
+    city: propertyData?.city || "",
+    zipcode: propertyData?.zipcode || "",
+    province: propertyData?.province || "West Flanders",
+    price: propertyData?.price || "",
+    sold: propertyData?.sold || false,
   });
 
   const handleChange = (e) => {
@@ -70,18 +69,7 @@ const UpdatePropertyAgency = () => {
       sold: propertyData?.sold,
     }));
   }, [
-    propertyData?.img,
-    propertyData?.title,
-    propertyData?.desc,
-    propertyData?.type,
-    propertyData?.buildyear,
-    propertyData?.sqmeters,
-    propertyData?.address,
-    propertyData?.city,
-    propertyData?.zipcode,
-    propertyData?.province,
-    propertyData?.price,
-    propertyData?.sold,
+   propertyData
   ]);
 
   const handleSubmit = async (event) => {
@@ -107,7 +95,7 @@ const UpdatePropertyAgency = () => {
           img: fileName,
         }));
 
-        console.log(IMG + data.img);
+        
       } catch (err) {
         console.log(err);
       }
@@ -118,8 +106,7 @@ const UpdatePropertyAgency = () => {
         method: "PUT",
         data,
         onSuccess: (data) => {
-          console.log(data);
-          console.log("success");
+          
 
           // reload the page
           window.location.reload();
@@ -139,8 +126,6 @@ const UpdatePropertyAgency = () => {
       await mutate(`${process.env.REACT_APP_API_URL}/properties/${id}`, {
         method: "DELETE",
         onSuccess: async (data) => {
-          console.log("success prop deleted");
-
           // also delete the property from favorites
           try {
             await mutate(
@@ -148,8 +133,6 @@ const UpdatePropertyAgency = () => {
               {
                 method: "DELETE",
                 onSuccess: async (data) => {
-                  console.log("success favorite deleted");
-
                   // delete messages related to the property
                   try {
                     await mutate(
@@ -157,9 +140,8 @@ const UpdatePropertyAgency = () => {
                       {
                         method: "DELETE",
                         onSuccess: async (data) => {
-                          console.log("success messages deleted");
                           // go to admin page
-                          window.location.href = "/admin";
+                          window.location.href = "/agency";
                         },
                       }
                     );
@@ -185,13 +167,7 @@ const UpdatePropertyAgency = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
   return (
     <div className={style.container}>
@@ -337,6 +313,7 @@ const UpdatePropertyAgency = () => {
               <input
                 type="checkbox"
                 name="sold"
+                value={data.sold}
                 checked={data.sold}
                 onChange={handleCheckboxChange}
                 className={style.sold}

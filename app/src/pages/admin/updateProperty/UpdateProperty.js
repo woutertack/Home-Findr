@@ -7,6 +7,7 @@ import style from "./UpdateProperty.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import { IMG } from "../../../consts/Img";
+import Loading from "../../../components/global/loading/Loading";
 
 const UpdateProperty = () => {
   const { id } = useParams();
@@ -25,18 +26,18 @@ const UpdateProperty = () => {
   const { mutate } = useMutation();
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
-    img: propertyData?.img,
-    title: propertyData?.title,
-    desc: propertyData?.desc,
-    type: propertyData?.type,
-    buildyear: propertyData?.buildyear,
-    sqmeters: propertyData?.sqmeters,
-    address: propertyData?.address,
-    city: propertyData?.city,
-    zipcode: propertyData?.zipcode,
-    province: propertyData?.province,
-    price: propertyData?.price,
-    sold: propertyData?.sold,
+    img: propertyData?.img || "",
+    title: propertyData?.title || "",
+    desc: propertyData?.desc || "",
+    type: propertyData?.type || "",
+    buildyear: propertyData?.buildyear || "",
+    sqmeters: propertyData?.sqmeters || "",
+    address: propertyData?.address || "",
+    city: propertyData?.city || "",
+    zipcode: propertyData?.zipcode || "",
+    province: propertyData?.province || "",
+    price: propertyData?.price || "",
+    sold: propertyData?.sold || "",
   });
 
   const handleChange = (e) => {
@@ -56,18 +57,18 @@ const UpdateProperty = () => {
   useEffect(() => {
     setData((prevState) => ({
       ...prevState,
-      img: propertyData?.img,
-      title: propertyData?.title,
-      desc: propertyData?.desc,
-      type: propertyData?.type,
-      buildyear: propertyData?.buildyear,
-      sqmeters: propertyData?.sqmeters,
-      address: propertyData?.address,
-      city: propertyData?.city,
-      zipcode: propertyData?.zipcode,
-      province: propertyData?.province,
-      price: propertyData?.price,
-      sold: propertyData?.sold,
+      img: propertyData?.img || "",
+      title: propertyData?.title || "",
+      desc: propertyData?.desc || "",
+      type: propertyData?.type || "",
+      buildyear: propertyData?.buildyear || "",
+      sqmeters: propertyData?.sqmeters || "",
+      address: propertyData?.address || "",
+      city: propertyData?.city || "",
+      zipcode: propertyData?.zipcode || "",
+      province: propertyData?.province || "",
+      price: propertyData?.price || "",
+      sold: propertyData?.sold || "",
     }));
   }, [
     propertyData?.img,
@@ -107,7 +108,7 @@ const UpdateProperty = () => {
           img: fileName,
         }));
 
-        console.log(IMG + data.img);
+     
       } catch (err) {
         console.log(err);
       }
@@ -118,8 +119,7 @@ const UpdateProperty = () => {
         method: "PUT",
         data,
         onSuccess: (data) => {
-          console.log(data);
-          console.log("success");
+        
 
           // reload the page
           window.location.reload();
@@ -139,8 +139,6 @@ const UpdateProperty = () => {
       await mutate(`${process.env.REACT_APP_API_URL}/properties/${id}`, {
         method: "DELETE",
         onSuccess: async (data) => {
-          console.log("success prop deleted");
-
           // also delete the property from favorites
           try {
             await mutate(
@@ -148,8 +146,6 @@ const UpdateProperty = () => {
               {
                 method: "DELETE",
                 onSuccess: async (data) => {
-                  console.log("success favorite deleted");
-
                   // delete messages related to the property
                   try {
                     await mutate(
@@ -164,8 +160,7 @@ const UpdateProperty = () => {
                               {
                                 method: "DELETE",
                                 onSuccess: async (data) => {
-                                  console.log("success replyMessages deleted");
-                                  console.log("success messages deleted");
+                                 
                                   // go to admin page
                                   window.location.href = "/admin";
                                 },
@@ -199,13 +194,7 @@ const UpdateProperty = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
   return (
     <div className={style.container}>

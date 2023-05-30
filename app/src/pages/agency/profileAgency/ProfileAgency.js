@@ -9,6 +9,7 @@ import { IMG } from "../../../consts/Img";
 import { Link, useParams } from "react-router-dom";
 import useMutation from "../../../hooks/useMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import Loading from "../../../components/global/loading/Loading";
 
 const ProfileAgency = () => {
   const { user } = useAuthContext();
@@ -21,13 +22,14 @@ const ProfileAgency = () => {
   } = useFetch(`/agencies/${agencyId}`);
   const { mutate } = useMutation();
   const [message, setMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
-    profileImg: agencyData?.profileImg,
-    name: agencyData?.name,
-    email: agencyData?.email,
-    phone: agencyData?.phone,
+    profileImg: agencyData?.profileImg || "defaultUser.png",
+    name: agencyData?.name || "",
+    email: agencyData?.email || "",
+    phone: agencyData?.phone || "",
   });
 
   const [dataUser, setDataUser] = useState({
@@ -55,20 +57,23 @@ const ProfileAgency = () => {
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
-      profileImg: agencyData?.profileImg,
-      name: agencyData?.name,
-      email: agencyData?.email,
-      phone: agencyData?.phone,
+      profileImg: agencyData?.profileImg || "defaultUser.png",
+      name: agencyData?.name || "",
+      email: agencyData?.email || "",
+      phone: agencyData?.phone || "",
     }));
   }, [
-    agencyData?.profileImg,
-    agencyData?.name,
-    agencyData?.email,
-    agencyData?.phone,
+  agencyData
   ]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const validateEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
     if (file) {
       const dataImg = new FormData();
       const fileName = Date.now() + file.name;
@@ -91,53 +96,67 @@ const ProfileAgency = () => {
         console.log(err);
       }
     }
-
+  if(data.name === "" || !validateEmail(data.email) || data.phone.length > 9){
     try {
       await mutate(`${process.env.REACT_APP_API_URL}/agencies/${agencyId}`, {
         method: "PUT",
         data,
         onSuccess: (data) => {
-          // Update the user in the context
-
           setMessage("Profile updated"); // Set success message
-          // refresh the page
-          window.location.reload();
+
         },
         onError: (error) => {
-          console.log(error);
-          // Set error message
+          setMessage("Please fill in all the fields correctly")
         },
       });
     } catch (err) {
       console.log(err);
       setMessage("An error occurred. Please try again."); // Set error message
     }
+    }else{
+      setMessage("Please fill in all the fields correctly")
+    }
+  
+  };
+
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   // this is for the modal add new user function
   const handleSubmitAddUser = async (event) => {
     event.preventDefault();
 
-    console.log(dataUser);
-
-    // add user with the agency id
-    try {
+    if(!validateEmail(dataUser.email)){
+      setErrorMessage("Invalid email");
+    } else if (dataUser.phone.length < 9) {
+      setErrorMessage("Invalid phone number");
+    } else if (dataUser.name.length < 2) {
+      setErrorMessage("Invalid name");
+    } else {
       await mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
         method: "POST",
         data: dataUser,
         onSuccess: async (data) => {
-          console.log("User added");
+          setMessage("User added"); // Set success message
+          closeModal();
         },
         onError: (error) => {
           console.log(error);
           // Set error message
         },
       });
-    } catch (err) {
-      console.log(err);
     }
 
-    closeModal();
+    // reset the form
+    setDataUser({
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+    });
   };
 
   const openModal = () => {
@@ -148,13 +167,8 @@ const ProfileAgency = () => {
     setShowModal(false);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <>
@@ -211,7 +225,7 @@ const ProfileAgency = () => {
         </div>
         <div className={style.formGroup}>
           <input
-            type="text"
+            type="number"
             placeholder="Phone Number"
             name="phone"
             className={style.formControl}
@@ -223,7 +237,7 @@ const ProfileAgency = () => {
           <button type="submit" className={style.saveBtn}>
             Update
           </button>
-          {message && <p className={style.message}>{message}</p>}
+          {message}
         </div>
       </form>
       {showModal && (
@@ -232,6 +246,7 @@ const ProfileAgency = () => {
           handleChange={handleChangeUser}
           handleSubmit={handleSubmitAddUser}
           closeModal={closeModal}
+          errorMessage={errorMessage}
         />
       )}
     </>

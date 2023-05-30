@@ -11,6 +11,7 @@ import {
 import { useAuthContext } from "../../contexts/AuthContext";
 import useMutation from "../../hooks/useMutation";
 import { IMG } from "../../consts/Img";
+import Loading from "../../components/global/loading/Loading";
 
 const Detail = () => {
   const { id } = useParams();
@@ -85,7 +86,6 @@ const Detail = () => {
         );
         const newFavorite = response ? response.data : null;
         if (newFavorite) {
-          console.log("Favorite created");
           setIsFavorite(true);
           setFavoriteId(newFavorite._id);
         }
@@ -97,13 +97,8 @@ const Detail = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   // if user is logged in show full address, else show city and province
   const address = user ? (

@@ -5,7 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMG } from "../../../consts/Img";
-import Loading from "../loading/Loading";
+
 
 const Profile = () => {
   const { user } = useAuthContext();
@@ -82,7 +82,6 @@ const Profile = () => {
         method: "PUT",
         data,
         onSuccess: (data) => {
-          console.log(data);
           // Update the user in the context
           localStorage.setItem("USER", JSON.stringify(data));
           setMessage("Profile updated"); // Set success message
@@ -100,7 +99,7 @@ const Profile = () => {
     }
   };
 
-  if (error || isLoading) return <div>{error || <Loading />}</div>;
+   if (error ) return <div>{error}</div>;
 
   return (
     <div className={style.container}>

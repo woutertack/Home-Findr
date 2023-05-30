@@ -4,7 +4,7 @@ import style from "./MessagesAgency.module.css";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import useFetch from "../../../hooks/useFetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
 import { IMG } from "../../../consts/Img";
 
@@ -96,8 +96,7 @@ const MessagesAgency = () => {
             reply: replyData.message,
           }));
           setReplyValue("");
-          console.log(res);
-          console.log("Message sent");
+         
         },
         onError: (error) => {
           console.log(error);
@@ -110,11 +109,18 @@ const MessagesAgency = () => {
 
   return (
     <div className={style.container}>
+       <Link to="/agency" className={style.linkBack}>
+          <div className={style.back}>
+            <FontAwesomeIcon icon={faAnglesLeft} />
+            Go back
+          </div>
+        </Link>
       <div className={style.sidebar}>
+        
         {messagesData &&
-          messagesData.map((message) => (
+          messagesData.map((message, index) => (
             <div
-              key={message.id}
+              key={index}
               className={`${style.message}${
                 selectedMessage === message ? ` ${style.selected}` : ""
               }`}

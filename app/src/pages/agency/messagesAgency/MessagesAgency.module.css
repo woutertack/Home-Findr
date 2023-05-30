@@ -160,3 +160,10 @@
 .unread {
   font-size: 24px;
 }
+
+.linkBack{
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  font-size: 28px;
+}

@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { IMG } from "../../../consts/Img";
 import useMutation from "../../../hooks/useMutation";
+import Loading from "../../../components/global/loading/Loading";
 
 const UserProfile = () => {
   const { id } = useParams();
@@ -15,23 +16,39 @@ const UserProfile = () => {
   const [file, setFile] = useState(null);
   const { mutate } = useMutation();
   const [message, setMessage] = useState(null);
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    profileImg: userData?.profileImg || "defaultUser.png",
+    name: userData?.name || "",
+    email: userData?.email || "",
+    phone: userData?.phone || "",
+    agency: userData?.agency || "",
+  });
 
   const handleChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    if (name === "agency" && value === "") {
+      // If "No Agency" option is selected, set the agency field to an empty string
+      setData((prevData) => ({
+        ...prevData,
+        agency: "",
+      }));
+    } else {
+      // For other fields, update the value as before
+      setData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
-      profileImg: userData?.profileImg,
-      name: userData?.name,
-      email: userData?.email,
-      phone: userData?.phone,
-      agency: userData?.agency || "", // Set initial agency value as an empty string
+      profileImg: userData?.profileImg || "defaultUser.png",
+      name: userData?.name || "",
+      email: userData?.email || "",
+      phone: userData?.phone || "" ,
+      agency: userData?.agency || "", 
     }));
   }, [
     userData?.profileImg,
@@ -102,7 +119,6 @@ const UserProfile = () => {
               {
                 method: "DELETE",
                 onSuccess: (data) => {
-                  console.log("messages deleted");
                   window.location.replace("/admin/users");
                 },
               }
@@ -117,6 +133,8 @@ const UserProfile = () => {
       setMessage("An error occurred. Please try again."); // Set error message
     }
   };
+
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
   return (
     <>
@@ -170,7 +188,7 @@ const UserProfile = () => {
         </div>
         <div className={style.formGroup}>
           <input
-            type="text"
+            type="number"
             placeholder="Phone Number"
             name="phone"
             className={style.formControl}

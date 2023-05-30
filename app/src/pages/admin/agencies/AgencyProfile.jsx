@@ -8,6 +8,7 @@ import useFetch from "../../../hooks/useFetch";
 import { IMG } from "../../../consts/Img";
 import { Link, useParams } from "react-router-dom";
 import useMutation from "../../../hooks/useMutation";
+import Loading from "../../../components/global/loading/Loading";
 
 const AgencyProfile = () => {
   const { id } = useParams();
@@ -15,13 +16,14 @@ const AgencyProfile = () => {
   const { data: agencyData, isLoading, error } = useFetch(`/agencies/${id}`);
   const { mutate } = useMutation();
   const [message, setMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
-    profileImg: agencyData?.profileImg,
-    name: agencyData?.name,
-    email: agencyData?.email,
-    phone: agencyData?.phone,
+    profileImg: agencyData?.profileImg || "",
+    name: agencyData?.name || "",
+    email: agencyData?.email || "",
+    phone: agencyData?.phone || "",
   });
 
   const [dataUser, setDataUser] = useState({
@@ -49,10 +51,10 @@ const AgencyProfile = () => {
   useEffect(() => {
     setData((prevData) => ({
       ...prevData,
-      profileImg: agencyData?.profileImg,
-      name: agencyData?.name,
-      email: agencyData?.email,
-      phone: agencyData?.phone,
+      profileImg: agencyData?.profileImg || "defaultUser.png",
+      name: agencyData?.name || "",
+      email: agencyData?.email || "",
+      phone: agencyData?.phone || "",
     }));
   }, [
     agencyData?.profileImg,
@@ -86,6 +88,12 @@ const AgencyProfile = () => {
       }
     }
 
+    const validateEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    if(data.name === "" || !validateEmail(data.email) || data.phone.length > 9){
     try {
       await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
         method: "PUT",
@@ -106,7 +114,12 @@ const AgencyProfile = () => {
       console.log(err);
       setMessage("An error occurred. Please try again."); // Set error message
     }
-  };
+  }else{
+    setMessage("Please fill in all the fields correctly")
+  }
+  
+  
+  } 
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -115,7 +128,7 @@ const AgencyProfile = () => {
       await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
         method: "DELETE",
         onSuccess: async (data) => {
-          console.log("Agency deleted"); // Set success message
+      
 
           // also delete all properties of this agency
           try {
@@ -124,7 +137,7 @@ const AgencyProfile = () => {
               {
                 method: "DELETE",
                 onSuccess: async (data) => {
-                  console.log("Properties deleted"); // Set success message
+                 
 
                   // also delete all the messages of this agency
                   try {
@@ -133,8 +146,7 @@ const AgencyProfile = () => {
                       {
                         method: "DELETE",
                         onSuccess: async (data) => {
-                          console.log("Messages deleted"); // Set success message
-
+                         
                           // also delete all the users of this agency
                           try {
                             await mutate(
@@ -142,7 +154,7 @@ const AgencyProfile = () => {
                               {
                                 method: "DELETE",
                                 onSuccess: async (data) => {
-                                  console.log("Users deleted"); // Set success message
+                              
 
                                   // also delete replies of this agency
                                   try {
@@ -151,9 +163,9 @@ const AgencyProfile = () => {
                                       {
                                         method: "DELETE",
                                         onSuccess: async (data) => {
-                                          console.log("Replies deleted"); // Set success message
-                                          // refresh the page
-                                          window.location.reload();
+                                         
+                                          // go back to agencies page
+                                          window.location.href = "/admin/agencies";
                                         },
                                       }
                                     );
@@ -201,30 +213,39 @@ const AgencyProfile = () => {
     }
   };
 
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   // this is for the modal add new user function
   const handleSubmitAddUser = async (event) => {
     event.preventDefault();
 
-    console.log(dataUser);
-
+    // check if inputs are valid
+    
+    if(!validateEmail(dataUser.email)){
+      setErrorMessage("Invalid email");
+    } else if (dataUser.phone.length < 9) {
+      setErrorMessage("Invalid phone number");
+    } else if (dataUser.name.length < 2) {
+      setErrorMessage("Invalid name");
+    } else {
     // add user with the agency id
-    try {
       await mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
         method: "POST",
         data: dataUser,
         onSuccess: async (data) => {
           setMessage("User added"); // Set success message
+          closeModal();
         },
         onError: (error) => {
           console.log(error);
-          // Set error message
+          setErrorMessage("email already exists")
         },
       });
-    } catch (err) {
-      console.log(err);
     }
-
-    closeModal();
 
     // reset the form
     setDataUser({
@@ -244,13 +265,7 @@ const AgencyProfile = () => {
     setShowModal(false);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
   return (
     <>
@@ -307,7 +322,7 @@ const AgencyProfile = () => {
         </div>
         <div className={style.formGroup}>
           <input
-            type="text"
+            type="number"
             placeholder="Phone Number"
             name="phone"
             className={style.formControl}
@@ -335,6 +350,7 @@ const AgencyProfile = () => {
           handleChange={handleChangeUser}
           handleSubmit={handleSubmitAddUser}
           closeModal={closeModal}
+          errorMessage={errorMessage}
         />
       )}
     </>

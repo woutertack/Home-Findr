@@ -61,7 +61,7 @@ const SidebarAdmin = () => {
             <span className={style.span}>Users</span>
           </Link>
         </div>
-        <Link to="/admin/profile" className={style.profileLink}>
+        <div className={style.profile}>
           <img
             src={IMG + user?.profileImg}
             alt="profileImg"
@@ -70,9 +70,9 @@ const SidebarAdmin = () => {
           <span className={style.name}>{user.name}</span>
           <span className={style.email}>{user.email}</span>
           <div className={style.profileButtons}>
-            <button className={style.profileButton}>
+            <Link to="/admin/profile" className={style.profileButton}>
               <FontAwesomeIcon icon={faUser} className={style.iconProfile} />
-            </button>
+            </Link>
             <Link to="/" className={style.profileButton} onClick={logout}>
               <FontAwesomeIcon
                 icon={faRightFromBracket}
@@ -80,7 +80,7 @@ const SidebarAdmin = () => {
               />
             </Link>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

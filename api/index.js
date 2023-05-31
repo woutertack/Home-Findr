@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import passport from "passport";
+// import passport from "passport";
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
 import propertiesRoute from "./routes/properties.js";
@@ -14,8 +14,8 @@ import cookieParser from "cookie-parser";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-import { registerMiddleware } from "./middleware/index.js";
-import LocalStrategy from "./middleware/auth/LocalStrategy.js";
+// import { registerMiddleware } from "./middleware/index.js";
+// import LocalStrategy from "./middleware/auth/LocalStrategy.js";
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -42,15 +42,16 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middleware
-registerMiddleware(app);
+app.use(cors());
+// registerMiddleware(app);
 app.use(cookieParser());
 app.use(express.json());
 
-//Initialize MongoDB client and database:
-app.use(passport.initialize());
+// //Initialize MongoDB client and database:
+// app.use(passport.initialize());
 
-// Use LocalStrategy to verify the user credentials locally
-passport.use("local", LocalStrategy);
+// // Use LocalStrategy to verify the user credentials locally
+// passport.use("local", LocalStrategy);
 
 // add image upload
 app.use("/images", express.static(path.join(__dirname, "/images")));
@@ -65,17 +66,17 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-app.post("/api/upload", upload.single("file"), (req, res) => {
+app.post("/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded");
 });
 
-app.use("/api/auth", authRoute);
-app.use("/api/users", usersRoute);
-app.use("/api/properties", propertiesRoute);
-app.use("/api/agencies", agenciesRoute);
-app.use("/api/favorites", favoritesRoute);
-app.use("/api/messages", messagesRoute);
-app.use("/api/agencyMessages", agencyMessagesRoute);
+app.use("/auth", authRoute);
+app.use("/users", usersRoute);
+app.use("/properties", propertiesRoute);
+app.use("/agencies", agenciesRoute);
+app.use("/favorites", favoritesRoute);
+app.use("/messages", messagesRoute);
+app.use("/agencyMessages", agencyMessagesRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

@@ -1,6 +1,4 @@
 import express from "express";
-import Property from "../models/Property.js";
-import { createError } from "../error/error.js";
 import {
   createProperty,
   deletePropertiesByAgencyId,
@@ -9,7 +7,6 @@ import {
   getProperty,
   updateProperty,
 } from "../controllers/propertyController.js";
-import { verifyAdmin } from "../auth/verifyToken.js";
 
 const router = express.Router();
 

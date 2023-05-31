@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./OptionLabel.module.css";
 
 const OptionLabel = ({ selectedOption, onChange }) => {

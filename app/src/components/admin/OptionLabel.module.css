@@ -32,8 +32,6 @@ input[type="radio"]:focus {
 input[type="radio"] + span {
   display: inline-block;
   cursor: pointer;
-
-  /* Additional styles as per your requirement */
 }
 
 .line {

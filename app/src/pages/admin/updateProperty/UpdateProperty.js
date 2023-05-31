@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
-import { useAuthContext } from "../../../contexts/AuthContext";
 import useMutation from "../../../hooks/useMutation";
 import style from "./UpdateProperty.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,13 +10,11 @@ import Loading from "../../../components/global/loading/Loading";
 
 const UpdateProperty = () => {
   const { id } = useParams();
-  const { user } = useAuthContext();
 
   const {
     isLoading,
     data: propertyData,
     error,
-    invalidate,
   } = useFetch(`/properties/${id}`);
 
   const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
@@ -37,7 +34,7 @@ const UpdateProperty = () => {
     zipcode: propertyData?.zipcode || "",
     province: propertyData?.province || "",
     price: propertyData?.price || "",
-    sold: propertyData?.sold || "",
+    sold: propertyData?.sold || false,
   });
 
   const handleChange = (e) => {
@@ -68,7 +65,7 @@ const UpdateProperty = () => {
       zipcode: propertyData?.zipcode || "",
       province: propertyData?.province || "",
       price: propertyData?.price || "",
-      sold: propertyData?.sold || "",
+      sold: propertyData?.sold || false,
     }));
   }, [
     propertyData?.img,
@@ -107,8 +104,6 @@ const UpdateProperty = () => {
           ...prevState,
           img: fileName,
         }));
-
-     
       } catch (err) {
         console.log(err);
       }
@@ -119,8 +114,6 @@ const UpdateProperty = () => {
         method: "PUT",
         data,
         onSuccess: (data) => {
-        
-
           // reload the page
           window.location.reload();
         },
@@ -160,7 +153,6 @@ const UpdateProperty = () => {
                               {
                                 method: "DELETE",
                                 onSuccess: async (data) => {
-                                 
                                   // go to admin page
                                   window.location.href = "/admin";
                                 },
@@ -361,6 +353,7 @@ const UpdateProperty = () => {
               <input
                 type="checkbox"
                 name="sold"
+                value={data.sold}
                 checked={data.sold}
                 onChange={handleCheckboxChange}
                 className={style.sold}

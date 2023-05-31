@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import useFetch from "../../hooks/useFetch";
@@ -13,23 +13,14 @@ const PropertyMessage = () => {
     isLoading,
     data: propertyData,
     error,
-    invalidate,
   } = useFetch(`/properties/${id}`);
-  
-  
-  const {
-    data: agencyData,
-  } = useFetch(`/agencies/${propertyData?.agency}`);
 
+  const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
 
   const { user } = useAuthContext();
   const navigate = useNavigate();
 
-  const {
-    mutate,
-    isLoading: isMessageLoading,
-    error: messageError,
-  } = useMutation();
+  const { mutate, isLoading: isMessageLoading } = useMutation();
 
   const [isMessageSent, setIsMessageSent] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -92,7 +83,11 @@ const PropertyMessage = () => {
           className={style.send}
           disabled={isMessageLoading || isMessageSent}
         >
-          {isMessageLoading ? "Message send" : isMessageSent ? "Message Send" : "Send"}
+          {isMessageLoading
+            ? "Message send"
+            : isMessageSent
+            ? "Message Send"
+            : "Send"}
         </button>
       </form>
     </div>

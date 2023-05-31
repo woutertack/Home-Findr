@@ -1,5 +1,4 @@
 import express from "express";
-import Favorite from "../models/Favorite.js";
 import {
   createFavorite,
   deleteFavorite,

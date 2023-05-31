@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import style from "./Messages.module.css";
@@ -31,8 +31,6 @@ const Messages = () => {
 
   const handleSelectMessage = async (message) => {
     setSelectedMessage(message);
-
-  
 
     const replyData = await fetch(
       `${process.env.REACT_APP_API_URL}/agencyMessages/agency/${message?.receiver}`,
@@ -67,7 +65,6 @@ const Messages = () => {
     });
   };
 
-  
   if (!user) {
     navigate("/login");
     return null;

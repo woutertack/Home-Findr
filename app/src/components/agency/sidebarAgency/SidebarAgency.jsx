@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./SidebarAgency.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

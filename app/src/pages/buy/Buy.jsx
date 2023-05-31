@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../../components/global/sidebar/Sidebar";
 import CardListing from "../../components/global/cards/listings/CardListing";
 import style from "./Buy.module.css";
@@ -8,9 +8,7 @@ import { IMG } from "../../consts/Img";
 import Loading from "../../components/global/loading/Loading";
 
 const Buy = () => {
-  const { isLoading, data, error } = useFetch(
-    "/properties?sold=false"
-  );
+  const { isLoading, data, error } = useFetch("/properties?sold=false");
   const [filteredData, setFilteredData] = useState(null);
 
   const handleFilter = ({
@@ -48,29 +46,26 @@ const Buy = () => {
 
   return (
     <div className={style.main}>
-      
-          <Sidebar onFilter={handleFilter} />
+      <Sidebar onFilter={handleFilter} />
 
-          <div className={style.container}>
-            {filteredData?.map((property) => (
-              <CardListing
-                key={property._id}
-                src={IMG + property.img}
-                alt="buy"
-                title={property.title}
-                type={property.type}
-                price={property.price}
-                city={property.city}
-                saleType={property.saleType}
-                zipcode={property.zipcode}
-                province={property.province}
-                buildyear={property.buildyear}
-                path={`/detail/${property._id}`}
-              />
-            ))}
-          </div>
-      
-    
+      <div className={style.container}>
+        {filteredData?.map((property) => (
+          <CardListing
+            key={property._id}
+            src={IMG + property.img}
+            alt="buy"
+            title={property.title}
+            type={property.type}
+            price={property.price}
+            city={property.city}
+            saleType={property.saleType}
+            zipcode={property.zipcode}
+            province={property.province}
+            buildyear={property.buildyear}
+            path={`/detail/${property._id}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };

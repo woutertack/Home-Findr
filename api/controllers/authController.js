@@ -40,31 +40,26 @@ export const login = async (req, res, next) => {
 
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN_HOURS * 60 * 60 }
     );
 
     const { password, isAdmin, agency, ...others } = user._doc;
 
     if (user.isAdmin) {
       res
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
+        .cookie("access_token", token, {})
         .status(200)
         .json({ ...others, isAdmin: true });
     } else {
       if (user.agency) {
         res
-          .cookie("access_token", token, {
-            httpOnly: true,
-          })
+          .cookie("access_token", token, {})
           .status(200)
           .json({ ...others, agency });
       } else {
         res
-          .cookie("access_token", token, {
-            httpOnly: true,
-          })
+          .cookie("access_token", token, {})
           .status(200)
           .json({ ...others });
       }

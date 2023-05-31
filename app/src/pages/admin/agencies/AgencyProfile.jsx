@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./AgencyProfile.module.css";
-import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import ModalAddUsers from "../../../components/admin/modal/ModalAddUsers";
@@ -93,33 +92,35 @@ const AgencyProfile = () => {
       return emailRegex.test(email);
     };
 
-    if(data.name === "" || !validateEmail(data.email) || data.phone.length > 9){
-    try {
-      await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
-        method: "PUT",
-        data,
-        onSuccess: (data) => {
-          // Update the user in the context
+    if (
+      data.name === "" ||
+      !validateEmail(data.email) ||
+      data.phone.length > 9
+    ) {
+      try {
+        await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
+          method: "PUT",
+          data,
+          onSuccess: (data) => {
+            // Update the user in the context
 
-          setMessage("Profile updated"); // Set success message
-          // refresh the page
-          window.location.reload();
-        },
-        onError: (error) => {
-          console.log(error);
-          // Set error message
-        },
-      });
-    } catch (err) {
-      console.log(err);
-      setMessage("An error occurred. Please try again."); // Set error message
+            setMessage("Profile updated"); // Set success message
+            // refresh the page
+            window.location.reload();
+          },
+          onError: (error) => {
+            console.log(error);
+            // Set error message
+          },
+        });
+      } catch (err) {
+        console.log(err);
+        setMessage("An error occurred. Please try again."); // Set error message
+      }
+    } else {
+      setMessage("Please fill in all the fields correctly");
     }
-  }else{
-    setMessage("Please fill in all the fields correctly")
-  }
-  
-  
-  } 
+  };
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -128,8 +129,6 @@ const AgencyProfile = () => {
       await mutate(`${process.env.REACT_APP_API_URL}/agencies/${id}`, {
         method: "DELETE",
         onSuccess: async (data) => {
-      
-
           // also delete all properties of this agency
           try {
             await mutate(
@@ -137,8 +136,6 @@ const AgencyProfile = () => {
               {
                 method: "DELETE",
                 onSuccess: async (data) => {
-                 
-
                   // also delete all the messages of this agency
                   try {
                     await mutate(
@@ -146,7 +143,6 @@ const AgencyProfile = () => {
                       {
                         method: "DELETE",
                         onSuccess: async (data) => {
-                         
                           // also delete all the users of this agency
                           try {
                             await mutate(
@@ -154,8 +150,6 @@ const AgencyProfile = () => {
                               {
                                 method: "DELETE",
                                 onSuccess: async (data) => {
-                              
-
                                   // also delete replies of this agency
                                   try {
                                     await mutate(
@@ -163,9 +157,9 @@ const AgencyProfile = () => {
                                       {
                                         method: "DELETE",
                                         onSuccess: async (data) => {
-                                         
                                           // go back to agencies page
-                                          window.location.href = "/admin/agencies";
+                                          window.location.href =
+                                            "/admin/agencies";
                                         },
                                       }
                                     );
@@ -213,7 +207,6 @@ const AgencyProfile = () => {
     }
   };
 
-
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -224,15 +217,15 @@ const AgencyProfile = () => {
     event.preventDefault();
 
     // check if inputs are valid
-    
-    if(!validateEmail(dataUser.email)){
+
+    if (!validateEmail(dataUser.email)) {
       setErrorMessage("Invalid email");
     } else if (dataUser.phone.length < 9) {
       setErrorMessage("Invalid phone number");
     } else if (dataUser.name.length < 2) {
       setErrorMessage("Invalid name");
     } else {
-    // add user with the agency id
+      // add user with the agency id
       await mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
         method: "POST",
         data: dataUser,
@@ -242,7 +235,7 @@ const AgencyProfile = () => {
         },
         onError: (error) => {
           console.log(error);
-          setErrorMessage("email already exists")
+          setErrorMessage("email already exists");
         },
       });
     }

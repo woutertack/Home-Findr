@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
 
-  margin-left: 30%; /* Adjusted the margin to account for SidebarAdmin width */
-  width: 70%; /* Added width to take 70% of the available space */
+  margin-left: 30%;
+  width: 70%;
   margin-top: 3rem;
   position: fixed;
 }

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./Profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { IMG } from "../../../consts/Img";
-
+import Loading from "../loading/Loading";
 
 const Profile = () => {
   const { user } = useAuthContext();
@@ -99,7 +99,7 @@ const Profile = () => {
     }
   };
 
-   if (error ) return <div>{error}</div>;
+  if (error || isLoading) return <div>{error || <Loading />}</div>;
 
   return (
     <div className={style.container}>

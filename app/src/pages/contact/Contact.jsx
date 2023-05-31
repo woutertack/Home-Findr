@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./Contact.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignHanging } from "@fortawesome/free-solid-svg-icons";

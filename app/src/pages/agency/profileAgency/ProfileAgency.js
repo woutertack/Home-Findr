@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./ProfileAgency.module.css";
-import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import ModalAddUsers from "../../../components/admin/modal/ModalAddUsers";
 import useFetch from "../../../hooks/useFetch";
 import { IMG } from "../../../consts/Img";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useMutation from "../../../hooks/useMutation";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import Loading from "../../../components/global/loading/Loading";
@@ -62,9 +61,7 @@ const ProfileAgency = () => {
       email: agencyData?.email || "",
       phone: agencyData?.phone || "",
     }));
-  }, [
-  agencyData
-  ]);
+  }, [agencyData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -96,29 +93,30 @@ const ProfileAgency = () => {
         console.log(err);
       }
     }
-  if(data.name === "" || !validateEmail(data.email) || data.phone.length > 9){
-    try {
-      await mutate(`${process.env.REACT_APP_API_URL}/agencies/${agencyId}`, {
-        method: "PUT",
-        data,
-        onSuccess: (data) => {
-          setMessage("Profile updated"); // Set success message
-
-        },
-        onError: (error) => {
-          setMessage("Please fill in all the fields correctly")
-        },
-      });
-    } catch (err) {
-      console.log(err);
-      setMessage("An error occurred. Please try again."); // Set error message
+    if (
+      data.name === "" ||
+      !validateEmail(data.email) ||
+      data.phone.length > 9
+    ) {
+      try {
+        await mutate(`${process.env.REACT_APP_API_URL}/agencies/${agencyId}`, {
+          method: "PUT",
+          data,
+          onSuccess: (data) => {
+            setMessage("Profile updated"); // Set success message
+          },
+          onError: (error) => {
+            setMessage("Please fill in all the fields correctly");
+          },
+        });
+      } catch (err) {
+        console.log(err);
+        setMessage("An error occurred. Please try again."); // Set error message
+      }
+    } else {
+      setMessage("Please fill in all the fields correctly");
     }
-    }else{
-      setMessage("Please fill in all the fields correctly")
-    }
-  
   };
-
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -129,7 +127,7 @@ const ProfileAgency = () => {
   const handleSubmitAddUser = async (event) => {
     event.preventDefault();
 
-    if(!validateEmail(dataUser.email)){
+    if (!validateEmail(dataUser.email)) {
       setErrorMessage("Invalid email");
     } else if (dataUser.phone.length < 9) {
       setErrorMessage("Invalid phone number");
@@ -168,7 +166,6 @@ const ProfileAgency = () => {
   };
 
   if (error || isLoading) return <div>{error || <Loading />}</div>;
-
 
   return (
     <>

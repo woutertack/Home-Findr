@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import style from "./AddPropertyAgency.module.css";
-import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faFileImage } from "@fortawesome/free-solid-svg-icons";
 import useMutation from "../../../hooks/useMutation";

@@ -97,8 +97,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-
-
 .infoMessage {
   display: flex;
   font-size: small;
@@ -141,7 +139,6 @@
 
 @media screen and (max-width: 960px) {
   .container {
- 
   }
 
   .sidebar {
@@ -150,34 +147,30 @@
   }
 
   .messageViewer {
-   
   }
-  .profilePic{
+  .profilePic {
     margin-right: 5px;
   }
-  .property{
+  .property {
     display: none;
   }
-  .propertyWrapper{
+  .propertyWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .btn{
+  .btn {
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     margin-right: 24px;
-
   }
   .content {
-   
   }
 
   .replyContent {
-   
   }
 }

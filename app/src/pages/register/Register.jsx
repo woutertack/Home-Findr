@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "./Register.module.css";
 import useMutation from "../../hooks/useMutation";
-import Loading from "../../components/global/loading/Loading";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 const Register = () => {
@@ -45,25 +44,23 @@ const Register = () => {
     } else if (data.phone.length < 9) {
       setErrorMessage("Phone number must be at least 9 characters long");
     } else {
-          mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
-            method: "POST",
-            data,
-            onSuccess: (data) => {
-              onLogin(data);
-              navigate("/");
-            },
-            onError: () => {
-              setErrorMessage("This combination of email and password is invalid");
-            }
-          });
-        };
-     };
+      mutate(`${process.env.REACT_APP_API_URL}/auth/register`, {
+        method: "POST",
+        data,
+        onSuccess: (data) => {
+          onLogin(data);
+          navigate("/");
+        },
+        onError: () => {
+          setErrorMessage("This combination of email and password is invalid");
+        },
+      });
+    }
+  };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
-  
 
   return (
     <div className={style.container}>
@@ -114,7 +111,7 @@ const Register = () => {
         <button className={style.submit} disabled={isLoading}>
           Submit
         </button>
-       
+
         <p>{errorMessage}</p>
       </form>
       <Link to="/login" className={style.link}>

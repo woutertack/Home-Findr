@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import style from "./Users.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import ModalAddUsers from "../../../components/admin/modal/ModalAddUsers";
 import useFetch from "../../../hooks/useFetch";
 import { Link } from "react-router-dom";

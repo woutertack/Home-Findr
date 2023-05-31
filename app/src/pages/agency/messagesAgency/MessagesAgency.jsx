@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./MessagesAgency.module.css";
 import { useAuthContext } from "../../../contexts/AuthContext";
@@ -14,23 +14,12 @@ const MessagesAgency = () => {
 
   const { user } = useAuthContext();
   const agencyId = user?.agency;
-  const {
-    isLoading,
-    data: messagesData,
-    error,
-  } = useFetch(`/messages/agency/${agencyId}`);
+  const { data: messagesData } = useFetch(`/messages/agency/${agencyId}`);
 
   const { mutate } = useMutation();
 
   const date = new Date(selectedMessage?.createdAt);
   const dateFormatted = date.toLocaleTimeString("en-GB", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
-
-  const replyDates = new Date(selectedMessage?.replyDate);
-  const replyDateFormatted = replyDates.toLocaleTimeString("en-GB", {
     weekday: "short",
     month: "short",
     day: "numeric",
@@ -96,7 +85,6 @@ const MessagesAgency = () => {
             reply: replyData.message,
           }));
           setReplyValue("");
-         
         },
         onError: (error) => {
           console.log(error);
@@ -109,14 +97,13 @@ const MessagesAgency = () => {
 
   return (
     <div className={style.container}>
-       <Link to="/agency" className={style.linkBack}>
-          <div className={style.back}>
-            <FontAwesomeIcon icon={faAnglesLeft} />
-            Go back
-          </div>
-        </Link>
+      <Link to="/agency" className={style.linkBack}>
+        <div className={style.back}>
+          <FontAwesomeIcon icon={faAnglesLeft} />
+          Go back
+        </div>
+      </Link>
       <div className={style.sidebar}>
-        
         {messagesData &&
           messagesData.map((message, index) => (
             <div

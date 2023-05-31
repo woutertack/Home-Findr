@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import style from "./Agencies.module.css";
 import SidebarAdmin from "../../../components/admin/sidebarAdmin/SidebarAdmin";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,15 +36,14 @@ const Agencies = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   
-    if(!validateEmail(data.email)){
+
+    if (!validateEmail(data.email)) {
       setErrorMessage("Invalid email");
     } else if (data.phone.length < 9) {
       setErrorMessage("Invalid phone number");
     } else if (data.name.length < 2) {
       setErrorMessage("Invalid name");
     } else {
-   
       await mutate(`${process.env.REACT_APP_API_URL}/agencies`, {
         method: "POST",
         data,
@@ -57,7 +56,6 @@ const Agencies = () => {
         },
       });
     }
-   
   };
 
   const openModal = () => {

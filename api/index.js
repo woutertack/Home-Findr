@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import passport from "passport";
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
 import propertiesRoute from "./routes/properties.js";
@@ -13,6 +14,8 @@ import cookieParser from "cookie-parser";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
+import { registerMiddleware } from "./middleware/index.js";
+import LocalStrategy from "./middleware/auth/LocalStrategy.js";
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -23,7 +26,7 @@ const app = express();
 dotenv.config();
 
 // set the port for the server to listen on
-const port = 3002;
+const port = process.env.PORT;
 
 const connect = async () => {
   try {
@@ -39,12 +42,19 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middleware
-app.use(cors());
+registerMiddleware(app);
 app.use(cookieParser());
 app.use(express.json());
-app.use("/images", express.static(path.join(__dirname, "/images")));
+
+//Initialize MongoDB client and database:
+app.use(passport.initialize());
+
+// Use LocalStrategy to verify the user credentials locally
+passport.use("local", LocalStrategy);
 
 // add image upload
+app.use("/images", express.static(path.join(__dirname, "/images")));
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");

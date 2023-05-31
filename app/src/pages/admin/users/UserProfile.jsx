@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./UserProfile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
@@ -47,8 +47,8 @@ const UserProfile = () => {
       profileImg: userData?.profileImg || "defaultUser.png",
       name: userData?.name || "",
       email: userData?.email || "",
-      phone: userData?.phone || "" ,
-      agency: userData?.agency || "", 
+      phone: userData?.phone || "",
+      agency: userData?.agency || "",
     }));
   }, [
     userData?.profileImg,

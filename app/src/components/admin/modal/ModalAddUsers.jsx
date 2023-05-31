@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import style from "./ModalAddUsers.module.css";
 
-const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal, errorMessage }) => {
+const ModalAddUsers = ({
+  data,
+  handleChange,
+  handleSubmit,
+  closeModal,
+  errorMessage,
+}) => {
   const { name, email, phone, password } = data;
   const [generatedPassword, setGeneratedPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const generatePassword = () => {
-    // Implement your password generation logic here
-    // This is just a simple example
     const newPassword = Math.random().toString(36).slice(-8); // Generate an 8-character alphanumeric password
     setGeneratedPassword(newPassword);
     handleChange({ target: { name: "password", value: newPassword } });
@@ -68,12 +72,15 @@ const ModalAddUsers = ({ data, handleChange, handleSubmit, closeModal, errorMess
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
-       
-          {/* Add the button to generate a random password */}
-          <button type="button" className={style.generatePasswordBtn} onClick={generatePassword}>
+
+          <button
+            type="button"
+            className={style.generatePasswordBtn}
+            onClick={generatePassword}
+          >
             Generate Password
           </button>
-          {/* Add the button to submit the form */}
+
           <button type="submit" className={style.saveBtn}>
             Add
           </button>

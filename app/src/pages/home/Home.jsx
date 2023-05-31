@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./Home.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignHanging, faAnglesDown } from "@fortawesome/free-solid-svg-icons";

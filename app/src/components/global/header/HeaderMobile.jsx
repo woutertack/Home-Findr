@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -100,7 +100,11 @@ const HeaderMobile = () => {
                     </li>
                     {/* Logout */}
                     <li className={style.navItemMobile}>
-                      <Link to="/" className={style.navLinkMobile} onClick={logout}>
+                      <Link
+                        to="/"
+                        className={style.navLinkMobile}
+                        onClick={logout}
+                      >
                         <FontAwesomeIcon
                           icon={faRightFromBracket}
                           className={style.iconLogoutMobile}

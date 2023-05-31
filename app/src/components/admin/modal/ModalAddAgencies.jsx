@@ -1,7 +1,12 @@
-import React from "react";
 import style from "./ModalAddAgencies.module.css";
 
-const ModalAddAgencies = ({ data, handleChange, handleSubmit, closeModal, errorMessage }) => {
+const ModalAddAgencies = ({
+  data,
+  handleChange,
+  handleSubmit,
+  closeModal,
+  errorMessage,
+}) => {
   const { name, email, phone } = data;
 
   return (

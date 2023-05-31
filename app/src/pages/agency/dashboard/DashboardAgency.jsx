@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./DashboardAgency.module.css";
 import OptionLabel from "../../../components/admin/OptionLabel";
 import CardListing from "../../../components/admin/cards/CardListing";
@@ -20,9 +20,7 @@ const DashboardAgency = () => {
 
   useEffect(() => {}, [selectedOption]);
 
-  const { isLoading, data, error, invalidate } = useFetch(
-    "/properties?agency=" + agencyId
-  );
+  const { isLoading, data, error } = useFetch("/properties?agency=" + agencyId);
 
   const filteredData = Array.isArray(data)
     ? data.filter((property) => {

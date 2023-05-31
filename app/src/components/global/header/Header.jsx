@@ -1,4 +1,3 @@
-import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import style from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,10 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import HeaderMobile from "./HeaderMobile"; // Import the HeaderMobile component
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { IMG } from "../../../consts/Img";
 
 const Header = () => {
   const { user, logout } = useAuthContext();
-  const PF = "http://localhost:3002/images/";
+
   return (
     <header className={style.header}>
       <div className={style.container}>
@@ -90,7 +90,7 @@ const Header = () => {
               <li className={style.navItem}>
                 <Link to="/profile" className={style.navLink}>
                   <img
-                    src={PF + user.profileImg}
+                    src={IMG + user.profileImg}
                     alt="profileImg"
                     className={style.profileImg}
                   />

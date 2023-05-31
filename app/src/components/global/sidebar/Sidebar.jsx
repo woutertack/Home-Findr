@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -9,7 +9,7 @@ const Sidebar = ({ onFilter }) => {
   const [selectedType, setSelectedType] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [sortOrder, setSortOrder] = useState(""); // Add sortOrder state
+  const [sortOrder, setSortOrder] = useState("");
   const location = useLocation();
 
   // Update the priceMax based on the location's pathname
@@ -23,7 +23,6 @@ const Sidebar = ({ onFilter }) => {
     priceStep = 10000;
   }
 
-
   const handleFilter = () => {
     // Pass the selected filters and sort order to the onFilter function
     onFilter({
@@ -31,7 +30,7 @@ const Sidebar = ({ onFilter }) => {
       selectedType,
       selectedProvince,
       selectedCity,
-      sortOrder, // Pass sortOrder
+      sortOrder,
     });
   };
 
@@ -74,7 +73,6 @@ const Sidebar = ({ onFilter }) => {
           <span className={style.priceMax}>Max: €{priceRange[1]}</span>
         </div>
       </div>
-      {/* Rest of the filters */}
       <div className={style.filter}>
         <h3>Type</h3>
         <select name="type" value={selectedType} onChange={handleTypeChange}>

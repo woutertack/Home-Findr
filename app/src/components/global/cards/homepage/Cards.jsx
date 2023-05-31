@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./Cards.module.css";
 import CardItem from "./CardItem";
 

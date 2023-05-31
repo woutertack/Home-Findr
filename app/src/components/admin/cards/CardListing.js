@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./CardListing.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

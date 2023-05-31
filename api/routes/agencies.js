@@ -1,5 +1,4 @@
 import express from "express";
-import Agency from "../models/Agency.js";
 import {
   createAgency,
   deleteAgency,

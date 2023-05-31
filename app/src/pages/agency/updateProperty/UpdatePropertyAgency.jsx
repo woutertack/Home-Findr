@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { useAuthContext } from "../../../contexts/AuthContext";
@@ -68,9 +68,7 @@ const UpdatePropertyAgency = () => {
       price: propertyData?.price,
       sold: propertyData?.sold,
     }));
-  }, [
-   propertyData
-  ]);
+  }, [propertyData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -94,8 +92,6 @@ const UpdatePropertyAgency = () => {
           ...prevState,
           img: fileName,
         }));
-
-        
       } catch (err) {
         console.log(err);
       }
@@ -106,8 +102,6 @@ const UpdatePropertyAgency = () => {
         method: "PUT",
         data,
         onSuccess: (data) => {
-          
-
           // reload the page
           window.location.reload();
         },

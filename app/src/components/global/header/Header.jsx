@@ -90,7 +90,7 @@ const Header = () => {
               <li className={style.navItem}>
                 <Link to="/profile" className={style.navLink}>
                   <img
-                    src={IMG + user.profileImg}
+                    src={IMG + user.profileImg }
                     alt="profileImg"
                     className={style.profileImg}
                   />

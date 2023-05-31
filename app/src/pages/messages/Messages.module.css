@@ -97,28 +97,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-.btn:hover {
-  background: white;
-  color: #181818;
-  border: 2px solid #181818;
-}
 
-.textarea {
-  width: 100%;
-  font-size: 18px;
-}
-
-.btnSend {
-  height: 100%;
-  width: 15%;
-  font-size: 1.05rem;
-  padding: 0.9rem 1rem;
-  background: #181818;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
 
 .infoMessage {
   display: flex;
@@ -158,4 +137,47 @@
   color: white;
   padding: 12px 14px;
   border-radius: 10px;
+}
+
+@media screen and (max-width: 960px) {
+  .container {
+ 
+  }
+
+  .sidebar {
+    padding: 0px;
+    width: 10%;
+  }
+
+  .messageViewer {
+   
+  }
+  .profilePic{
+    margin-right: 5px;
+  }
+  .property{
+    display: none;
+  }
+  .propertyWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-right: 24px;
+
+  }
+  .content {
+   
+  }
+
+  .replyContent {
+   
+  }
 }

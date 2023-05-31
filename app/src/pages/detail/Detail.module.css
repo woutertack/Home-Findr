@@ -31,23 +31,6 @@
   font-size: 28px;
 }
 
-.bottomLeftIcon {
-  color: white;
-  font-size: 28px;
-  position: absolute;
-  bottom: 20px;
-  left: 15%;
-  transform: translateX(-50%);
-}
-
-.bottomRightIcon {
-  color: white;
-  font-size: 28px;
-  position: absolute;
-  bottom: 20px;
-  right: 15%;
-  transform: translateX(50%);
-}
 
 .infoListing {
   width: 50%;
@@ -78,11 +61,7 @@
   cursor: pointer;
 }
 
-.bottomLeftIcon:hover,
-.bottomRightIcon:hover {
-  color: black;
-  cursor: pointer;
-}
+
 
 .infoWrapper {
   display: flex;
@@ -123,6 +102,83 @@
 }
 
 .unfavorite {
-  color: blue;
+  color: black;
   cursor: pointer;
+}
+
+
+.linkBack {
+  font-size: 24px;
+  position: absolute;
+  left: 3%;
+  top: 14%;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  width: 150px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0px;
+}
+
+@media screen and (max-width: 960px) {
+
+  .wrapper{
+    flex-direction: column;
+
+  }
+
+  .imgWrapper {
+    width: 100%;
+  }
+
+  .infoListing {
+    width: 90%;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .iconsWrapper {
+    right: 10%;
+  }
+
+  .surface{
+    margin-right: 55px;
+  }
+
+  .linkBack{
+    top: 16%;
+    left: 0%;
+    margin-left: 10px;
+    font-size: 19px;
+  }
+
+  .iconsWrapper {
+    position: absolute;
+    top: 20px;
+    right: 15%;
+    font-size: 28px;
+  }
+  
+  .heart:hover {
+    color: rgb(255, 43, 43);
+    cursor: pointer;
+  }
+
+  .favorite {
+    color: rgb(255, 43, 43);
+    cursor: pointer;
+  }
+  
+  
+  .unfavorite:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+ 
+
+
+ 
 }

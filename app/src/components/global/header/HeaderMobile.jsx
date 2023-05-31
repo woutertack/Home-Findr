@@ -11,7 +11,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 
 const HeaderMobile = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const { user } = useAuthContext();
+  const { user, logout } = useAuthContext();
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -100,7 +100,7 @@ const HeaderMobile = () => {
                     </li>
                     {/* Logout */}
                     <li className={style.navItemMobile}>
-                      <Link to="/logout" className={style.navLinkMobile}>
+                      <Link to="/" className={style.navLinkMobile} onClick={logout}>
                         <FontAwesomeIcon
                           icon={faRightFromBracket}
                           className={style.iconLogoutMobile}

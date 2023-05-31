@@ -52,3 +52,16 @@
   border: none;
   cursor: pointer;
 }
+
+
+@media screen and (max-width: 960px) {
+ 
+  .property, .agency {
+    width: 80%;
+  }
+
+  .textarea, .message{
+    width: 93%;
+    
+  }
+}

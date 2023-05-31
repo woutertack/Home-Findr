@@ -97,3 +97,14 @@ input::-webkit-inner-spin-button {
   justify-content: space-between;
   align-items: center;
 }
+
+@media screen and (max-width: 960px) {
+
+  .form {
+   width: 100%;
+  }
+
+  .password{
+    width: 100%;
+  }
+}

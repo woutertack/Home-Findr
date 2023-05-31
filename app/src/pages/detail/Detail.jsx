@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import style from "./Detail.module.css";
 import useFetch from "../../hooks/useFetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
-  faAngleLeft,
-  faAngleRight,
+  faAnglesLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../contexts/AuthContext";
 import useMutation from "../../hooks/useMutation";
@@ -24,7 +23,7 @@ const Detail = () => {
   } = useFetch(`/properties/${id}`);
   const { data: agencyData } = useFetch(`/agencies/${propertyData?.agency}`);
 
-  const agencyName = agencyData?.name;
+ 
   const { mutate } = useMutation();
 
   const [isFavorite, setIsFavorite] = useState(false); // State variable to track favorite status
@@ -97,29 +96,26 @@ const Detail = () => {
     }
   };
 
+  // to return last page when clicked on go back
+  const navigate = useNavigate();
+	const goBack = () => {
+		navigate(-1);
+	}
+
   if (error || isLoading) return <div>{error || <Loading />}</div>;
 
 
-  // if user is logged in show full address, else show city and province
-  const address = user ? (
-    <>
-      {propertyData.address},
-      <br />
-      {propertyData.city} ({propertyData.zipcode}), {propertyData.province}
-    </>
-  ) : (
-    <>
-      Login for full address
-      <br />
-      {propertyData.city} ({propertyData.zipcode}), {propertyData.province}
-    </>
-  );
+ 
 
   return (
     <div className={style.container}>
-      {isLoading ? (
-        "Loading..."
-      ) : (
+      
+      <button onClick={goBack} className={style.linkBack}>
+          <div className={style.back}>
+            <FontAwesomeIcon icon={faAnglesLeft} />
+            Go back
+          </div>
+        </button>
         <div className={style.wrapper}>
           <div className={style.imgWrapper}>
             <img
@@ -132,7 +128,7 @@ const Detail = () => {
                 <FontAwesomeIcon
                   icon={faHeart}
                   className={`${style.heart} ${
-                    isFavorite ? style.favorite : ""
+                    isFavorite ? style.favorite : style.unfavorite
                   }`} // Add the 'favorite' class when isFavorite is true
                   onClick={handleFavorite}
                 />
@@ -184,7 +180,7 @@ const Detail = () => {
             )}
           </div>
         </div>
-      )}
+    
     </div>
   );
 };

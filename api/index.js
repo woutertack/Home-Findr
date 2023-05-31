@@ -66,17 +66,17 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-app.post("/upload", upload.single("file"), (req, res) => {
+app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("File has been uploaded");
 });
 
-app.use("/auth", authRoute);
-app.use("/users", usersRoute);
-app.use("/properties", propertiesRoute);
-app.use("/agencies", agenciesRoute);
-app.use("/favorites", favoritesRoute);
-app.use("/messages", messagesRoute);
-app.use("/agencyMessages", agencyMessagesRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/users", usersRoute);
+app.use("/api/properties", propertiesRoute);
+app.use("/api/agencies", agenciesRoute);
+app.use("/api/favorites", favoritesRoute);
+app.use("/api/messages", messagesRoute);
+app.use("/api/agencyMessages", agencyMessagesRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

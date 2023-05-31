@@ -11,7 +11,7 @@ const Profile = () => {
   const { user } = useAuthContext();
   const { isLoading, error, mutate } = useMutation();
   const [data, setData] = useState({
-    profileImg: user.profileImg,
+    profileImg: user.profileImg ,
     name: user.name,
     phone: user.phone,
     oldPassword: "",

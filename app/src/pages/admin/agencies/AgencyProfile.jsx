@@ -19,7 +19,7 @@ const AgencyProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
-    profileImg: agencyData?.profileImg || "",
+    profileImg: agencyData?.profileImg || "defaultUser.png",
     name: agencyData?.name || "",
     email: agencyData?.email || "",
     phone: agencyData?.phone || "",
